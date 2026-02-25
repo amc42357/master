@@ -1,0 +1,21 @@
+# Entornos virtuales
+.venv/
+venv/
+*.pyc
+__pycache__/
+
+# Sistema
+.DS_Store
+
+# Archivos pesados / generados
+*.zip
+
+# Caché y tests
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Opcional: descomenta si no quieres subir PDFs generados
+# proyecto.pdf
+# entrega_pdf/
