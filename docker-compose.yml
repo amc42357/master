@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  rehab-cv:
+    build: .
+    container_name: rehab-cv
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/app/data
+    # En Linux con cámara, descomentar:
+    # devices:
+    #   - /dev/video0:/dev/video0
+    environment:
+      - DISPLAY=${DISPLAY:-}
+    # Para X11 forwarding en Linux con display:
+    # network_mode: host
+    command: ["python", "src/main.py"]
