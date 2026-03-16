@@ -1,0 +1,638 @@
+% -*- coding: utf-8 -*-
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{mathptmx} % Times-like, profesional
+\usepackage{amsmath}  % Fórmulas matemáticas
+\usepackage[margin=2.5cm,headheight=22pt]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% Gráficos e imágenes (limitados a página para que no se salgan)
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{./}{diagrams/}{docs/evidencias_jira/}}
+
+% Encabezados al estilo TFM UNIR: autores (abrev.) + título corto + sección + página (ancho izquierdo acotado para no chocar con el número)
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\parbox[b]{0.82\headwidth}{\raggedright\sffamily\footnotesize Sandoval, Acevedo, Morales, Ríos --- Rehab. motriz asistida por CV --- \nouppercase{\rightmark}}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\renewcommand{\subsectionmark}[1]{\markright{#1}}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[L]{\parbox[b]{0.82\headwidth}{\raggedright\sffamily\footnotesize Sandoval, Acevedo, Morales, Ríos --- Rehab. motriz asistida por CV}}\fancyhead[R]{\thepage}\renewcommand{\headrulewidth}{0.4pt}}
+
+% Tablas profesionales (booktabs)
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\renewcommand{\arraystretch}{1.35}
+\setlength{\arrayrulewidth}{0.5pt}
+
+% Figuras y leyendas
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,skip=8pt}
+\captionsetup[figure]{position=below}
+\captionsetup[table]{position=above}
+
+% Hipervínculos y PDF
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+% Evitar viudas/huérfanas y saltos abruptos (estándar maestría)
+\usepackage{needspace}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+\sloppy
+
+% Títulos de sección con estilo
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\sffamily\Large\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\sffamily\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\sffamily\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\section}{0pt}{2.2ex plus .5ex}{1.2ex plus .3ex}
+\titlespacing*{\subsection}{0pt}{1.8ex plus .4ex}{1ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{1.5ex plus .3ex}{0.8ex plus .2ex}
+
+% Párrafos: sin sangría, espacio entre párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.65em}
+
+% ---------------------------------------------------------------------------
+\title{Rehabilitación motriz asistida por visión por computadora}
+\author{}
+\date{}
+
+\begin{document}
+
+% ========== PORTADA (estándar TFM UNIR) ==========
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\vspace*{1cm}
+{\sffamily\fontsize{12}{16}\selectfont
+Trabajo de innovación\\
+\vspace{0.3cm}
+Presentado por:\\
+\vspace{0.4cm}
+Cesar Francisco Sandoval González\\
+Adelaid Lesdemyariet Acevedo Cardona\\
+Armando Morales Carmona\\
+José Rolando Ríos Cisneros\\
+\vspace{0.5cm}
+Ciudad: Madrid \quad Fecha: 27 de febrero de 2026\\
+}
+\vspace{1.2cm}
+{\sffamily\fontsize{14}{18}\selectfont
+Universidad Internacional de La Rioja (UNIR)\\
+\vspace{0.25cm}
+Escuela Superior de Ingeniería y Tecnología (ESIT)\\
+\vspace{0.4cm}
+Maestría en Inteligencia Artificial\\
+}
+\vspace{1.5cm}
+\rule{\textwidth}{0.8pt}
+\vspace{0.6cm}
+{\sffamily\fontsize{15}{20}\selectfont\bfseries
+Rehabilitación motriz asistida por visión por computadora\\
+}
+\vspace{0.3cm}
+{\sffamily\fontsize{10}{13}\selectfont
+Propuesta de trabajo de innovación\\
+}
+\vspace{0.4cm}
+\rule{\textwidth}{0.8pt}
+\vfill
+\end{titlepage}
+
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% ========== RESUMEN ==========
+\phantomsection
+\addcontentsline{toc}{section}{Resumen}
+\begin{center}
+{\sffamily\bfseries Resumen}
+\end{center}
+\vspace{0.5em}
+\noindent La rehabilitación motriz tras un accidente cerebrovascular (ACV) enfrenta barreras de acceso y falta de supervisión objetiva en el domicilio. Este trabajo propone un prototipo de software basado en visión por computadora y aprendizaje automático que asiste la ejecución domiciliaria de ejercicios de hombro para pacientes post-ACV. El sistema utiliza una cámara web convencional, OpenCV y MediaPipe Pose para estimar la pose en 2D, calcula el ángulo de abducción del hombro y el conteo de repeticiones en tiempo real, y ofrece retroalimentación visual. El diseño se fundamenta en Design Thinking (empatía, reto HMW, estado del arte, selección de MVP) y en metodologías ágiles (Scrum y Lean Startup). La validación técnica se realizará mediante comparación con goniómetro y conteo humano, con criterios de éxito MAE $\leq$ 5° y precisión $\geq$ 95\,\%. Se concluye que la combinación de CV e IA de código abierto permite ofrecer supervisión objetiva accesible con hardware de consumo.
+
+\vspace{0.8em}
+\noindent Palabras clave: rehabilitación motriz, accidente cerebrovascular, visión por computadora, pose estimation, MediaPipe, tele-rehabilitación, Design Thinking, Scrum.
+
+\clearpage
+% ========== ABSTRACT ==========
+\phantomsection
+\addcontentsline{toc}{section}{Abstract}
+\begin{center}
+{\sffamily\bfseries Abstract}
+\end{center}
+\vspace{0.5em}
+\noindent Motor rehabilitation after stroke faces barriers of access and lack of objective supervision at home. This work proposes a software prototype based on computer vision and machine learning to assist home-based shoulder exercises for post-stroke patients. The system uses a conventional webcam, OpenCV and MediaPipe Pose for 2D pose estimation, computes shoulder abduction angle and repetition count in real time, and provides visual feedback. The design is grounded in Design Thinking (empathy, HMW challenge, state of the art, MVP selection) and agile methodologies (Scrum and Lean Startup). Technical validation will be carried out by comparison with goniometer and human count, with success criteria MAE $\leq$ 5° and precision $\geq$ 95\,\%. We conclude that the combination of open-source CV and AI can provide accessible objective supervision with consumer hardware.
+
+\vspace{0.8em}
+\noindent Keywords: motor rehabilitation, stroke, computer vision, pose estimation, MediaPipe, telerehabilitation, Design Thinking, Scrum.
+
+\clearpage
+% ========== ÍNDICE DE CONTENIDOS ==========
+\tableofcontents
+\clearpage
+% ========== ÍNDICE DE TABLAS ==========
+\listoftables
+\clearpage
+% ========== ÍNDICE DE FIGURAS ==========
+\listoffigures
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% ========== 1. INTRODUCCIÓN ==========
+\needspace{5\baselineskip}
+\section{Introducción}
+
+\subsection{Contexto y motivación}
+El accidente cerebrovascular (ACV) constituye una de las principales causas de discapacidad motora adquirida a nivel mundial, con una incidencia que genera una carga significativa para los sistemas de salud y la calidad de vida de los individuos y sus familias (Organización Mundial de la Salud [OMS], 2017). En México es la quinta causa de muerte y la primera de discapacidad en adultos, situación que se refleja en diversas entidades federativas del país (Instituto Nacional de Estadística y Geografía [INEGI], 2021). Tras un ACV, hasta un 80\,\% de los supervivientes presenta hemiparesia o hemiplejía, requiriendo procesos prolongados de rehabilitación motriz para recuperar funcionalidad en las extremidades superiores; la movilidad del hombro es fundamental para las actividades de la vida diaria (Langhorne et al., 2011).
+
+La rehabilitación tradicional, basada en terapia presencial y repetitiva, enfrenta barreras críticas de acceso: limitada disponibilidad de especialistas, altos costos asociados y dificultades geográficas para asistencia continua. Esta situación se agravó durante y después de la pandemia por COVID-19 y mostró la necesidad urgente de modelos complementarios de telerrehabilitación efectivos y escalables (Laver et al., 2020). La Inteligencia Artificial (IA) emerge como catalizador de innovación en salud, con herramientas para monitorización objetiva, personalización de terapias y extensión del cuidado más allá del entorno clínico (Esteva et al., 2019).
+
+\subsection{Planteamiento del problema}
+Existe una brecha crítica entre la necesidad de rehabilitación motriz intensiva y repetitiva post-ACV y la capacidad del sistema de salud para proporcionar un acceso continuo, supervisado y asequible a dichos servicios. Los pacientes que realizan ejercicios en domicilio carecen de retroalimentación objetiva en tiempo real sobre la calidad de su movimiento, lo que puede conducir a una ejecución incorrecta, compensaciones musculares indeseadas, baja adherencia al tratamiento y, en última instancia, una recuperación funcional subóptima.
+
+Si bien existen soluciones tecnológicas en el mercado (sistemas basados en Kinect, sensores inerciales o robótica), estas suelen presentar barreras de costo, complejidad técnica o necesidad de hardware especializado, limitando su adopción masiva en el ámbito domiciliario. De ahí la necesidad de una solución accesible, de bajo costo y fácil de usar que, con hardware convencional, permita supervisar, evaluar y guiar ejercicios de rehabilitación de forma autónoma.
+
+\subsection{Justificación e innovación}
+Esta propuesta se justifica por su potencial para generar un impacto tangible en un problema de salud pública, alineándose con los Objetivos de Desarrollo Sostenible (ODS), particularmente con el ODS 3 (Salud y bienestar). La innovación no radica en la creación de un nuevo algoritmo de estimación de pose, sino en la aplicación integrada, simplificada y centrada en el usuario de tecnologías de visión por computadora (CV) e IA de código abierto para resolver un problema clínico específico.
+
+El valor agregado reside en su viabilidad y accesibilidad: utiliza una cámara web estándar y librerías de software libre (OpenCV, MediaPipe), eliminando la dependencia de hardware costoso. Su novedad está en el diseño de un sistema integral que, partiendo de la detección de pose, automatiza la evaluación cuantitativa (ángulos, repeticiones) y proporciona retroalimentación correctiva inmediata, emulando funciones clave del terapeuta y empoderando al paciente en su proceso de recuperación domiciliaria. La solución plantea además potencial como herramienta tecnológica escalable en el ámbito de salud digital, alineada con tendencias de telemedicina y rehabilitación remota (National Institute of Neurological Disorders and Stroke [NINDS], 2020). La contribución de este trabajo es demostrar que la combinación de visión por computadora e IA en código abierto puede ofrecer supervisión objetiva en rehabilitación domiciliaria con hardware de consumo, abriendo una vía de uso de la IA distinta a las soluciones costosas o sin retroalimentación automática.
+
+\subsection{Alcance}
+El proyecto se desarrollará en un plazo de 16 semanas, dentro del marco del Seminario de Innovación en IA de UNIR. El alcance del Producto Mínimo Viable (MVP) se delimita específicamente a:
+\begin{itemize}
+  \item Población: personas con secuelas motoras en miembro superior tras un ACV (simulada inicialmente con sujetos sanos para pruebas de concepto);
+  \item Ejercicio: abducción/aducción de hombro en el plano frontal (elevación lateral del brazo), por ser un movimiento fundamental y evaluable;
+  \item Tecnología: visión por computadora 2D, sin uso de sensores de profundidad ni hardware adicional;
+  \item Objetivo: validar la precisión técnica del sistema en medición angular y conteo, no la efectividad clínica a largo plazo (lo cual requeriría un estudio posterior).
+\end{itemize}
+El éxito de la validación se medirá mediante criterios explícitos y verificables: Error Absoluto Medio (MAE) $\leq$ 5° en la medición angular frente a goniómetro como referente estándar, y precisión $\geq$ 95\,\% en el conteo de repeticiones respecto al conteo realizado por un evaluador humano. Las definiciones formales de estas métricas se detallan en la Sección 6 (Validación). Estos indicadores, vinculados directamente al alcance del MVP, permiten verificar el cumplimiento de los criterios de forma reproducible.
+
+\subsection{Estructura del documento}
+El cuerpo del documento comprende siete secciones numeradas (1--7), seguidas de Anexos y Referencias. La secuencia es: Sección 1, Introducción; Sección 2, Objetivos; Sección 3, Desarrollo conceptual (Design Thinking); Sección 4, Metodología (Scrum y Lean); Sección 5, Implementación; Sección 6, Validación y diseño experimental; Sección 7, Conclusiones y trabajo futuro; a continuación los Anexos y las Referencias. Para esta entrega, el documento se presenta y evalúa hasta la Sección 5 (Metodología); las secciones 6 y 7 y los Anexos forman parte de la estructura completa pero quedan fuera del alcance de la evaluación actual. El orden sigue la lógica: qué se busca (objetivos), por qué y para quién (conceptual), cómo se ejecutará (metodología e implementación) y cómo se demostrará el logro (validación). Los criterios de éxito (MAE $\leq$ 5°, precisión $\geq$ 95\,\%) se validan en la Sección 6 mediante el protocolo experimental. La validación del MVP se contrastará frente al goniómetro como estándar clínico de medición angular y al conteo humano como referente de conteo de repeticiones.
+
+\clearpage
+\needspace{5\baselineskip}
+\section{Objetivos}
+
+\subsection{Objetivo general}
+Desarrollar un prototipo de software basado en visión por computadora y aprendizaje automático que asista la ejecución domiciliaria de ejercicios de rehabilitación de hombro para pacientes post-ACV. El prototipo utilizará captura con cámara convencional, cálculo de métricas objetivas (ángulo articular y conteo de repeticiones) y retroalimentación visual en tiempo real, con el propósito de ofrecer una herramienta accesible, de bajo costo y trazable que complemente la terapia tradicional. El logro se verificará validando su precisión frente a goniómetro y conteo humano (MAE $\leq$ 5°, precisión $\geq$ 95\,\%).
+
+\subsection{Objetivos específicos}
+Para lograr el objetivo general, se establecen los siguientes objetivos específicos, redactados como acciones medibles y verificables. Cada uno concluye con la evidencia esperada que permitirá confirmar su cumplimiento:
+
+\begin{itemize}
+  \item Implementar un módulo de estimación de pose humana en 2D que detecte de forma estable las coordenadas de 33 puntos anatómicos clave (hombro, codo, cadera y torácicos) desde el flujo de video de una cámara web con MediaPipe Pose. Evidencia: módulo funcional integrado que procesa video en tiempo real y entrega coordenadas normalizadas de los landmarks.
+  \item Desarrollar algoritmos de análisis cinemático que calculen en tiempo real el ángulo de abducción del hombro con geometría vectorial (cadera--hombro--codo) e identifiquen ciclos de movimiento mediante máquina de estados con umbrales configurables. Evidencia: funciones probadas que devuelven ángulo en grados y estado del ciclo (subida/bajada) por frame.
+  \item Integrar un sistema de interfaz y retroalimentación que muestre video en vivo con esqueleto superpuesto, ángulo actual, contador de repeticiones y mensajes correctivos según umbrales. Evidencia: ventana gráfica operativa con los cuatro elementos integrados y mensajes de guía visibles.
+  \item Validar el rendimiento del prototipo comparando las métricas del sistema (ángulo máximo por repetición, conteo) contra goniómetro y conteo humano, cuantificando MAE y precisión. Evidencia: informe con valores de MAE y precisión, tabla comparativa y conclusiones sobre el cumplimiento de los criterios (MAE $\leq$ 5°, precisión $\geq$ 95\,\%).
+  \item Documentar el proceso, el código y los resultados con manual de uso, justificación de decisiones de diseño, código fuente comentado en repositorio Git e informe de validación. Evidencia: repositorio con README, requirements.txt y documentación actualizada; informe de validación con resultados y limitaciones.
+\end{itemize}
+
+\clearpage
+\needspace{5\baselineskip}
+\section{Desarrollo conceptual (Design Thinking)}
+
+El capítulo aplica Design Thinking en seis etapas para definir la solución, anclada en las necesidades del usuario, el estado del arte y la viabilidad técnica.
+
+\subsection{Empatizar}
+La etapa de empatía se centró en comprender en profundidad las experiencias, frustraciones y aspiraciones de los dos usuarios principales: el paciente post-ACV y el terapeuta rehabilitador.
+
+Método y análisis. No se realizaron entrevistas ni encuestas por el alcance y plazo del proyecto; el análisis documental estructurado se consideró suficiente para identificar pains/gains y fundamentar el reto HMW en esta fase de propuesta. Se aplicaron los siguientes criterios: (a) búsqueda en bases académicas (PubMed, IEEE Xplore, Scopus) con términos clave \textit{stroke rehabilitation}, \textit{telerehabilitation}, \textit{computer vision}, \textit{pose estimation}, período 2014--2024; (b) revisión de guías clínicas (OMS, Langhorne et al., Laver et al.) sobre rehabilitación post-ACV y telerrehabilitación; (c) categorización de necesidades en pains (dolores) y gains (ganancias) según perfiles de usuario; (d) triangulación de hallazgos entre literatura clínica y reportes de tecnologías existentes (Debnath et al., 2021; Saposnik et al., 2016). El proceso permitió identificar los hallazgos clave que se resumen en la Tabla~\ref{tab:empatizar}.
+
+Para el paciente: dolor --- acceso limitado y costoso a terapia presencial continua, desmotivación y falta de adherencia por monotonía y ausencia de retroalimentación inmediata, incertidumbre sobre la corrección de los ejercicios domiciliarios; ganancia --- autonomía para ejercitarse en casa, guía y confirmación del movimiento, progreso tangible y sistema accesible sin alta inversión. Para el terapeuta: dolor --- imposibilidad de supervisar de forma objetiva y continua la rehabilitación domiciliaria, carga administrativa alta, dificultad para cuantificar rango de movimiento o repeticiones efectivas; ganancia --- datos objetivos y automatizados, ajuste del tratamiento basado en evidencia cuantitativa, optimización del tiempo de consulta. Estudios recientes indican que tecnologías como la realidad virtual pueden aumentar la adherencia del paciente, aunque no siempre se traducen en mejoras clínicas significativas superiores a la terapia convencional (Saposnik et al., 2016).
+
+\begin{table}[htbp]
+\caption{Resumen de hallazgos de la etapa Empatizar.}
+\label{tab:empatizar}
+\small
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{2.8cm}p{5cm}p{5cm}@{}}
+\toprule
+Usuario & Dolor & Ganancia \\
+\midrule
+Paciente post-ACV & Acceso limitado a terapia; desmotivación y baja adherencia; incertidumbre sobre la corrección del ejercicio domiciliario. & Autonomía en casa; guía y confirmación del movimiento; progreso tangible; sistema accesible y de bajo costo. \\
+\addlinespace
+Terapeuta & Imposibilidad de supervisar y cuantificar el trabajo domiciliario; carga administrativa. & Datos objetivos automatizados; ajuste del tratamiento con evidencia; optimización del tiempo de consulta. \\
+\bottomrule
+\end{tabular}\\
+\renewcommand{\arraystretch}{1.35}
+\vspace{4pt}
+\raggedright\footnotesize Fuente: Elaboración propia a partir de OMS, Langhorne et al., Laver et al., Debnath et al. (2021) y Saposnik et al. (2016).
+\end{table}
+\vspace{0.6em}
+
+Esta comprensión estableció la base humana del proyecto: la necesidad de un puente tecnológico confiable entre la clínica y el hogar.
+
+Como complemento al análisis documental, se contempla una fuente primaria (entrevista semiestructurada con un experto en rehabilitación u observación estructurada en sesión de rehabilitación) para triangular o validar los hallazgos de pains y ganancias. El método previsto incluye: instrumento (guion de entrevista o ficha de observación), muestra (p. ej. 1 experto o 1 sesión), y procedimiento (realización, registro y síntesis). Los resultados de la fuente primaria se documentan en el Anexo~C.
+
+Trazabilidad narrativa. Los hallazgos de la Tabla~\ref{tab:empatizar} derivaron en el reto HMW (Definir); los criterios de éxito se alinearon con las ganancias identificadas (accesibilidad, precisión, retroalimentación, trazabilidad); la selección del prototipo (Idea C) se sustentó en esos criterios mediante la matriz ponderada. El flujo hallazgos -- reto -- criterios -- decisiones del MVP queda así trazado (Figura~\ref{fig:flujo}).
+
+\vspace{1.2em}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth,height=0.48\textheight,keepaspectratio]{flujo_design_thinking.png}
+\caption{Trazabilidad Empatizar--Definir--Criterios--MVP.}
+\label{fig:flujo}
+\raggedright\footnotesize Fuente: Elaboración propia.
+\end{figure}
+\vspace{0.8em}
+
+\subsection{Definir (HMW y criterios de éxito)}
+Sintetizando los hallazgos de la empatía, se formuló el siguiente reto de diseño, estructurado como una pregunta ``How Might We?'' (¿Cómo podríamos?):
+
+\begin{quote}
+\small ¿Cómo podríamos proporcionar a los pacientes post-ACV una herramienta de rehabilitación motriz domiciliaria que sea tan accesible como una cámara web, pero que ofrezca una supervisión y retroalimentación objetiva comparable a la guía inicial de un terapeuta, para mejorar la confianza, la adherencia y la calidad del ejercicio?
+\end{quote}
+
+A partir de este reto se derivaron los Criterios de Éxito iniciales para la solución:
+\begin{enumerate}
+  \item Accesibilidad económica: costo de implementación cercano a cero para el usuario final (hardware de consumo estándar).
+  \item Precisión técnica: capacidad de medir ángulos articulares con un error aceptable frente a instrumentos estándar (goniómetro).
+  \item Retroalimentación en tiempo real: generación de guías visuales o auditivas inmediatas durante la ejecución del ejercicio.
+  \item Usabilidad: interfaz intuitiva que no requiera capacitación extensa.
+  \item Trazabilidad: registro automático de métricas (repeticiones, ángulos máximos) para seguimiento del progreso.
+\end{enumerate}
+Estos criterios se operacionalizarán en el diseño experimental (Sección 6) mediante MAE $\leq$ 5°, precisión $\geq$ 95\,\% y latencia $<$ 150\,ms.
+
+\subsection{Investigación de antecedentes (estado del arte)}
+Se revisaron las soluciones existentes en rehabilitación asistida por tecnología (Debnath et al., 2021). La Tabla~\ref{tab:estadoarte} compara distintas aproximaciones según integración con el paciente y aplicabilidad clínica, apoyada en la literatura (Basteris et al., 2014; Debnath et al., 2021; Saposnik et al., 2016).
+
+\begin{table}[htbp]
+\caption{Análisis comparativo del estado del arte en rehabilitación asistida.}
+\label{tab:estadoarte}
+\small
+\centering
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{@{}p{2.4cm}p{2.5cm}p{2.2cm}p{2.5cm}p{2.9cm}@{}}
+\toprule
+Categoría & Descripción & Ventajas & Desventajas & Posicionamiento \\
+\midrule
+Terapia manual convencional & Supervisión presencial por fisioterapeuta. & Estándar de oro, evaluación integral. & Coste elevado, acceso limitado. & Complementar la terapia con métricas objetivas en domicilio. \\
+\addlinespace
+Robótica y exoesqueléticos & Sistemas que asisten el movimiento (ej. Armeo Power). & Alta precisión, asistencia física. & Costo prohibitivo, confinados a clínicas. & Alternativa no robótica y de bajo costo. \\
+\addlinespace
+Realidad virtual & Entornos inmersivos (ej. Oculus Quest, VITALIS). & Alta motivación y adherencia. & Costo moderado-alto, no siempre superioridad clínica. & Precisión de medición y corrección del movimiento real. \\
+\addlinespace
+Software clínico & Gestión y prescripción (SPRY, WebPT). & Excelente para gestión. & Enfocados en administración, no en evaluación en tiempo real. & Análisis automático de movimiento como módulo complementario. \\
+\addlinespace
+Apps móviles instructivas & Videos y recordatorios. & Muy accesibles, bajo costo. & Sin retroalimentación objetiva. & Análisis y retroalimentación automatizada en tiempo real. \\
+\bottomrule
+\end{tabular}\\
+\renewcommand{\arraystretch}{1.35}
+\vspace{4pt}
+\raggedright\footnotesize Fuente: Basteris et al. (2014); Debnath et al. (2021); Saposnik et al. (2016).
+\end{table}
+\vspace{0.6em}
+
+Conclusión del análisis. Hay una brecha entre soluciones de alta tecnología (robótica, VR), costosas y complejas, y otras muy accesibles (apps, videos) pero sin supervisión inteligente. La propuesta apunta a ese hueco: una ``supervisión inteligente accesible'' que permita análisis automático del movimiento con hardware estándar. La solución aquí seleccionada combina cámara 2D, procesamiento local y criterios de validación cuantitativos explícitos (MAE $\leq$ 5°, precisión $\geq$ 95\,\%) en un único prototipo orientado al ámbito domiciliario. Un desglose detallado de métricas y limitaciones por estudio del estado del arte puede documentarse en el Anexo~D cuando se complete la revisión de las fuentes.
+
+\subsection{Idear}
+Se generaron múltiples alternativas evaluando distintas combinaciones de tecnología y entrega. Se consideraron tres opciones que cubren los escenarios más plausibles (dispositivo móvil, procesamiento en nube, procesamiento local en escritorio) para comparar accesibilidad, privacidad y viabilidad técnica.
+
+\begin{itemize}
+  \item Idea A --- Teléfono inteligente como sensor y pantalla: app móvil que use la cámara del teléfono para capturar el movimiento y muestre la retroalimentación en la misma pantalla.
+  \item Idea B --- Sistema web con procesamiento en la nube: aplicación web con streaming de video; el procesamiento de visión por computadora se realizaría en un servidor remoto.
+  \item Idea C --- Software de escritorio con procesamiento local (propuesta actual): aplicación para computadora personal (Windows/macOS/Linux) que utilice cámara web externa y procese toda la información localmente.
+\end{itemize}
+
+\subsection{Prototipar}
+Se seleccionó la Idea C para prototipar. El MVP será un script en Python ejecutable, con interfaz gráfica simple, que cumpla el flujo core: (1) Entrada: captura de video en tiempo real desde cámara web USB estándar (720p o superior). (2) Procesamiento: pipeline con OpenCV y MediaPipe Pose (modelo \texttt{pose\_landmarker\_lite} por defecto; opcional \texttt{pose\_landmarker\_full}). (3) Lógica: cálculo del ángulo de abducción del hombro en tiempo real con geometría vectorial (landmarks cadera, hombro, codo); detección de repeticiones mediante máquina de estados con umbrales angulares. (4) Salida: ventana con video y esqueleto superpuesto, valor del ángulo, contador de repeticiones y mensajes de texto (ej. ``Extienda más el brazo'', ``Repetición válida''). La interfaz se estructura en tres zonas: área central de video con esqueleto; panel de métricas (ángulo y contador); barra inferior de mensajes. La Figura~\ref{fig:flujo-prototipo} muestra el flujo de uso del prototipo MVP desde la perspectiva del usuario. El diagrama del pipeline de componentes se describe en la Sección~5 (Implementación).
+
+\vspace{1em}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\linewidth,height=0.35\textheight,keepaspectratio]{flujo_prototipo_uso.png}
+\caption{Flujo de uso del prototipo MVP: entrada (captura), procesamiento (pose, ángulo, conteo) y salida (video anotado, métricas y mensajes).}
+\label{fig:flujo-prototipo}
+\raggedright\footnotesize Fuente: Elaboración propia.
+\end{figure}
+\vspace{0.6em}
+
+\subsection{Selección de prototipo}
+Para justificar formalmente la elección de la Idea C se utilizó una matriz de selección ponderada con criterios alineados al marco MELDS (Tabla~\ref{tab:melds}). La Idea C (software de escritorio) obtuvo la puntuación más alta en privacidad, accesibilidad y viabilidad técnica (puntuación total ponderada 9,15), criterios centrales para el MVP en 16 semanas. Resuelve el problema de supervisión automatizada accesible de forma directa y con menor riesgo técnico.
+
+\begin{table}[htbp]
+\caption{Matriz de selección y evaluación de ideas (MELDS).}
+\label{tab:melds}
+\small
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{3cm}c p{2.5cm} p{2.5cm} p{2.5cm} c@{}}
+\toprule
+Criterio & Peso & Idea A & Idea B & Idea C & \\
+\midrule
+Viabilidad técnica & 25\,\% & Alta (8) & Media-baja (4) & Alta (9) & \\
+Costo/Accesibilidad & 25\,\% & Alta (9) & Media (6) & Muy alta (10) & \\
+Precisión y control & 20\,\% & Media (6) & Media-alta (7) & Alta (9) & \\
+Privacidad y ética & 20\,\% & Alta (8) & Baja (3) & Muy alta (10) & \\
+Potencial integración & 10\,\% & Media (5) & Alta (8) & Media-alta (7) & \\
+\midrule
+Puntaje total ponderado & 100\,\% & 7,45 & 5,45 & 9,15 & \\
+\bottomrule
+\end{tabular}\\
+\renewcommand{\arraystretch}{1.35}
+\vspace{4pt}
+\raggedright\footnotesize Fuente: Elaboración propia (marco MELDS).
+\end{table}
+\vspace{0.6em}
+
+\clearpage
+\needspace{5\baselineskip}
+\section{Metodología: Scrum y Lean}
+
+Este capítulo detalla el marco de trabajo ágil y la filosofía de desarrollo que se adoptarán. La combinación de Scrum y Lean Startup (Ries, 2011) proporciona una estructura para organizar el trabajo en equipo, priorizar el valor, gestionar la incertidumbre y asegurar que el desarrollo del prototipo se mantenga enfocado, iterativo y basado en evidencia.
+
+\subsection{Roles, artefactos y eventos}
+El proyecto adopta Scrum con responsabilidades claras. Roles: Product Owner (Cesar Francisco Sandoval González): maximizar el valor del producto y gestionar el backlog. Scrum Master (Adelaid Lesdemyariet Acevedo Cardona): facilitar el proceso y eliminar impedimentos. Equipo de desarrollo (Armando Morales Carmona y José Rolando Ríos Cisneros): analizar, diseñar, desarrollar, probar y documentar el incremento en cada sprint. Artefactos: Product Backlog (lista priorizada), Sprint Backlog (subconjunto del sprint), Incremento (suma de elementos completados). Eventos: Sprint Planning (inicio de cada sprint semanal), Daily Stand-up (15 min), Sprint Review (presentación del incremento), Sprint Retrospective (mejora de proceso).
+
+\subsection{Backlog inicial, estimación y cadencia}
+El backlog reúne historias de usuario y tareas técnicas estimadas con puntos de historia (escala de Fibonacci: 1, 2, 3, 5, 8). Criterio de puntos: 1 = trivial; 2 = simple; 3 = moderada; 5 = compleja; 8 = muy compleja o alta incertidumbre. Sprints de una semana, 16 semanas totales. Capacidad estimada: 80\,h por sprint (20\,h/semana $\times$ 4 integrantes); con dos desarrolladores en tareas de implementación, la capacidad de desarrollo equivale a unas 40\,h/sprint, lo que se traduce en una referencia inicial de 5 puntos de historia por sprint (ajustable según velocidad observada, dado que el backlog promedia 4,5\,pts/sprint en los 10 sprints planificados). La Tabla~\ref{tab:backlog} presenta el backlog priorizado con criterios de aceptación verificables.
+
+\begin{table}[htbp]
+\caption{Backlog del producto con criterios de aceptación por historia.}
+\label{tab:backlog}
+\small
+\centering
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{@{}p{0.75cm}p{2.7cm}p{5.8cm}p{0.5cm}p{0.6cm}@{}}
+\toprule
+ID & Historia / Tarea & Criterios de aceptación & Pts & Spr. \\
+\midrule
+US-01 & Configuración del entorno & venv creado; requirements.txt con opencv-python, mediapipe, numpy; script de prueba que importa librerías; proyecto en Git con /src, /docs, /data. & 1 & 1 \\
+\addlinespace
+US-02 & Captura de video en tiempo real & Captura con OpenCV; ventana con video en vivo; cierre correcto; resolución 720p o superior. & 2 & 2 \\
+\addlinespace
+US-03 & Visualización del esqueleto & MediaPipe Pose integrado; dibujo de landmarks y conexiones; hombro, codo y cadera visibles; integrado con US-02. & 3 & 3 \\
+\addlinespace
+US-04 & Cálculo y visualización de ángulo & Ángulo de abducción (cadera--hombro--codo); valor en grados visible; actualización frame a frame; código documentado. & 5 & 4 \\
+\addlinespace
+US-05 & Conteo automático de repeticiones & Máquina de estados (subida/bajada); umbrales configurables (60°); contador visible; sin falsos positivos evidentes. & 5 & 5 \\
+\addlinespace
+US-06 & Retroalimentación de corrección & Mensajes según reglas; criterios por umbrales; mensajes en zona dedicada; integración con conteo. & 8 & 6 \\
+\addlinespace
+T-07 & Diseño del protocolo de validación & Documento con hipótesis, métricas y criterios; fases: reclutamiento, configuración, ejecución, análisis; materiales y revisión. & 3 & 7 \\
+\addlinespace
+T-08 & Pruebas de validación y datos & $\geq$5 sujetos; consentimiento firmado; 3$\times$10 repeticiones con goniómetro y grabación; logs CSV y backup. & 8 & 8 \\
+\addlinespace
+T-09 & Análisis y gráficos & Script que calcula MAE, precisión y latencia; gráficos y tablas; informe con resultados y limitaciones. & 5 & 9 \\
+\addlinespace
+US-10 & Exportación de reportes & Exportación a CSV; opción PDF si hay tiempo; documentado en README. & 5 & 10 \\
+\bottomrule
+\end{tabular}\\
+\renewcommand{\arraystretch}{1.35}
+\vspace{4pt}
+\raggedright\footnotesize Fuente: Elaboración propia (Scrum/Lean).
+\end{table}
+\vspace{0.6em}
+
+Cada sprint entrega un incremento verificable. Objetivos por bloque de sprints: Sprints 1--2 --- entorno listo y primera captura de video operativa; Sprints 3--4 --- pose visible y ángulo en pantalla; Sprints 5--6 --- conteo y retroalimentación completos; Sprint 7 --- diseño del protocolo de validación; Sprints 8--9 --- ejecución de pruebas y análisis de datos; Sprint 10 --- exportación de reportes y estabilización. Dependencias entre ítems: US-03 requiere US-02; US-04 requiere US-03; US-05 requiere US-04; US-06 requiere US-05; T-07 es independiente de las historias de desarrollo; T-08 requiere T-07; T-09 requiere T-08; US-10 puede realizarse en paralelo o tras US-06.
+
+\subsection{Definiciones de Ready/Done}
+Definición de listo (DoR): la historia está lista para el sprint cuando está claramente descrita, tiene criterios de aceptación conocidos, dependencias resueltas, estimada por el equipo y es completable en un sprint. Definición de hecho (DoD): el código está escrito y documentado, la funcionalidad está integrada, se han ejecutado pruebas unitarias e de integración con resultados satisfactorios, hay peer review y la documentación está actualizada.
+
+\subsection{Principios Lean, ciclo operativo y métricas}
+La filosofía Lean se integra en cinco etapas por sprint: (1) Idear --- refinamiento del backlog e hipótesis; (2) Construir --- desarrollo hasta cumplir DoD; (3) Medir --- velocidad, bug rate post-DoD, valor cualitativo del Product Owner; (4) Aprender --- validated learning y Kaizen en retrospectiva; (5) Decidir --- continuar o ajustar según umbrales (velocidad, bug rate, valor del incremento). La velocidad del equipo se define como la suma de puntos de historia completados en el sprint: $V_s = \sum_{j \in \mathcal{C}_s} p_j$, donde $\mathcal{C}_s$ es el conjunto de ítems completados en el sprint $s$ y $p_j$ son los puntos del ítem $j$. Definiciones operativas: \textbf{Valor cualitativo} --- el Product Owner valora cada incremento como ``aceptado'', ``aceptado con reservas'' o ``no aceptado'' (criterio de aceptado: sin bloqueantes para el siguiente sprint). \textbf{Bug rate:} número de incidencias críticas post-DoD por sprint; el incremento se considera estable si no hay bugs críticos pendientes (bugs críticos = 0). Se activa una corrección de rumbo cuando la velocidad se mantiene por debajo de 3 puntos durante 2 sprints consecutivos, o cuando el valor del Product Owner sea ``no aceptado'' en 2 entregas. Evidencia mínima por historia terminada: captura de pantalla o demo que cumpla el criterio de aceptación de la historia y enlace al commit o pull request en el repositorio Git. Las revisiones de sprint se documentan en Jira (estado de las historias, comentarios del Product Owner) y en acta breve en el repositorio cuando el equipo lo acuerde.
+
+\subsection{Herramientas de seguimiento y evidencia}
+El seguimiento del backlog y de los sprints se realiza en Jira (instancia local: épicas, historias de usuario y tareas). Se utiliza una instancia Jira ejecutada en local mediante Docker; el backlog del documento se ha volcado en Jira (épicas E1--E3, historias US-01 a US-10 y tareas T-07 a T-09). Las capturas del backlog y del board de sprint se incluyen en el Anexo~B (Figuras~\ref{fig:jira-backlog} y~\ref{fig:jira-board}, al final del documento). Además: repositorio Git \href{https://github.com/amc42357/master}{\texttt{github.com/amc42357/master}}; bitácora de pruebas; carpeta de evidencias con capturas, logs anonimizados y gráficos de validación.
+
+\clearpage
+\needspace{5\baselineskip}
+\section{Implementación de la propuesta}
+
+\subsection{Planificación y estimación (tiempo/costo)}
+La implementación se realizará en 16 semanas: 12 al desarrollo del prototipo y 4 a validación experimental, documentación y entrega. Cronograma: Sprints 1--2 (entorno e investigación); 3--4 (captura e integración MediaPipe); 5--6 (cálculo de ángulo y conteo); 7--8 (GUI y retroalimentación); 9--10 (estabilización y protocolo); 11--12 (ejecución del protocolo); 13--14 (análisis de datos); 15--16 (documento académico y repositorio). Costos: directos cero (software libre); indirectos aprox. 20\,h/semana por integrante (1\,280\,h totales en 16 semanas).
+
+\subsection{Implementación (arquitectura, datos, componentes, repositorio)}
+El sistema usará una arquitectura modular monolítica en Python. Se describe con el modelo C4: el diagrama de contexto (Figura~\ref{fig:arquitectura-contexto}) sitúa al sistema frente al usuario y a la cámara; el diagrama de contenedores (Figura~\ref{fig:arquitectura-contenedores}) detalla el flujo interno: cámara web $\rightarrow$ captura (OpenCV) $\rightarrow$ detección de pose (MediaPipe) $\rightarrow$ cálculo geométrico $\rightarrow$ lógica de aplicación (estado, conteo) $\rightarrow$ interfaz gráfica $\rightarrow$ salida (video anotado, métricas y registro en CSV). El ángulo de abducción del hombro entre el segmento cadera--hombro y hombro--codo se obtiene a partir del producto escalar de los vectores $\vec{u} = \overrightarrow{\mathrm{CadH}}$ (cadera a hombro) y $\vec{v} = \overrightarrow{\mathrm{HomC}}$ (hombro a codo): $\theta = \arccos(\vec{u} \cdot \vec{v} / (|\vec{u}|\,|\vec{v}|))$ en radianes; en grados: $\theta_{\mathrm{grados}} = \theta \cdot 180/\pi$.
+
+\vspace{1.2em}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth,height=0.38\textheight,keepaspectratio]{arquitectura_c4_context.png}
+\caption{Contexto del sistema (C4, nivel 1): usuario, sistema y cámara web.}
+\label{fig:arquitectura-contexto}
+\raggedright\footnotesize Fuente: Elaboración propia.
+\end{figure}
+\vspace{0.6em}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\linewidth,height=0.48\textheight,keepaspectratio]{arquitectura_c4_container.png}
+\caption{Contenedores del sistema (C4, nivel 2): pipeline de captura, pose, cálculo, lógica, GUI y persistencia.}
+\label{fig:arquitectura-contenedores}
+\raggedright\footnotesize Fuente: Elaboración propia.
+\end{figure}
+\vspace{0.6em}
+\noindent Como se observa en las Figuras~\ref{fig:arquitectura-contexto} y~\ref{fig:arquitectura-contenedores}, el sistema queda acotado al usuario, la cámara y el pipeline local hasta la persistencia en CSV.
+
+\vspace{0.6em}
+Componentes tecnológicos.
+\begin{itemize}
+  \item Lenguaje y entorno: Python 3.9+ con entornos virtuales (\texttt{venv}).
+  \item IDE: Visual Studio Code.
+  \item Librerías: OpenCV (captura, procesamiento, GUI); MediaPipe (estimación de pose 2D, modelo \texttt{pose\_landmarker\_lite.task} por defecto); NumPy (cálculos); Pandas y Matplotlib/Seaborn (análisis y gráficos).
+  \item Gestión de datos: sesiones en CSV locales; no se guardan videos crudos; solo secuencias anonimizadas con consentimiento.
+  \item Repositorio: Git en GitHub: \href{https://github.com/amc42357/master}{\texttt{github.com/amc42357/master}}; estructura \texttt{/src}, \texttt{/docs}, \texttt{/data}, \texttt{/tests}, README y \texttt{requirements.txt}.
+\end{itemize}
+
+\subsection{Despliegue (entorno, seguridad, contingencia)}
+Entorno: ejecución local en Windows 10/11, macOS y potencialmente Linux; entornos de desarrollo y producción. Seguridad y privacidad: ejecución íntegra en la computadora local; el video no abandona el dispositivo; no hay dependencia de Internet durante el uso; datos CSV locales; mensaje de consentimiento informado al iniciar. Contingencia: backup de código (commits diarios, ramas); fallback visual si falla la detección de pose; procedimientos de recuperación y \texttt{KNOWN\_ISSUES.md}.
+
+\subsection{Mantenimiento (cambios, versionado)}
+Versionado Semántico (SemVer) para releases; gestión mediante ramas y Pull Requests. Base de código documentada para permitir nuevos ejercicios, mejora de la GUI e integración de perfil de usuario. Dependencia de tecnologías de código abierto maduras asegura sostenibilidad.
+
+\clearpage
+\needspace{5\baselineskip}
+\section{Validación y diseño experimental}
+
+El diseño experimental evalúa el rendimiento del sistema mediante comparación con baseline (goniómetro, conteo humano), con métricas reproducibles.
+
+\subsection{Hipótesis}
+\begin{enumerate}
+  \item H1: El sistema logrará medir el ángulo de abducción del hombro con MAE $\leq$ 5° frente a goniómetro.
+  \item H2: El algoritmo de conteo alcanzará precisión $\geq$ 95\,\% respecto al conteo de un evaluador humano.
+  \item H3: La latencia total (captura hasta retroalimentación en pantalla) será $<$ 150\,ms.
+\end{enumerate}
+
+\subsection{Métricas de evaluación}
+Las métricas cuantitativas del experimento se definen de forma reproducible. El MAE (Error Absoluto Medio) del ángulo, con goniómetro como referencia, es
+\begin{equation}
+  \mathrm{MAE}_\theta = \frac{1}{N} \sum_{i=1}^{N} \bigl| \theta_{\mathrm{gonio},i} - \hat{\theta}_i \bigr|
+\end{equation}
+con $N$ repeticiones, $\theta_{\mathrm{gonio},i}$ ángulo medido con goniómetro y $\hat{\theta}_i$ ángulo del sistema. La precisión de conteo es
+\begin{equation}
+  P_{\mathrm{count}} = \frac{\#\,\text{repeticiones correctamente contadas}}{\#\,\text{repeticiones (referencia humano)}} \times 100\,\text{\%}\,.
+\end{equation}
+La latencia se mide como el tiempo entre el evento de movimiento (p. ej. paso por umbral angular) y la actualización correspondiente en pantalla. En la Tabla~\ref{tab:metricas} se resumen métricas, baselines y criterios: MAE $\leq$ 5°; precisión $\geq$ 95\,\%; latencia $<$ 150\,ms; robustez cualitativa (estabilidad en $\geq$ 3 condiciones de iluminación).
+
+\begin{table}[htbp]
+\caption{Resumen de métricas, baselines y criterios de éxito.}
+\label{tab:metricas}
+\small
+\centering
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{2.6cm}p{3.4cm}p{3cm}p{2.6cm}@{}}
+\toprule
+Métrica & Definición & Baseline & Criterio \\
+\midrule
+Error angular (MAE) & Diferencia promedio absoluta sistema vs. referencia. & Goniómetro manual. & MAE $\leq$ 5° \\
+\addlinespace
+Precisión en conteo & \% repeticiones correctamente contadas. & Conteo visual por evaluador. & $\geq$ 95\,\% \\
+\addlinespace
+Latencia & Retraso evento--retroalimentación. & Cronómetro sobre video 60 FPS. & $<$ 150\,ms \\
+\addlinespace
+Robustez & Funcionamiento bajo variaciones. & Observación en pruebas. & Estable en $\geq$ 3 condiciones de luz. \\
+\bottomrule
+\end{tabular}\\
+\renewcommand{\arraystretch}{1.35}
+\vspace{4pt}
+\raggedright\footnotesize Fuente: Elaboración propia (protocolo experimental).
+\end{table}
+\vspace{0.6em}
+
+\subsection{Protocolo experimental}
+Preparación: reclutamiento de 5 sujetos sanos adultos (muestreo por conveniencia), diestros, sin patología en hombro derecho; consentimiento informado (objetivo, participación, anonimato, procesamiento local, riesgos y beneficios). El tamaño $n=5$ se considera adecuado para prueba de concepto técnica (Debnath et al., 2021). Configuración: sujeto a 2\,m de cámara web (Logitech C920, 1080p, 30 FPS), iluminación uniforme, puntos anatómicos marcados, evaluador con goniómetro. Ejecución: 3 series de 10 repeticiones de abducción de hombro (ritmo metrónomo 1 rep/3\,s). Datos del sistema: log CSV (timestamp, landmarks, ángulo, estado, mensajes). Datos baseline: ángulo máximo por repetición con goniómetro; conteo de repeticiones válidas por evaluador. Análisis: sincronización por timestamps; script en Python (Pandas, SciPy) para MAE, precisión y latencia; gráficos de dispersión y series temporales.
+
+\subsection{Consideraciones normativas y éticas}
+El protocolo de validación se alinea con el marco normativo y ético aplicable a la investigación con participantes humanos y al tratamiento de datos en el ámbito sanitario. En España, la Ley 14/2007, de 3 de julio, de Investigación biomédica, exige consentimiento informado expreso, información clara y comprensible, y derecho a revocación (BOE-A-2007-12945). La Ley 41/2002 básica de autonomía del paciente regula el derecho a la información y al consentimiento en el ámbito asistencial. El tratamiento de datos personales y de imágenes se ajusta al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 de protección de datos personales y garantía de los derechos digitales (LOPDGDD): minimización de datos, limitación de la finalidad (validación técnica), procesamiento local sin cesión a terceros, y anonimización de secuencias cuando se almacenen. En el ámbito de la Unión Europea, el Reglamento (UE) 2024/1689 por el que se establecen normas armonizadas en materia de inteligencia artificial (en vigor desde agosto de 2024) aplica un enfoque basado en el riesgo; el presente prototipo se enmarca en una fase de validación técnica con sujetos sanos, sin uso clínico ni diagnóstico, por lo que se sitúa en un contexto de riesgo limitado y se adoptan principios de transparencia, privacidad y supervisión humana en el diseño del experimento. El consentimiento informado utilizado en el estudio incorpora los elementos exigidos por la práctica habitual en investigación biomédica: objetivo del estudio, descripción de la participación, garantías de anonimato y procesamiento local, riesgos y beneficios, y declaración de consentimiento voluntario revocable.
+
+\subsection{Resultados esperados y discusión}
+Se espera MAE entre 3° y 5°, precisión de conteo 96--100\,\%, latencia $<$ 100\,ms en equipo de gama media. Análisis de errores: paralaje, oclusión, variabilidad entre repeticiones. Limitaciones: población sana, entorno controlado, muestra pequeña; válido para prueba de concepto técnica, no para generalización clínica.
+
+\clearpage
+\needspace{5\baselineskip}
+\section{Conclusiones y trabajo futuro}
+
+\subsection{Conclusiones}
+El trabajo ha diseñado y planificado un sistema de asistencia para rehabilitación motriz domiciliaria post-ACV basado en visión por computadora, que responde al reto de diseño con un enfoque centrado en accesibilidad, viabilidad técnica y privacidad.
+
+La aplicación de Design Thinking permitió anclar la solución en las necesidades de pacientes y terapeutas y en la brecha de supervisión objetiva en el hogar. El estado del arte mostró un hueco para una solución práctica y escalable que combine software de IA de código abierto con hardware de consumo. Scrum y Lean Startup estructuran un plan de ejecución realista en 16 semanas, con entregas incrementales y un MVP bien acotado. El diseño experimental aporta hipótesis comprobables, métricas objetivas (MAE $\leq$ 5°, precisión $\geq$ 95\,\%) y baseline con goniómetro.
+
+En relación con los objetivos: el objetivo general se cumple mediante el prototipo descrito y su validación; los objetivos específicos 1 a 3 se materializan en el código y la GUI (módulo de pose, análisis cinemático, interfaz con retroalimentación); el objetivo 4 en el protocolo de la Sección 6 y los resultados de las pruebas; el objetivo 5 en el repositorio con documentación, README, \texttt{requirements.txt} e informe de validación.
+
+\subsection{Limitaciones y trabajo futuro}
+Limitaciones: (1) validación con población simulada (sujetos sanos); (2) alcance clínico reducido (un solo ejercicio); (3) entorno controlado. Trabajo futuro: (1) estudio piloto con pacientes reales post-ACV ($n=5$--10); (2) ampliación de la biblioteca de ejercicios (codo, escapular, rodilla, tobillo); (3) personalización y entrenamiento adaptativo; (4) integración con historial clínico electrónico (estándares FHIR); (5) investigación de robustez con transfer learning para movimientos atípicos.
+
+El proyecto sirve de punto de partida para abordar un problema de salud complejo con un enfoque pragmático y centrado en el usuario.
+
+\clearpage
+% ========== 8. ANEXOS ==========
+\section*{Anexos}
+\addcontentsline{toc}{section}{Anexos}
+\label{sec:anexos}
+
+\subsection*{Anexo A. Consentimiento informado (resumen)}
+El protocolo de validación (Sección 6) contempla la obtención de consentimiento informado firmado por cada participante. El documento incluye: objetivo del estudio (validación técnica del sistema de visión por computadora para rehabilitación), descripción de la participación (grabación en video para análisis técnico), garantías de anonimato y procesamiento local de imágenes, riesgos y beneficios, y declaración de consentimiento voluntario. El texto completo del consentimiento se encuentra en los materiales del proyecto (repositorio y carpeta de documentación del seminario).
+
+\subsection*{Anexo B. Evidencia de gestión en Jira}
+\label{anexo:jira}
+Evidencia de la instancia Jira local utilizada para el seguimiento del proyecto: backlog del producto (épicas E1--E3 e historias US-01 a US-10, tareas T-07 a T-09) y board del sprint activo (columnas Por hacer / En progreso / Hecho). Como se muestra en las Figuras~\ref{fig:jira-backlog} y~\ref{fig:jira-board}, el backlog y el board de sprint reflejan el estado de las historias y tareas descritas en la Sección~4. Las capturas se generan desde el repositorio con los scripts en \texttt{scripts/} (inyección de datos, asignación a sprint y captura de pantalla).
+
+\vspace{1em}
+\IfFileExists{docs/evidencias_jira/jira_board_backlog.png}{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\linewidth,height=0.42\textheight,keepaspectratio]{docs/evidencias_jira/jira_board_backlog.png}
+\caption{Backlog del producto en Jira (épicas e historias).}
+\label{fig:jira-backlog}
+\raggedright\footnotesize Fuente: Captura de pantalla del proyecto en Jira. Elaboración propia.
+\end{figure}
+\vspace{0.8em}
+}{%
+\noindent [Figura: Backlog del producto en Jira. Añadir \texttt{jira\_board\_backlog.png} en \texttt{docs/evidencias\_jira/}.]
+\label{fig:jira-backlog}
+\par\vspace{0.6em}
+}%
+\IfFileExists{docs/evidencias_jira/jira_board_sprint.png}{%
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\linewidth,height=0.42\textheight,keepaspectratio]{docs/evidencias_jira/jira_board_sprint.png}
+\caption{Board de sprint en Jira (columnas Por hacer / En progreso / Hecho).}
+\label{fig:jira-board}
+\raggedright\footnotesize Fuente: Captura de pantalla del proyecto en Jira. Elaboración propia.
+\end{figure}
+}{%
+\noindent [Figura: Board de sprint en Jira. Añadir \texttt{jira\_board\_sprint.png} en \texttt{docs/evidencias\_jira/}.]
+\label{fig:jira-board}
+\par\vspace{0.6em}
+}%
+
+\subsection*{Anexo C. Fuente primaria (entrevista / observación)}
+\label{anexo:fuente-primaria}
+Este anexo será completado cuando se disponga de los resultados de la fuente primaria contemplada en la etapa Empatizar (Capítulo~3). Plantilla para documentar:
+
+\begin{itemize}
+  \item \textbf{Fecha y modalidad:} [Por completar por el equipo] (entrevista semiestructurada / observación estructurada).
+  \item \textbf{Perfil del participante o contexto:} [Por completar por el equipo] (ej. fisioterapeuta, años de experiencia; o contexto de la sesión observada).
+  \item \textbf{Instrumento utilizado:} [Por completar por el equipo] (guion de entrevista o ficha de observación; adjuntar o referenciar).
+  \item \textbf{Resumen de 2--3 hallazgos clave:} [Por completar por el equipo] (hallazgos que refuercen o maticen la Tabla de pains/gains del Capítulo~3).
+\end{itemize}
+
+\subsection*{Anexo D. Desglose de métricas y limitaciones por estudio (estado del arte)}
+\label{anexo:estado-arte}
+Este anexo puede completarse cuando se disponga de un desglose verificable de métricas reportadas y limitaciones por estudio revisado en el estado del arte (Capítulo~3). Plantilla sugerida:
+
+\begin{center}
+\small
+\begin{tabular}{p{2.5cm}p{2.8cm}p{3.2cm}p{2.2cm}}
+\toprule
+Estudio & Métricas reportadas & Limitaciones & Fuente \\
+\midrule
+\multicolumn{1}{p{2.5cm}}{\raggedright Por completar} & \multicolumn{1}{p{2.8cm}}{\raggedright Por completar} & \multicolumn{1}{p{3.2cm}}{\raggedright Por completar} & \multicolumn{1}{p{2.2cm}}{\raggedright Por completar} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\clearpage
+% ========== 9. REFERENCIAS ==========
+\section*{Referencias}
+\addcontentsline{toc}{section}{Referencias}
+
+\noindent American Psychological Association. (2020). \textit{Publication manual of the American Psychological Association} (7.ª ed.).
+
+\noindent Basteris, A., Nijenhuis, S. M., Stienen, A. H., Buurke, J. H., Prange, G. B., \& Amirabdollahian, F. (2014). Training modalities in robot-mediated upper limb rehabilitation in stroke: A framework for classification based on a systematic review. \textit{Journal of NeuroEngineering and Rehabilitation}, \textit{11}(1), 111. \url{https://doi.org/10.1186/1743-0003-11-111}
+
+\noindent Debnath, B., O'Brien, M., Yamaguchi, M., \& Behera, A. (2021). A review of computer vision-based approaches for physical rehabilitation and assessment. \textit{Multimedia Systems}, \textit{28}, 209--239. \url{https://doi.org/10.1007/s00530-021-00815-4}
+
+\noindent Esteva, A., Robicquet, A., Ramsundar, B., Kuleshov, V., DePristo, M., Chou, K., Cui, C., Corrado, G., Thrun, S., \& Dean, J. (2019). A guide to deep learning in healthcare. \textit{Nature Medicine}, \textit{25}(1), 24--29. \url{https://doi.org/10.1038/s41591-018-0316-z}
+
+\noindent Instituto Nacional de Estadística y Geografía. (2021). \textit{Estadísticas de defunciones registradas 2020}. \url{https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/DefuncionesRegistradas2020_Pnles.pdf}
+
+\noindent Langhorne, P., Bernhardt, J., \& Kwakkel, G. (2011). Stroke rehabilitation. \textit{The Lancet}, \textit{377}(9778), 1693--1702. \url{https://doi.org/10.1016/S0140-6736(11)60325-5}
+
+\noindent Laver, K. E., Adey-Wakeling, Z., Crotty, M., Lannin, N. A., George, S., \& Sherrington, C. (2020). Telerehabilitation services for stroke. \textit{Cochrane Database of Systematic Reviews}, \textit{2020}(1), CD010255. \url{https://doi.org/10.1002/14651858.CD010255.pub3}
+
+\noindent National Institute of Neurological Disorders and Stroke. (2020). \textit{Post-stroke rehabilitation}. National Institutes of Health. \url{https://www.ninds.nih.gov/health-information/stroke/recovery}
+
+\noindent Organización Mundial de la Salud. (2017). \textit{Rehabilitation in health systems}. \url{https://iris.who.int/handle/10665/254506}
+
+\noindent Ries, E. (2011). \textit{The Lean Startup: How today's entrepreneurs use continuous innovation to create radically successful businesses}. Crown Currency.
+
+\noindent Saposnik, G., Cohen, L. G., Mamdani, M., Pooyania, S., Ploughman, M., Cheung, D., Shaw, J., Hall, J., Nord, P., Dukelow, S., Nilanont, Y., De Los Rios, F., Olmos, L., Levin, M., Teasell, R., Cohen, A., Thorpe, K., Laupacis, A., \& Bayley, M. (2016). Efficacy and safety of non-immersive virtual reality exercising in stroke rehabilitation (EVREST): A randomised, multicentre, single-blind, controlled trial. \textit{The Lancet Neurology}, \textit{15}(10), 1019--1027. \url{https://doi.org/10.1016/S1474-4422(16)30121-1}
+
+\vspace{0.5em}
+\noindent Ley 14/2007, de 3 de julio, de Investigación biomédica. \textit{Boletín Oficial del Estado}, 159, 28826--28848. \url{https://www.boe.es/buscar/act.php?id=BOE-A-2007-12945}
+
+\noindent Ley 41/2002, de 14 de noviembre, básica reguladora de la autonomía del paciente y de derechos y obligaciones en materia de información y documentación clínica. \textit{Boletín Oficial del Estado}, 274, 40126--40132.
+
+\noindent Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales. \textit{Boletín Oficial del Estado}, 294, 119788--119857.
+
+\noindent Parlamento Europeo y Consejo de la Unión Europea. (2016). Reglamento (UE) 2016/679 relativo a la protección de las personas físicas (RGPD). \textit{Diario Oficial de la Unión Europea}, L 119, 1--88.
+
+\noindent Parlamento Europeo y Consejo de la Unión Europea. (2024). Reglamento (UE) 2024/1689 por el que se establecen normas armonizadas en materia de inteligencia artificial. \textit{Diario Oficial de la Unión Europea}, L 1689. \url{https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32024R1689}
+
+\end{document}

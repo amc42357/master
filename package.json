@@ -1,0 +1,19 @@
+{
+  "name": "seminario-docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scripts de documentación (exportación de diagramas Mermaid, Jira)",
+  "scripts": {
+    "export-diagramas": "mmdc -i diagrams/arquitectura.mmd -o diagrams/arquitectura.png -b white && mmdc -i diagrams/arquitectura.mmd -o diagrams/arquitectura.svg -b white && mmdc -i diagrams/flujo_design_thinking.mmd -o diagrams/flujo_design_thinking.png -b white && mmdc -i diagrams/flujo_design_thinking.mmd -o diagrams/flujo_design_thinking.svg -b white && mmdc -i diagrams/flujo_prototipo_uso.mmd -o diagrams/flujo_prototipo_uso.png -b white",
+    "jira:seed": "./scripts/jira_seed.sh --csv",
+    "jira:inject": "node scripts/jira_inject.mjs",
+    "jira:sprint": "node scripts/jira_sprint_assign.mjs",
+    "jira:capture": "node scripts/jira_capture_screenshots.mjs",
+    "jira:placeholders": "node scripts/jira_placeholders.mjs",
+    "jira:ensure": "node scripts/jira_ensure_captures.mjs"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.12.0",
+    "playwright": "^1.58.2"
+  }
+}

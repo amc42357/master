@@ -1,0 +1,24 @@
+# Jira Software local para gestión del proyecto (épicas, historias, tareas).
+# Uso: docker compose -f docker-compose.jira.yml up -d
+# Acceso: http://localhost:8080
+# Requisitos: Docker, ~2 GiB RAM para el contenedor.
+# Primera vez: completar asistente (idioma, licencia evaluación, usuario admin)
+# y crear proyecto Scrum (ej. clave REHAB) con Epic, Story y Task habilitados.
+
+services:
+  jira:
+    image: atlassian/jira-software:9.12.0
+    container_name: jira-rehab
+    ports:
+      - "8080:8080"
+    volumes:
+      - jira_data:/var/atlassian/application-data/jira
+    environment:
+      - ATL_PROXY_NAME=
+      - ATL_PROXY_PORT=
+      - ATL_TOMCAT_SCHEME=http
+      - ATL_TOMCAT_PORT=8080
+    restart: unless-stopped
+
+volumes:
+  jira_data:

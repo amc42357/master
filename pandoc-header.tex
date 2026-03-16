@@ -1,6 +1,18 @@
 % Mejora de saltos de página y tipografía (plantilla UNIR)
-% Usamos portada personalizada (pandoc-title.tex), no \maketitle por defecto
 \let\maketitle\relax
+
+% Imágenes: escalado para que los diagramas quepan en la página
+\usepackage{graphicx}
+\setkeys{Gin}{width=0.88\linewidth,keepaspectratio}
+
+% Encabezado y pie de página (plantilla UNIR)
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[C]{\normalfont\small Rehabilitación motriz asistida por visión por computadora}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\pagestyle{fancy}
+\thispagestyle{empty}
 
 % Evitar viudas y huérfanas (líneas sueltas)
 \widowpenalty=10000
@@ -15,9 +27,21 @@
 \titlespacing*{\subsection}{0pt}{2.25ex plus 1ex minus .2ex}{1.25ex plus .2ex}
 \titlespacing*{\subsubsection}{0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
 
-% Mantener tablas con su título
+% Tablas y figuras: título arriba, fuente abajo (plantilla UNIR / rúbrica)
 \usepackage{caption}
-\captionsetup{tableposition=top,figureposition=bottom}
+\captionsetup{
+  tableposition=top,
+  figureposition=bottom,
+  labelfont=bf,
+  font=small,
+  skip=4pt
+}
+\captionsetup[table]{position=above}
+\captionsetup[figure]{position=below}
+
+% Párrafos: sin sangría, espacio entre párrafos (estilo plantilla)
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
 
 % Mejor corte de líneas
 \sloppy

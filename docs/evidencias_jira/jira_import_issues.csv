@@ -1,0 +1,11 @@
+Summary,Description,Issue Type,Epic Name,Story Points
+US-01 Configuración del entorno,"(1) venv creado; (2) requirements.txt con opencv-python, mediapipe, numpy; (3) script de prueba que importa librerías; (4) proyecto en Git con /src, /docs, /data.",Story,E1: Prototipo core,1
+US-02 Captura de video en tiempo real,"(1) Captura con OpenCV desde cámara por defecto; (2) ventana con video en vivo; (3) cierre correcto; (4) resolución 720p o superior.",Story,E1: Prototipo core,2
+US-03 Visualización del esqueleto,"(1) MediaPipe Pose integrado; (2) dibujo de landmarks y conexiones; (3) hombro, codo y cadera visibles; (4) integrado con ventana de video US-02.",Story,E1: Prototipo core,3
+US-04 Cálculo y visualización de ángulo,"(1) Ángulo de abducción (cadera-hombro-codo); (2) valor en grados visible; (3) actualización frame a frame; (4) código documentado.",Story,E1: Prototipo core,5
+US-05 Conteo automático de repeticiones,"(1) Máquina de estados subida/bajada; (2) umbrales configurables (ej. 60°); (3) contador visible; (4) sin falsos positivos evidentes.",Story,E1: Prototipo core,5
+US-06 Retroalimentación de corrección,"(1) Mensajes según reglas; (2) criterios por umbrales; (3) mensajes en zona dedicada; (4) integración con conteo.",Story,E1: Prototipo core,8
+T-07 Diseño del protocolo de validación,"(1) Documento con hipótesis, métricas y criterios; (2) fases: reclutamiento, configuración, ejecución, análisis; (3) materiales y revisión.",Task,E2: Validación experimental,3
+T-08 Pruebas de validación y datos,"(1) Al menos 5 sujetos; (2) consentimiento firmado; (3) 3×10 repeticiones con goniómetro y grabación; (4) logs CSV y backup.",Task,E2: Validación experimental,8
+T-09 Análisis y gráficos,"(1) Script que calcula MAE, precisión y latencia; (2) gráficos y tablas; (3) informe con resultados y limitaciones.",Task,E2: Validación experimental,5
+US-10 Exportación de reportes,"(1) Exportación a CSV; (2) opción PDF si hay tiempo; (3) archivos en carpeta local; (4) documentado en README.",Story,E3: Entrega y documentación,5

@@ -1,6 +1,9 @@
 # Entornos virtuales
 .venv/
 venv/
+
+# Node (solo para exportación de diagramas Mermaid)
+node_modules/
 *.pyc
 __pycache__/
 
@@ -9,6 +12,14 @@ __pycache__/
 
 # Archivos pesados / generados
 *.zip
+
+# LaTeX auxiliares (generados al compilar)
+proyecto.aux
+proyecto.log
+proyecto.lof
+proyecto.lot
+proyecto.out
+proyecto.toc
 
 # Caché y tests
 .pytest_cache/

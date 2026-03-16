@@ -40,6 +40,11 @@ class Settings(BaseModel):
 
     DEFAULT_ARM: str = "right"
 
+    # Protocolo de validación (3 series × 10 repeticiones, ritmo 1 rep cada 3 s)
+    NUM_SERIES: int = 3
+    REPS_PER_SERIES: int = 10
+    METRONOME_INTERVAL_SEC: float = 3.0
+
     PROJECT_ROOT: Path = Field(default_factory=_project_root)
 
     @computed_field
@@ -82,6 +87,9 @@ LANDMARK_SHOULDER_LEFT = _settings.LANDMARK_SHOULDER_LEFT
 LANDMARK_ELBOW_LEFT = _settings.LANDMARK_ELBOW_LEFT
 LANDMARK_HIP_LEFT = _settings.LANDMARK_HIP_LEFT
 DEFAULT_ARM = _settings.DEFAULT_ARM
+NUM_SERIES = _settings.NUM_SERIES
+REPS_PER_SERIES = _settings.REPS_PER_SERIES
+METRONOME_INTERVAL_SEC = _settings.METRONOME_INTERVAL_SEC
 PROJECT_ROOT = _settings.PROJECT_ROOT
 DATA_DIR = _settings.DATA_DIR
 MODELS_DIR = _settings.MODELS_DIR

@@ -1,0 +1,7 @@
+flowchart TB
+  A[Cámara Web] --> B[Módulo de Captura OpenCV]
+  B --> C[Módulo de Detección de Pose MediaPipe]
+  C --> D[Módulo de Cálculo Geometría]
+  D --> E[Módulo de Lógica de Aplicación]
+  E --> F[Interfaz Gráfica GUI]
+  F --> G[Salida: Video Anotado + Métricas]

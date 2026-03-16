@@ -1,0 +1,20 @@
+C4Container
+    title Contenedores del sistema - Rehabilitación motriz asistida por CV
+
+    Person(paciente, "Paciente", "Usuario en domicilio")
+
+    System_Boundary(sistema, "Sistema de rehabilitación asistida") {
+        Container(captura, "Captura de video", "OpenCV", "Adquisición de flujo de cámara y preprocesamiento")
+        Container(pose, "Detección de pose", "MediaPipe Pose", "Estimación 2D de 33 landmarks anatómicos")
+        Container(calculo, "Cálculo geométrico", "NumPy", "Ángulo de abducción hombro y detección de ciclos")
+        Container(logica, "Lógica de aplicación", "Python", "Máquina de estados, conteo de repeticiones y umbrales")
+        Container(gui, "Interfaz gráfica", "OpenCV GUI", "Video anotado, ángulo, contador y mensajes de retroalimentación")
+        ContainerDb(csv, "Datos de sesión", "CSV local", "Log de métricas y eventos por sesión")
+    }
+
+    Rel(paciente, gui, "Visualiza e interactúa")
+    Rel(captura, pose, "Frames de video")
+    Rel(pose, calculo, "Coordenadas de landmarks")
+    Rel(calculo, logica, "Ángulo y estado del ciclo")
+    Rel(logica, gui, "Métricas y mensajes")
+    Rel(logica, csv, "Registra sesiones")

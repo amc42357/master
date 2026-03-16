@@ -1,0 +1,4 @@
+Summary,Description,Issue Type
+E1: Prototipo core,"Entorno, captura, pose, ángulo, conteo, feedback. Contiene US-01 a US-06.",Epic
+E2: Validación experimental,"Protocolo, pruebas y análisis. Contiene T-07, T-08, T-09.",Epic
+E3: Entrega y documentación,"Entrega y documentación. Contiene US-10.",Epic

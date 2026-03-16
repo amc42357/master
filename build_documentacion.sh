@@ -7,7 +7,8 @@
 # Requiere: pandoc (brew install pandoc), TeX Live o MacTeX (xelatex/lualatex).
 # Salida: carpeta entrega_pdf/ y ZIP documentacion_seminario.zip.
 # Formato: plantilla UNIR (márgenes 3/2/2.5 cm, Calibri 12pt, interlineado 1.5).
-# Si Calibri no está disponible, cambia mainfont en PANDOC_OPTS a "DejaVu Sans" o "Helvetica".
+# Si Calibri no está disponible, se usa Helvetica. Para Calibri 12pt (plantilla UNIR),
+# instale la fuente en el sistema y sustituya en PANDOC_BASE: -V mainfont="Calibri".
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -35,10 +36,19 @@ if ! command -v pandoc &>/dev/null; then
   exit 1
 fi
 
-echo "Usando motor PDF: $PDF_ENGINE (formato UNIR: márgenes 3/2/2.5 cm, Calibri 12pt)"
+echo "Usando motor PDF: $PDF_ENGINE (formato UNIR: márgenes 3/2/2.5 cm, 12pt)"
 echo "Creando carpeta $OUT_DIR..."
 rm -rf "$OUT_DIR"
 mkdir -p "$OUT_DIR"
+
+# Exportar diagramas Mermaid a PNG para incluirlos en el PDF (si existe el script y mmdc)
+if [[ -f "$SCRIPT_DIR/scripts/export_diagramas.sh" ]]; then
+  if "$SCRIPT_DIR/scripts/export_diagramas.sh" 2>/dev/null; then
+    echo "Diagramas Mermaid exportados."
+  else
+    echo "Advertencia: no se pudieron exportar los diagramas (ejecute: npm install && npm run export-diagramas). El PDF puede mostrar imágenes faltantes."
+  fi
+fi
 
 # Opciones base para todos los PDF
 PANDOC_BASE=(
@@ -53,11 +63,23 @@ PANDOC_BASE=(
   --standalone
 )
 
-# Proyecto principal: portada UNIR + mejoras de saltos de página
-echo "Convirtiendo proyecto.md -> proyecto.pdf"
-pandoc "proyecto.md" -o "$OUT_DIR/proyecto.pdf" "${PANDOC_BASE[@]}" \
-  -H pandoc-header.tex \
-  -B pandoc-title.tex
+# Proyecto principal: si existe proyecto.tex se compila con LaTeX (portada y diagramas como imágenes); si no, con Pandoc
+if [[ -f "$SCRIPT_DIR/proyecto.tex" ]]; then
+  echo "Compilando proyecto.tex (LaTeX) -> proyecto.pdf"
+  (cd "$SCRIPT_DIR" && $PDF_ENGINE -interaction=nonstopmode proyecto.tex >/dev/null 2>&1; $PDF_ENGINE -interaction=nonstopmode proyecto.tex 2>&1) || true
+  if [[ -f "$SCRIPT_DIR/proyecto.pdf" ]]; then
+    cp "$SCRIPT_DIR/proyecto.pdf" "$OUT_DIR/proyecto.pdf"
+    echo "  PDF generado desde LaTeX."
+  else
+    echo "  Advertencia: fallo LaTeX; intentando Pandoc..."
+    pandoc "proyecto.md" -o "$OUT_DIR/proyecto.pdf" "${PANDOC_BASE[@]}" -H pandoc-header.tex --resource-path=".:diagrams"
+  fi
+else
+  echo "Convirtiendo proyecto.md -> proyecto.pdf"
+  pandoc "proyecto.md" -o "$OUT_DIR/proyecto.pdf" "${PANDOC_BASE[@]}" \
+    -H pandoc-header.tex \
+    --resource-path=".:diagrams"
+fi
 
 # Anexos (sin portada especial)
 echo "Convirtiendo anexos..."

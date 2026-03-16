@@ -89,14 +89,25 @@ def setup_dpg(width: int, height: int) -> None:
         dpg.add_image(_texture_tag)
 
     # Ventana de métricas
+    num_series = getattr(config, "NUM_SERIES", 3)
+    reps_per_series = getattr(config, "REPS_PER_SERIES", 10)
     with dpg.window(label="Métricas", tag="win_metrics", pos=(width + 20, 20)):
         dpg.add_text("Abducción de hombro", tag="txt_title")
+        dpg.add_text(
+            f"Objetivo: {num_series} series × {reps_per_series} rep — Ritmo: 1 rep cada 3 s (metrónomo)",
+            tag="txt_protocol",
+            color=(180, 220, 180),
+        )
         dpg.add_separator()
         _widget_ids["angle"] = dpg.add_text("Ángulo: ---", tag="txt_angle")
         dpg.add_progress_bar(default_value=0.0, tag="prog_angle", show=True)
         dpg.add_text("Objetivo: 60°", tag="txt_target")
         _widget_ids["state"] = dpg.add_text("Estado: BAJAR", tag="txt_state")
         _widget_ids["count"] = dpg.add_text("Repeticiones: 0", tag="txt_count")
+        _widget_ids["series"] = dpg.add_text(
+            f"Serie 1 de {num_series} — Rep 0 de {reps_per_series}",
+            tag="txt_series",
+        )
         _widget_ids["recording"] = dpg.add_text("", tag="txt_recording")
         dpg.add_separator()
         _widget_ids["feedback"] = dpg.add_text("", tag="txt_feedback", wrap=400)
@@ -126,6 +137,8 @@ def update_ui(
     rep_state: str,
     feedback_msg: str,
     is_recording: bool,
+    current_series: int = 1,
+    rep_in_series: int = 0,
 ) -> None:
     """Actualiza progress bar y textos según estado actual."""
     # Progress bar: 0..1 hacia objetivo 60°
@@ -135,10 +148,17 @@ def update_ui(
         progress = 0.0
     dpg.set_value("prog_angle", progress)
 
+    num_series = getattr(config, "NUM_SERIES", 3)
+    reps_per_series = getattr(config, "REPS_PER_SERIES", 10)
+
     angle_str = f"{angle_deg:.1f}" if angle_deg is not None else "---"
     dpg.set_value("txt_angle", f"Ángulo: {angle_str}°")
     dpg.set_value("txt_state", "Estado: SUBIR" if rep_state == "up" else "Estado: BAJAR")
     dpg.set_value("txt_count", f"Repeticiones: {rep_count}")
+    dpg.set_value(
+        "txt_series",
+        f"Serie {current_series} de {num_series} — Rep {rep_in_series} de {reps_per_series}",
+    )
     dpg.set_value("txt_recording", "GRABANDO" if is_recording else "")
     text = _feedback_text(feedback_msg, angle_deg, rep_state)
     dpg.set_value("txt_feedback", text)
@@ -168,6 +188,8 @@ def render_frame(
     feedback_msg: str,
     rep_state: str = "down",
     is_recording: bool = False,
+    current_series: int = 1,
+    rep_in_series: int = 0,
 ) -> np.ndarray:
     """
     Con DPG: devuelve frame con esqueleto (overlay en ventana DPG).
@@ -176,7 +198,14 @@ def render_frame(
     if HAS_DPG:
         return frame_with_skeleton
     return _render_frame_opencv(
-        frame_with_skeleton, angle_deg, rep_count, feedback_msg, rep_state, is_recording
+        frame_with_skeleton,
+        angle_deg,
+        rep_count,
+        feedback_msg,
+        rep_state,
+        is_recording,
+        current_series,
+        rep_in_series,
     )
 
 
@@ -219,18 +248,32 @@ def _render_frame_opencv(
     feedback_msg: str,
     rep_state: str,
     is_recording: bool,
+    current_series: int = 1,
+    rep_in_series: int = 0,
 ) -> np.ndarray:
     """Dibujo manual con cv2 (panel, barra, regla de referencia, feedback). Trabaja en una copia para evitar parpadeo."""
     import cv2
+    num_series = getattr(config, "NUM_SERIES", 3)
+    reps_per_series = getattr(config, "REPS_PER_SERIES", 10)
     # Trabajar siempre sobre una copia; evita parpadeo al no modificar el buffer en uso por imshow
     out = np.ascontiguousarray(frame.copy())
     h, w = out.shape[:2]
-    # Panel métricas
-    x, y, pw, ph = 16, 16, 320, 140
+    # Panel métricas (más alto para serie/rep e instrucción)
+    x, y, pw, ph = 16, 16, 320, 200
     overlay = out.copy()
     cv2.rectangle(overlay, (x, y), (x + pw, y + ph), (45, 45, 50), -1)
     out = cv2.addWeighted(overlay, 0.85, out, 0.15, 0)
     cv2.rectangle(out, (x, y), (x + pw, y + ph), (120, 120, 120), 2)
+    # Objetivo del protocolo
+    cv2.putText(
+        out,
+        f"Objetivo: {num_series} series x {reps_per_series} rep (1 rep/3s)",
+        (x + 12, y + 22),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.45,
+        (180, 220, 180),
+        1,
+    )
     cv2.putText(out, "Angulo: " + (f"{angle_deg:.1f}" if angle_deg is not None else "---"),
                 (x + 12, y + 48), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
     progress = min(1.0, max(0.0, (angle_deg or 0) / TARGET_ANGLE))
@@ -250,7 +293,26 @@ def _render_frame_opencv(
         cv2.rectangle(out, (x + 12, y + 58), (x + 12 + fill_w, y + 82), bar_color, -1)
     cv2.putText(out, "SUBIR" if rep_state == "up" else "BAJAR",
                 (x + pw - 70, y + 48), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 200, 255), 2)
-    cv2.putText(out, f"Repeticiones: {rep_count}", (x + 12, y + 128), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 0), 2)
+    # Serie y repetición en la serie (destacado)
+    cv2.putText(
+        out,
+        f"Serie {current_series} de {num_series}",
+        (x + 12, y + 108),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.7,
+        (255, 255, 200),
+        2,
+    )
+    cv2.putText(
+        out,
+        f"Repeticion {rep_in_series} de {reps_per_series}",
+        (x + 12, y + 132),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.85,
+        (255, 255, 0),
+        2,
+    )
+    cv2.putText(out, f"Total: {rep_count}", (x + 12, y + 158), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (200, 200, 200), 1)
     if is_recording:
         cv2.putText(out, "GRABANDO", (x + pw - 92, y + 26), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 1)
     # Regla de referencia (baseline visual)
@@ -259,10 +321,10 @@ def _render_frame_opencv(
     guide_y = h - 148
     cv2.rectangle(out, (16, guide_y), (w - 88, guide_y + 52), (40, 42, 50), -1)
     cv2.rectangle(out, (16, guide_y), (w - 88, guide_y + 52), (90, 90, 100), 1)
-    cv2.putText(out, "Guia: Sube el brazo hasta la zona verde (60)", (24, guide_y + 22),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.55, (180, 220, 180), 1)
-    cv2.putText(out, "luego bajalo con control hasta ~45 para una rep valida.", (24, guide_y + 42),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.55, (180, 220, 180), 1)
+    cv2.putText(out, "3 series de 10 rep. Ritmo: 1 rep cada 3 s (metronomo).", (24, guide_y + 18),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (180, 220, 180), 1)
+    cv2.putText(out, "Sube el brazo hasta la zona verde (60), bajalo con control.", (24, guide_y + 38),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (180, 220, 180), 1)
     # Feedback durante el movimiento
     text = _feedback_text(feedback_msg, angle_deg, rep_state)
     bar_h, bar_y = 64, h - 80

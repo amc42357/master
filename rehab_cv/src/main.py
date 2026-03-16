@@ -6,7 +6,9 @@ Bucle principal: capture -> pose -> angle -> rep_counter -> gui -> (opcional CSV
 
 import argparse
 import logging
+import subprocess
 import sys
+import time
 from pathlib import Path
 
 import cv2
@@ -86,7 +88,36 @@ def parse_args():
         default="lite",
         help="Modelo de pose: lite (default, más rápido) o full (más preciso)",
     )
+    parser.add_argument(
+        "--no-metronome",
+        action="store_true",
+        help="Desactivar metrónomo (1 rep cada 3 s)",
+    )
     return parser.parse_args()
+
+
+def _play_metronome_beep() -> None:
+    """Reproduce un beep corto (cross-platform). No bloquea el bucle principal."""
+    try:
+        if sys.platform == "darwin":
+            subprocess.Popen(
+                ["afplay", "/System/Library/Sounds/Tink.aiff"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                start_new_session=True,
+            )
+        elif sys.platform == "win32":
+            import winsound
+            winsound.Beep(880, 150)
+    except Exception:
+        pass
+
+
+def _series_and_rep(rep_count: int, num_series: int, reps_per_series: int) -> tuple[int, int]:
+    """Calcula serie actual (1..num_series) y repetición en la serie (0..reps_per_series)."""
+    current_series = min(num_series, 1 + (rep_count // reps_per_series))
+    rep_in_series = rep_count - (current_series - 1) * reps_per_series
+    return current_series, rep_in_series
 
 
 def main():
@@ -135,8 +166,23 @@ def main():
     if use_dpg:
         setup_dpg(cap.width, cap.height)
 
+    use_metronome = not args.headless and not args.no_metronome
+    if use_metronome:
+        log.info("Metrónomo activo: 1 rep cada %.1f s", config.METRONOME_INTERVAL_SEC)
+
+    last_beep_time: float | None = None
+
     try:
         for frame in cap.frames():
+            # Metrónomo: beep cada METRONOME_INTERVAL_SEC (1 rep cada 3 s)
+            if use_metronome:
+                now = time.monotonic()
+                if last_beep_time is None:
+                    last_beep_time = now
+                elif now - last_beep_time >= config.METRONOME_INTERVAL_SEC:
+                    _play_metronome_beep()
+                    last_beep_time = now
+
             # Detección de pose
             landmarks = pose_detector.process(frame)
             frame_with_skeleton = pose_detector.draw_landmarks(frame, landmarks)
@@ -147,6 +193,9 @@ def main():
 
             # Actualizar contador de repeticiones
             state, count, feedback_msg = rep_counter.update(angle_deg)
+            current_series, rep_in_series = _series_and_rep(
+                count, config.NUM_SERIES, config.REPS_PER_SERIES
+            )
 
             # Registrar en CSV si está activo
             if args.record:
@@ -166,6 +215,8 @@ def main():
                         state.value,
                         feedback_msg,
                         args.record,
+                        current_series=current_series,
+                        rep_in_series=rep_in_series,
                     )
                     render_frame_dpg()
                     if not is_running():
@@ -179,6 +230,8 @@ def main():
                         feedback_msg,
                         rep_state=state.value,
                         is_recording=args.record,
+                        current_series=current_series,
+                        rep_in_series=rep_in_series,
                     )
                     cv2.imshow("Rehabilitación - Abducción de hombro", display)
                     key = cv2.waitKey(max(1, int(1000 / 30))) & 0xFF

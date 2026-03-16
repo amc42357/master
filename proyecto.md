@@ -1,7 +1,7 @@
 ---
 # Formato UNIR (basado en plantilla del seminario)
 title: "PROPUESTA DE TRABAJO DE INNOVACIÓN: SISTEMA DE VISIÓN POR COMPUTADORA PARA REHABILITACIÓN MOTRIZ POST-EVENTO CEREBROVASCULAR"
-subtitle: "MAESTRÍA EN INTELIGENCIA ARTIFICIAL - UNIVERSIDAD INTERNACIONAL DE LA RIOJA (UNIR)"
+subtitle: "Maestría en Inteligencia Artificial"
 lang: es
 documentclass: article
 papersize: a4
@@ -15,17 +15,39 @@ linestretch: 1.5
 mainfont: "Helvetica"
 ---
 
+## **PORTADA**
+
+**Universidad Internacional de La Rioja**  
+**Escuela Superior de Ingeniería y Tecnología**
+
+**Maestría en Inteligencia Artificial**
+
+**Rehabilitación motriz asistida por visión por computadora**
+
+---
+
+**Trabajo de innovación presentado por:**
+
+Cesar Francisco Sandoval González  
+Adelaid Lesdemyariet Acevedo Cardona  
+Armando Morales Carmona  
+José Rolando Ríos Cisneros  
+
+**Fecha:** 2025
+
+\newpage
+
 ## **ÍNDICE**
 
-1. Introducción  
-2. Objetivos  
-3. Desarrollo conceptual (Design Thinking)  
-4. Metodología: Scrum y Lean  
-5. Implementación de la propuesta  
-6. Validación y diseño experimental  
-7. Conclusiones y trabajo futuro  
-8. Referencias  
-9. Anexos  
+1. Portada  
+2. Introducción  
+3. Objetivos  
+4. Desarrollo conceptual (Design Thinking)  
+5. Metodología: Scrum y Lean  
+6. Implementación de la propuesta  
+7. Validación y diseño experimental  
+8. Conclusiones y trabajo futuro  
+9. Referencias  
 
 \newpage
 
@@ -34,17 +56,17 @@ mainfont: "Helvetica"
 ### **1.1. Contexto y Motivación**
 El accidente cerebrovascular (ACV) constituye una de las principales causas de discapacidad motora adquirida a nivel mundial, con una incidencia que genera una carga significativa para los sistemas de salud y la calidad de vida de los individuos y sus familias (Organización Mundial de la Salud [OMS], 2017). En México, es la quinta causa de muerte y la primera de discapacidad en adultos, situación que se refleja en diversas entidades federativas del país (Instituto Nacional de Estadística y Geografía [INEGI], 2021). Tras un ACV, hasta un 80% de los supervivientes presenta hemiparesia o hemiplejía, requiriendo procesos prolongados de rehabilitación motriz para recuperar funcionalidad en las extremidades superiores, siendo la movilidad del hombro fundamental para las actividades de la vida diaria (Langhorne et al., 2011).
 
-La rehabilitación tradicional, basada en terapia presencial y repetitiva, enfrenta barreras críticas de acceso, incluyendo la limitada disponibilidad de especialistas, los altos costos asociados y las dificultades geográficas para asistencia continua. Esta situación se agravó durante y después de la pandemia por COVID-19, y mostró la necesidad urgente de modelos complementarios de tele-rehabilitación efectivos y escalables (Laver et al., 2020). En este contexto, la Inteligencia Artificial (IA) emerge como un catalizador para la innovación en salud, ofreciendo herramientas para monitorización objetiva, personalización de terapias y extensión del cuidado más allá del entorno clínico (Esteva et al., 2019).
+La rehabilitación tradicional, basada en terapia presencial y repetitiva, enfrenta barreras críticas de acceso, incluyendo la limitada disponibilidad de especialistas, los altos costos asociados y las dificultades geográficas para asistencia continua. Esta situación se agravó durante y después de la pandemia por COVID-19, y mostró la necesidad urgente de modelos complementarios de tele-rehabilitación efectivos y escalables (Laver et al., 2020). La Inteligencia Artificial (IA) emerge como catalizador de innovación en salud, con herramientas para monitorización objetiva, personalización de terapias y extensión del cuidado más allá del entorno clínico (Esteva et al., 2019).
 
 ### **1.2. Planteamiento del Problema**
 Existe una brecha crítica entre la necesidad de rehabilitación motriz intensiva y repetitiva post-ACV y la capacidad del sistema de salud para proporcionar un acceso continuo, supervisado y asequible a dichos servicios. Los pacientes que realizan ejercicios en domicilio carecen de retroalimentación objetiva en tiempo real sobre la calidad de su movimiento, lo que puede conducir a una ejecución incorrecta, compensaciones musculares indeseadas, baja adherencia al tratamiento y, en última instancia, una recuperación funcional subóptima.
 
-Si bien existen soluciones tecnológicas en el mercado (como sistemas basados en Kinect, sensores inerciales o robótica), estas suelen presentar barreras de costo, complejidad técnica o necesidad de hardware especializado, limitando su adopción masiva en el ámbito domiciliario. Por lo tanto, se identifica la necesidad de una solución accesible, de bajo costo y fácil de usar que, empleando hardware convencional, permita supervisar, evaluar y guiar ejercicios de rehabilitación de forma autónoma.
+Si bien existen soluciones tecnológicas en el mercado (como sistemas basados en Kinect, sensores inerciales o robótica), estas suelen presentar barreras de costo, complejidad técnica o necesidad de hardware especializado, limitando su adopción masiva en el ámbito domiciliario. De ahí la necesidad de una solución accesible, de bajo costo y fácil de usar que, con hardware convencional, permita supervisar, evaluar y guiar ejercicios de rehabilitación de forma autónoma.
 
 ### **1.3. Justificación e Innovación**
 Esta propuesta se justifica por su potencial para generar un impacto tangible en un problema de salud pública, alineándose con los Objetivos de Desarrollo Sostenible (ODS), particularmente con el ODS 3 (Salud y Bienestar). La innovación no radica en la creación de un nuevo algoritmo de estimación de pose, sino en la aplicación integrada, simplificada y centrada en el usuario de tecnologías de visión por computadora (CV) e IA de código abierto para resolver un problema clínico específico.
 
-El valor agregado de la propuesta reside en su viabilidad y accesibilidad: utiliza una cámara web estándar y librerías de software libre (OpenCV, MediaPipe), eliminando la dependencia de hardware costoso. Su novedad está en el diseño de un sistema integral que, partiendo de la detección de pose, automatiza la evaluación cuantitativa (ángulos, repeticiones) y proporciona retroalimentación correctiva inmediata, emulando funciones clave del terapeuta y empoderando al paciente en su proceso de recuperación domiciliaria.
+El valor agregado de la propuesta reside en su viabilidad y accesibilidad: utiliza una cámara web estándar y librerías de software libre (OpenCV, MediaPipe), eliminando la dependencia de hardware costoso. Su novedad está en el diseño de un sistema integral que, partiendo de la detección de pose, automatiza la evaluación cuantitativa (ángulos, repeticiones) y proporciona retroalimentación correctiva inmediata, emulando funciones clave del terapeuta y empoderando al paciente en su proceso de recuperación domiciliaria. La solución plantea además potencial como herramienta tecnológica escalable en el ámbito de salud digital, alineada con tendencias de telemedicina y rehabilitación remota (National Institute of Neurological Disorders and Stroke [NINDS], 2020). La contribución de este trabajo es demostrar que la combinación de visión por computadora e IA en código abierto puede ofrecer supervisión objetiva en rehabilitación domiciliaria con hardware de consumo, abriendo una vía de uso de la IA distinta a las soluciones costosas o sin retroalimentación automática.
 
 ### **1.4. Alcance**
 El proyecto se desarrollará en un plazo de 16 semanas, dentro del marco del Seminario de Innovación en IA de UNIR. El alcance del **Producto Mínimo Viable (MVP)** se delimita específicamente a:
@@ -56,14 +78,14 @@ El proyecto se desarrollará en un plazo de 16 semanas, dentro del marco del Sem
 El éxito de la validación se medirá mediante criterios explícitos y verificables: **Error Absoluto Medio (MAE) ≤ 5°** en la medición angular frente a goniómetro como referente estándar, y **precisión ≥ 95%** en el conteo de repeticiones respecto al conteo realizado por un evaluador humano. Estos indicadores, vinculados directamente al alcance del MVP, permiten una evaluación objetiva del prototipo.
 
 ### **1.5. Estructura del Documento**
-Este documento se estructura en nueve capítulos, siguiendo una lógica que construye la solución desde la definición de fines hasta la validación empírica. Tras esta introducción, el Capítulo 2 define los objetivos generales y específicos; el 3 presenta el desarrollo conceptual (*Design Thinking*), anclando las decisiones en las necesidades del usuario y el estado del arte; el 4 detalla la metodología (*Scrum* y *Lean Startup*) que guiará la ejecución; el 5 describe la implementación técnica; el 6 especifica el diseño experimental y la validación; el 7 recoge conclusiones y líneas de trabajo futuro. Cierran el documento las Referencias y los Anexos. El orden responde a una secuencia: qué se busca (objetivos), por qué y para quién (conceptual), cómo se ejecutará (metodología e implementación) y cómo se demostrará el logro (validación). Los criterios de éxito ya fijados (MAE ≤ 5°, precisión ≥ 95%) se validarán de forma explícita en el Capítulo 6 mediante el protocolo experimental.
+Este documento se estructura en siete capítulos de contenido más Referencias, siguiendo una lógica que construye la solución desde la definición de fines hasta la validación empírica. Tras esta introducción, el Capítulo 2 define los objetivos generales y específicos; el 3 presenta el desarrollo conceptual (*Design Thinking*), anclando las decisiones en las necesidades del usuario y el estado del arte; el 4 detalla la metodología (*Scrum* y *Lean Startup*) con backlog completo y criterios de aceptación; el 5 describe la implementación técnica; el 6 especifica el diseño experimental, el protocolo operativo y el consentimiento informado; el 7 recoge conclusiones y líneas de trabajo futuro. Cierran el documento las Referencias. El orden sigue la secuencia: qué se busca (objetivos), por qué y para quién (conceptual), cómo se ejecutará (metodología e implementación) y cómo se demostrará el logro (validación). Los criterios de éxito (MAE ≤ 5°, precisión ≥ 95%) se validan en el Capítulo 6 mediante el protocolo experimental.
 
 \newpage
 
 ## **2. OBJETIVOS**
 
 ### **2.1. Objetivo General**
-Desarrollar un prototipo de software basado en visión por computadora y aprendizaje automático que asista la ejecución domiciliaria de ejercicios de rehabilitación de hombro para pacientes post-ACV, mediante captura con cámara convencional, cálculo de métricas objetivas (ángulo articular y conteo de repeticiones) y retroalimentación visual en tiempo real, validando su precisión frente a goniómetro y conteo humano (MAE ≤ 5°, precisión ≥ 95%), con el propósito de ofrecer una herramienta accesible, de bajo costo y trazable que complemente la terapia tradicional.
+Desarrollar un prototipo de software basado en visión por computadora y aprendizaje automático que asista la ejecución domiciliaria de ejercicios de rehabilitación de hombro para pacientes post-ACV y valide su precisión frente a goniómetro y conteo humano (MAE ≤ 5°, precisión ≥ 95%). El prototipo utilizará captura con cámara convencional, cálculo de métricas objetivas (ángulo articular y conteo de repeticiones) y retroalimentación visual en tiempo real, con el propósito de ofrecer una herramienta accesible, de bajo costo y trazable que complemente la terapia tradicional.
 
 ### **2.2. Objetivos Específicos**
 Para lograr el objetivo general, se establecen los siguientes objetivos específicos, redactados como acciones medibles y verificables. Cada uno concluye con la evidencia esperada que permitirá confirmar su cumplimiento:
@@ -87,7 +109,7 @@ El capítulo aplica *Design Thinking* en seis etapas para definir la solución, 
 ### **3.1. Empatizar**
 La etapa de empatía se centró en comprender en profundidad las experiencias, frustraciones y aspiraciones de los dos usuarios principales: el **paciente post-ACV** y el **terapeuta rehabilitador**.
 
-**Método y análisis:** Se realizó un análisis documental estructurado con los siguientes criterios: (a) búsqueda en bases académicas (PubMed, IEEE Xplore, Scopus) con términos clave *stroke rehabilitation*, *telerehabilitation*, *computer vision*, *pose estimation*, período 2014–2024; (b) revisión de guías clínicas (OMS, Langhorne et al., Laver et al.) sobre rehabilitación post-ACV y tele-rehabilitación; (c) categorización de necesidades en *pains* (dolores) y *gains* (ganancias) según perfiles de usuario; (d) triangulación de hallazgos entre literatura clínica y reportes de tecnologías existentes (Debnath et al., 2021; Saposnik et al., 2016). A partir de este proceso se identificaron los siguientes hallazgos clave (Tabla 1):
+**Método y análisis:** No se realizaron entrevistas ni encuestas por el alcance y plazo del proyecto; el análisis documental estructurado se consideró suficiente para identificar pains/gains y fundamentar el reto HMW en esta fase de propuesta. Se aplicaron los siguientes criterios: (a) búsqueda en bases académicas (PubMed, IEEE Xplore, Scopus) con términos clave *stroke rehabilitation*, *telerehabilitation*, *computer vision*, *pose estimation*, período 2014–2024; (b) revisión de guías clínicas (OMS, Langhorne et al., Laver et al.) sobre rehabilitación post-ACV y tele-rehabilitación; (c) categorización de necesidades en *pains* (dolores) y *gains* (ganancias) según perfiles de usuario; (d) triangulación de hallazgos entre literatura clínica y reportes de tecnologías existentes (Debnath et al., 2021; Saposnik et al., 2016). El proceso permitió identificar los hallazgos clave que se resumen en la Tabla 1:
 
 *   **Para el Paciente:**
     *   **Dolor:** Acceso limitado y costoso a terapia presencial continua, especialmente en zonas remotas o con recursos limitados. Desmotivación y falta de adherencia debido a la monotonía de los ejercicios y a la ausencia de retroalimentación inmediata sobre su progreso. Incertidumbre sobre si los ejercicios domiciliarios se realizan correctamente.
@@ -97,7 +119,9 @@ La etapa de empatía se centró en comprender en profundidad las experiencias, f
     *   **Dolor:** Imposibilidad de supervisar de forma objetiva y continua la rehabilitación domiciliaria. Carga administrativa alta para el seguimiento manual del progreso. Dificultad para cuantificar con precisión métricas como el rango de movimiento o el número de repeticiones efectivas. Estudios recientes indican que tecnologías como la realidad virtual pueden aumentar la adherencia del paciente, aunque no siempre se traducen en mejoras clínicas significativas superiores a la terapia convencional, destacando la necesidad de herramientas complementarias efectivas y objetivas (Saposnik et al., 2016).
     *   **Ganancia:** Disponer de datos objetivos y automatizados del desempeño del paciente en casa. Poder ajustar el tratamiento basado en evidencia cuantitativa. Optimizar el tiempo de consulta presencial al tener un historial claro del trabajo realizado en domicilio.
 
-*Tabla 1. Resumen de hallazgos de la etapa Empatizar.*
+*Tabla 1. Resumen de hallazgos de la etapa Empatizar.*  
+*Fuente:* Elaboración propia a partir de OMS, Langhorne et al., Laver et al., Debnath et al. (2021) y Saposnik et al. (2016).
+
 | **Usuario** | **Dolor** | **Ganancia** |
 | :--- | :--- | :--- |
 | **Paciente post-ACV** | Acceso limitado a terapia; desmotivación y baja adherencia; incertidumbre sobre la corrección del ejercicio domiciliario. | Autonomía en casa; guía y confirmación del movimiento; progreso tangible; sistema accesible y de bajo costo. |
@@ -105,7 +129,19 @@ La etapa de empatía se centró en comprender en profundidad las experiencias, f
 
 Esta comprensión estableció la base humana del proyecto: la necesidad de un puente tecnológico confiable entre la clínica y el hogar.
 
-**Trazabilidad narrativa:** Los hallazgos de la Tabla 1 derivaron directamente en el reto HMW (Definir); los criterios de éxito se alinearon con las ganancias identificadas (accesibilidad, precisión, retroalimentación, trazabilidad); la selección del prototipo (Idea C) se sustentó en estos criterios mediante la matriz ponderada. De este modo, el flujo hallazgos → reto → criterios → decisiones del MVP queda explícitamente trazado.
+**Trazabilidad narrativa:** Los hallazgos de la Tabla 1 derivaron en el reto HMW (Definir); los criterios de éxito se alinearon con las ganancias identificadas (accesibilidad, precisión, retroalimentación, trazabilidad); la selección del prototipo (Idea C) se sustentó en esos criterios mediante la matriz ponderada. El flujo hallazgos – reto – criterios – decisiones del MVP queda así trazado (Figura 2).
+
+![Flujo Design Thinking: hallazgos a decisiones MVP](diagrams/flujo_design_thinking.png)
+
+*Figura 2.* Trazabilidad Empatizar–Definir–Criterios–MVP. *Fuente:* Elaboración propia. Código Mermaid en `diagrams/flujo_design_thinking.mmd`; exportable con `npm run export-diagramas` o [Mermaid Live](https://mermaid.live).
+
+```mermaid
+flowchart LR
+  H[Hallazgos Empatizar] --> R[Reto HMW Definir]
+  R --> C[Criterios de Éxito]
+  C --> D[Decisiones MVP Prototipo]
+  D --> S[Selección Idea C]
+```
 
 ### **3.2. Definir (HMW + Criterios de Éxito)**
 Sintetizando los hallazgos de la empatía, se formuló el siguiente reto de diseño, estructurado como una pregunta "How Might We?" (¿Cómo podríamos?):
@@ -119,10 +155,14 @@ A partir de este reto, se derivaron los **Criterios de Éxito** iniciales para l
 4.  **Usabilidad:** Interfaz intuitiva que no requiera capacitación extensa.
 5.  **Trazabilidad:** Registro automático de métricas (repeticiones, ángulos máximos) para seguimiento del progreso.
 
+Estos criterios se operacionalizarán en el diseño experimental (Capítulo 6) mediante MAE ≤ 5°, precisión ≥ 95% y latencia < 150 ms.
+
 ### **3.3. Investigación de Antecedentes (Estado del Arte)**
 Se revisaron las soluciones existentes en rehabilitación asistida por tecnología (Debnath et al., 2021). La Tabla 2 compara distintas aproximaciones según integración con el paciente y aplicabilidad clínica, apoyada en la literatura (Basteris et al., 2014; Debnath et al., 2021; Saposnik et al., 2016).
 
-*Tabla 2. Análisis comparativo del estado del arte en rehabilitación asistida.*
+*Tabla 2. Análisis comparativo del estado del arte en rehabilitación asistida.*  
+*Fuente:* Basteris et al. (2014); Debnath et al. (2021); Saposnik et al. (2016).
+
 | **Categoría / Ejemplo** | **Descripción** | **Ventajas** | **Desventajas / Limitaciones** | **Posicionamiento de la Propuesta** |
 | :--- | :--- | :--- | :--- | :--- |
 | **Terapia Manual Convencional** | Supervisión presencial por un fisioterapeuta. | Estándar de oro, evaluación integral, interacción humana. | Coste elevado, acceso limitado, métricas subjetivas o manuales. | Busca **complementar** la terapia, extendiendo su alcance al domicilio con métricas objetivas. |
@@ -134,7 +174,7 @@ Se revisaron las soluciones existentes en rehabilitación asistida por tecnolog�
 **Conclusión del Análisis:** Hay una brecha entre soluciones de alta tecnología (robótica, VR), costosas y complejas, y otras muy accesibles (apps, videos) pero sin supervisión inteligente. La propuesta apunta a ese hueco: una "supervisión inteligente accesible" que permita análisis automático del movimiento con hardware estándar.
 
 ### **3.4. Idear**
-En esta etapa se generaron múltiples alternativas para abordar el reto de diseño, evaluando distintas combinaciones de tecnología y entrega.
+En esta etapa se generaron múltiples alternativas para abordar el reto de diseño, evaluando distintas combinaciones de tecnología y entrega. Se consideraron las tres opciones que cubren los escenarios más plausibles (dispositivo móvil, procesamiento en nube, procesamiento local en escritorio) para comparar accesibilidad, privacidad y viabilidad técnica.
 
 *   **Idea A - Teléfono Inteligente como Sensor y Pantalla:** Desarrollar una app móvil que use la cámara del teléfono para capturar el movimiento y muestre la retroalimentación en la misma pantalla.
 *   **Idea B - Sistema Web con Procesamiento en la Nube:** Crear una aplicación web donde el usuario se conecte vía *streaming* de video; el procesamiento de visión por computadora se realizaría en un servidor remoto.
@@ -147,14 +187,16 @@ Se seleccionó la **Idea C** para prototipar. El **Producto Mínimo Viable (MVP)
 3.  **Lógica:** Cálculo del ángulo de abducción del hombro en tiempo real usando geometría vectorial (con los *landmarks* de cadera, hombro y codo). Detección de repeticiones mediante una máquina de estados que identifica ciclos de movimiento (subida/bajada) al cruzar umbrales angulares predefinidos.
 4.  **Salida:** Ventana que muestra: a) Video con el esqueleto superpuesto, b) Valor numérico del ángulo, c) Contador de repeticiones, d) Mensajes de texto (ej., "Extienda más el brazo", "Repetición válida") basados en reglas de umbral.
 
-La interfaz se estructura en tres zonas: (1) área central de video con superposición del esqueleto; (2) panel de métricas en la esquina superior (ángulo y contador); (3) barra inferior de mensajes de retroalimentación. Los bocetos de baja fidelidad (*wireframes*) detallados se incluyen en el Anexo C.
+La interfaz se estructura en tres zonas: (1) área central de video con superposición del esqueleto; (2) panel de métricas en la esquina superior (ángulo y contador); (3) barra inferior de mensajes de retroalimentación. El diagrama de flujo del *pipeline* de procesamiento se describe en la sección 5.2 del Capítulo 5 (arquitectura del sistema).
 
 **Justificación:** El prototipo prioriza la privacidad (procesamiento local, sin envío de video a la nube), la viabilidad técnica (librerías maduras y documentadas) y la fidelidad al concepto: medición y retroalimentación automatizada con hardware mínimo.
 
 ### **3.6. Selección de Prototipo**
 Para justificar formalmente la elección de la Idea C, se utilizó una matriz de selección ponderada con criterios alineados a los objetivos del proyecto y al marco MELDS (Tabla 3).
 
-*Tabla 3. Matriz de selección y evaluación de ideas.*
+*Tabla 3. Matriz de selección y evaluación de ideas.*  
+*Fuente:* Elaboración propia (marco MELDS).
+
 | **Criterio** | **Peso** | **Idea A: App Móvil** | **Idea B: Sistema Web/Cloud** | **Idea C: Software Escritorio (Seleccionada)** |
 | :--- | :--- | :--- | :--- | :--- |
 | **Viabilidad Técnica (Skills)** | 25% | **Alta (8)**. Depende de compatibilidad entre OS móviles. | **Media-Baja (4)**. Complejidad de infraestructura de *streaming* y procesamiento en servidor. | **Alta (9)**. Python, OpenCV y MediaPipe son tecnologías estables y bien documentadas. |
@@ -164,13 +206,13 @@ Para justificar formalmente la elección de la Idea C, se utilizó una matriz de
 | **Potencial de Integración** | 10% | **Media (5)**. Puede integrarse con *wearables*. | **Alta (8)**. Fácil integración con historiales clínicos en la nube. | **Media-Alta (7)**. Puede exportar datos a formatos estándar (CSV) para su uso posterior. |
 | **PUNTAJE TOTAL (Ponderado)** | **100%** | **7.45** | **5.45** | **9.15** |
 
-**Justificación de la Selección:** La Idea C (Software de Escritorio) obtuvo la puntuación más alta, sobre todo en privacidad, accesibilidad y viabilidad técnica, criterios centrales para el MVP en 16 semanas. Resuelve el problema central (supervisión automatizada accesible) de la manera más directa y con menor riesgo técnico, alineándose plenamente con los principios MELDS. La decisión final, por tanto, es proceder con el desarrollo de este prototipo.
+**Justificación de la Selección:** La Idea C (Software de Escritorio) obtuvo la puntuación más alta en privacidad, accesibilidad y viabilidad técnica, criterios centrales para el MVP en 16 semanas. Resuelve el problema de supervisión automatizada accesible de forma directa y con menor riesgo técnico, en línea con los principios MELDS. Se procede así con el desarrollo de este prototipo.
 
 \newpage
 
 ## **4. METODOLOGÍA: SCRUM Y LEAN**
 
-Este capítulo detalla el marco de trabajo ágil y la filosofía de desarrollo que se adoptarán para gestionar y ejecutar el proyecto. La combinación de **Scrum** y **Lean Startup** proporciona una estructura para organizar el trabajo en equipo, priorizar el valor, gestionar la incertidumbre y asegurar que el desarrollo del prototipo se mantenga enfocado, iterativo y basado en evidencia.
+Este capítulo detalla el marco de trabajo ágil y la filosofía de desarrollo que se adoptarán para gestionar y ejecutar el proyecto. La combinación de **Scrum** y **Lean Startup** (Ries, 2011) proporciona una estructura para organizar el trabajo en equipo, priorizar el valor, gestionar la incertidumbre y asegurar que el desarrollo del prototipo se mantenga enfocado, iterativo y basado en evidencia.
 
 ### **4.1. Roles, Artefactos y Eventos**
 El proyecto adopta el marco **Scrum** con responsabilidades claras, entregables concretos y reuniones cíclicas que favorecen la transparencia, la inspección y la adaptación continua.
@@ -192,23 +234,25 @@ El proyecto adopta el marco **Scrum** con responsabilidades claras, entregables 
     *   **Sprint Retrospective (Retrospectiva del Sprint):** Tras la revisión. El equipo reflexiona sobre su forma de trabajar para identificar mejoras de proceso para el siguiente Sprint.
 
 ### **4.2. Backlog Inicial, Estimación y Cadencia**
-El **Backlog Inicial** reúne historias de usuario (*User Stories*) y tareas técnicas, estimadas con puntos de historia por complejidad relativa (escala de Fibonacci: 1, 2, 3, 5, 8). Los **Sprints** serán de una semana, alineados con el cronograma académico de 16 semanas. La priorización se justifica por valor de usuario (primero capacidades core: captura, detección, ángulo, conteo, feedback) y por riesgo técnico (validación y análisis en fases posteriores). Los criterios de aceptación son verificables y permiten un incremento observable por sprint; el detalle completo se documenta en el Anexo B. El backlog priorizado se resume en la Tabla 4.
+El **Backlog Inicial** reúne historias de usuario (*User Stories*) y tareas técnicas, estimadas con puntos de historia por complejidad relativa (escala de Fibonacci: 1, 2, 3, 5, 8). El criterio de asignación de puntos es: 1 = tarea trivial (configuración básica); 2 = simple (una o dos dependencias); 3 = moderada (varios componentes); 5 = compleja (integración o lógica no trivial); 8 = muy compleja o con alta incertidumbre (validación, análisis de datos). Los **Sprints** serán de una semana, alineados con el cronograma académico de 16 semanas. La priorización se justifica por valor de usuario (primero capacidades core: captura, detección, ángulo, conteo, feedback) y por riesgo técnico (validación y análisis en fases posteriores). La Tabla 4 presenta el backlog priorizado con los **criterios de aceptación verificables** por historia, que permiten un incremento observable por sprint.
 
-*Tabla 4. Backlog inicial del producto (priorizado) con criterios de aceptación.*
-| **ID** | **Historia de Usuario / Tarea** | **Como.../Para...** | **Estimación** | **Sprint Objetivo** |
+*Tabla 4. Backlog del producto con criterios de aceptación por historia.*  
+*Fuente:* Elaboración propia (Scrum/Lean).
+
+| **ID** | **Historia / Tarea** | **Criterios de aceptación verificables** | **Puntos** | **Sprint** |
 | :--- | :--- | :--- | :--- | :--- |
-| **US-01** | Configuración del Entorno | **Como** desarrollador, **quiero** un entorno Python configurado con OpenCV y MediaPipe, **para** comenzar el desarrollo de inmediato. | 1 | Sprint 1 |
-| **US-02** | Captura de Video en Tiempo Real | **Como** usuario, **quiero** que el sistema inicie y muestre el video de mi cámara web, **para** asegurarme de que me está viendo. | 2 | Sprint 2 |
-| **US-03** | Visualización del Esqueleto Corporal | **Como** usuario, **quiero** ver mi propio cuerpo con los puntos clave (hombro, codo, cadera) superpuestos en la pantalla, **para** confirmar que el sistema me detecta correctamente. | 3 | Sprint 3 |
-| **US-04** | Cálculo y Visualización de Ángulo | **Como** usuario, **quiero** ver un número que muestre en tiempo real el ángulo de elevación de mi brazo, **para** conocer mi rango de movimiento. | 5 | Sprint 4 |
-| **US-05** | Conteo Automático de Repeticiones | **Como** usuario, **quiero** que el sistema cuente automáticamente cada vez que complete una elevación lateral válida, **para** saber cuántas llevo sin distraerme. | 5 | Sprint 5 |
-| **US-06** | Retroalimentación de Corrección | **Como** usuario, **quiero** recibir un mensaje claro (ej., "Levante más el brazo") cuando mi movimiento sea incorrecto, **para** corregirlo en el momento. | 8 | Sprint 6 |
-| **T-07** | Diseño del Protocolo de Validación | **Como** investigador, **quiero** definir el protocolo experimental con *baseline* (goniómetro), **para** poder validar el sistema. | 3 | Sprint 7 |
-| **T-08** | Pruebas de Validación y Recolección de Datos | **Como** investigador, **quiero** ejecutar el protocolo con sujetos de prueba, **para** obtener métricas de rendimiento. | 8 | Sprint 8 |
-| **T-09** | Análisis de Datos y Generación de Gráficos | **Como** investigador, **quiero** analizar los datos y crear gráficas comparativas, **para** evaluar si el sistema cumple los criterios de éxito. | 5 | Sprint 9 |
-| **US-10** | Exportación de Reportes | **Como** usuario/terapeuta, **quiero** exportar un archivo (CSV/PDF) con mi sesión (repeticiones, ángulos máximos), **para** llevar un registro. | 5 | Sprint 10 (si hay tiempo) |
+| **US-01** | Configuración del Entorno | (1) venv creado; (2) requirements.txt con opencv-python, mediapipe, numpy; (3) script de prueba que importa las librerías sin error; (4) proyecto en Git con estructura /src, /docs, /data. | 1 | 1 |
+| **US-02** | Captura de Video en Tiempo Real | (1) Captura con OpenCV desde cámara por defecto; (2) ventana que muestra video en vivo; (3) cierre correcto al pulsar tecla; (4) resolución 720p o superior configurable. | 2 | 2 |
+| **US-03** | Visualización del Esqueleto Corporal | (1) MediaPipe Pose integrado; (2) dibujo de *landmarks* y conexiones sobre el *frame*; (3) hombro, codo y cadera visibles y estables; (4) integrado con ventana de US-02. | 3 | 3 |
+| **US-04** | Cálculo y Visualización de Ángulo | (1) Cálculo de ángulo de abducción (cadera–hombro–codo) con geometría vectorial; (2) valor en grados visible en pantalla; (3) actualización *frame* a *frame*; (4) código documentado y con pruebas básicas. | 5 | 4 |
+| **US-05** | Conteo Automático de Repeticiones | (1) Máquina de estados que detecta ciclos subida/bajada; (2) umbrales angulares configurables (60° para repetición válida); (3) contador visible que se actualiza al completar repetición; (4) sin falsos positivos/negativos evidentes. | 5 | 5 |
+| **US-06** | Retroalimentación de Corrección | (1) Mensajes de texto según reglas ("Levante más el brazo", "Repetición válida"); (2) criterios basados en umbrales; (3) mensajes en zona dedicada de la GUI; (4) integración con módulo de conteo. | 8 | 6 |
+| **T-07** | Diseño del Protocolo de Validación | (1) Documento con hipótesis, métricas y criterios de éxito; (2) fases: reclutamiento, configuración, ejecución, análisis; (3) materiales: consentimiento informado, hoja de registro, guión; (4) revisión del equipo. | 3 | 7 |
+| **T-08** | Pruebas de Validación y Recolección de Datos | (1) Al menos 5 sujetos sanos reclutados; (2) consentimiento firmado; (3) 3×10 repeticiones por sujeto con goniómetro y grabación; (4) logs CSV y hojas de registro completas; (5) backup de datos. | 8 | 8 |
+| **T-09** | Análisis de Datos y Generación de Gráficos | (1) Script Python que calcula MAE, precisión y latencia; (2) gráficos de dispersión y series temporales; (3) tablas de resumen; (4) informe con resultados y limitaciones. | 5 | 9 |
+| **US-10** | Exportación de Reportes | (1) Exportación a CSV; (2) opción PDF si hay tiempo; (3) archivos en carpeta local; (4) documentado en README. | 5 | 10 |
 
-Los criterios de aceptación detallados por historia se documentan en el Anexo B. **Objetivos e incrementos por sprint:** Cada sprint produce un incremento funcional verificable: Sprints 1–2 (entorno y captura operativa); 3–4 (detección de pose y ángulo visible); 5–6 (conteo y retroalimentación completos); 7 (protocolo de validación); 8–10 (estabilización y exportación); 11–14 (ejecución del protocolo y análisis); 15–16 (documentación final).
+**Objetivos e incrementos por sprint:** Sprints 1–2 (entorno y captura operativa); 3–4 (detección de pose y ángulo visible); 5–6 (conteo y retroalimentación completos); 7 (protocolo de validación); 8–10 (estabilización y exportación); 11–14 (ejecución del protocolo y análisis); 15–16 (documentación final). Cada sprint entrega un incremento verificable: al final del Sprint 4, por ejemplo, el usuario puede ver el ángulo en pantalla; al final del 6, el sistema ofrece retroalimentación de corrección.
 
 ### **4.3. Definiciones de Ready/Done**
 Estas definiciones operativas garantizan la calidad y claridad antes de iniciar y al finalizar cada tarea.
@@ -227,12 +271,13 @@ Estas definiciones operativas garantizan la calidad y claridad antes de iniciar 
     5.  Se ha actualizado la documentación relevante (comentarios en código, README del repositorio).
 
 ### **4.4. Principios Lean, Ciclo Operativo y Métricas**
-La filosofía **Lean** se integra para centrar el esfuerzo en generar valor y eliminar desperdicios. Se aplican tres principios clave:
-1.  **Construir-Medir-Aprender:** Cada Sprint debe producir un incremento funcional (**Construir**), que será medido objetivamente (precisión, latencia) o mediante *feedback* (**Medir**), para extraer aprendizajes que guíen la siguiente iteración (**Aprender**).
-2.  **Validated Learning (Aprendizaje Validado):** Las decisiones de desarrollo (ej., elegir MediaPipe sobre OpenPose) deben estar validadas por experimentos rápidos o *benchmarks* técnicos, no por suposiciones.
-3.  **Innovación Continua (Kaizen):** Se fomenta la mejora continua tanto del producto (en cada Sprint Review) como del proceso (en cada Sprint Retrospective).
+La filosofía **Lean** se integra para centrar el esfuerzo en generar valor y eliminar desperdicios. El ciclo se articula en **cinco etapas** aplicadas en cada Sprint:
 
-**Ciclo Lean aplicado por sprint:** En cada iteración se ejecuta el ciclo operativo siguiente: (1) **Medir:** velocidad (puntos completados), bug rate post-DoD y valor cualitativo del Product Owner; (2) **Instrumento:** tablero de tareas (p. ej. Trello o Jira), repositorio Git con historial de commits, bitácora de pruebas; (3) **Umbrales de ajuste:** si la velocidad cae >20% respecto al promedio de dos sprints previos, se revisa el alcance; si el bug rate supera 2 críticos por historia cerrada, se refuerza el DoD; si el Product Owner califica el incremento por debajo de "valor moderado", se prioriza en el siguiente sprint; (4) **Decisión:** continuar con el plan o ajustar backlog/alcance según los umbrales. De este modo, cada sprint concluye con una decisión explícita de continuar o pivotar.
+1.  **Idear:** Definición o refinamiento del backlog y de las hipótesis a validar (qué se construye y por qué).
+2.  **Construir:** Desarrollo del incremento funcional (código, pruebas, documentación) hasta cumplir el DoD.
+3.  **Medir:** Registro de velocidad (puntos completados), bug rate post-DoD y valor cualitativo del Product Owner. La velocidad se obtendrá del tablero de tareas; el bug rate, del registro de incidencias post-DoD; el valor del incremento, de la evaluación del Product Owner en la Sprint Review.
+4.  **Aprender:** Validated Learning a partir de los datos (decisiones basadas en experimentos o *benchmarks*, no en suposiciones) y mejora continua (Kaizen) en Sprint Retrospective.
+5.  **Decidir:** Continuar con el plan o ajustar backlog/alcance según umbrales: si la velocidad cae >20% respecto al promedio de dos sprints previos se revisa el alcance; si el bug rate supera 2 críticos por historia cerrada se refuerza el DoD; si el Product Owner califica el incremento por debajo de "valor moderado" se prioriza en el siguiente sprint. Cada sprint concluye con esta decisión explícita de continuar o pivotar.
 
 Las **Métricas Lean** que se rastrearán son:
 *   **Velocidad del Equipo:** Promedio de puntos de historia completados por Sprint. Ayuda a prever la capacidad de trabajo futura.
@@ -241,7 +286,7 @@ Las **Métricas Lean** que se rastrearán son:
 *   **Cumplimiento de Criterios de Éxito:** Progreso hacia los umbrales numéricos definidos (MAE < 5°, precisión > 95%), que es la métrica de valor final.
 
 ### **4.5. Herramientas de Seguimiento y Evidencia**
-Para sostener la trazabilidad y demostrar la ejecución del proyecto, el equipo utilizará las siguientes herramientas: (1) **Tablero de tareas** (Trello, Jira o equivalente): visualización del backlog, sprint backlog y estado de cada ítem; (2) **Repositorio Git** (GitHub): código fuente, historial de commits, ramas de características y *pull requests*; (3) **Bitácora o registro de pruebas:** documentación de las pruebas unitarias, de integración y de usabilidad realizadas, con resultados; (4) **Carpeta de evidencias:** capturas de pantalla del prototipo, logs de sesión anonimizados y gráficos de análisis de validación. Estas herramientas permiten auditar el cumplimiento del DoD y la trazabilidad objetivo–evidencia.
+Para sostener la trazabilidad y demostrar la ejecución del proyecto, el equipo utilizará: (1) **Tablero de tareas** (Trello, Jira o equivalente) para el backlog y el estado de cada ítem; (2) **Repositorio Git** (GitHub, https://github.com/amc42357/master) para código fuente, historial de commits, ramas y *pull requests*; (3) **Bitácora o registro de pruebas** con resultados de pruebas unitarias, de integración y de usabilidad; (4) **Carpeta de evidencias** con capturas del prototipo, logs de sesión anonimizados y gráficos de validación. Con ellas se audita el cumplimiento del DoD y la trazabilidad objetivo–evidencia.
 
 \newpage
 
@@ -264,19 +309,27 @@ La implementación se realizará en el plazo estricto de 16 semanas, asignando l
 
 *   **Estimación de Costos:**
     *   **Costos Directos Cero (€0):** Todo el software es de código abierto (Python, OpenCV, MediaPipe, librerías de análisis). No se requiere compra de hardware especializado, asumiendo que el equipo cuenta con una computadora personal y una cámara web (equipos ya disponibles).
-    *   **Costos Indirectos:** Se invertirá aproximadamente **20 horas/semana por integrante** en el proyecto, lo que representa la principal inversión de recursos (tiempo y esfuerzo intelectual). Esta inversión se considera parte del trabajo académico de la maestría.
+    *   **Costos Indirectos:** Se invertirá aproximadamente **20 horas/semana por integrante** en el proyecto (aprox. 20 h × 4 integrantes × 16 semanas = 1 280 h totales; 12 semanas para desarrollo del prototipo y 4 para validación, documentación y entrega). Esta inversión se considera parte del trabajo académico de la maestría.
 
 ### **5.2. Implementación (Arquitectura, Datos, Componentes, Repositorio)**
 El sistema usará una **arquitectura modular monolítica** en Python para facilitar el mantenimiento y la lectura del código.
 
 *   **Arquitectura del Sistema:**
-    ```
-    [Cámara Web] → Módulo de Captura (OpenCV) → Módulo de Detección de Pose (MediaPipe)
-                          ↓
-        [Interfaz Gráfica (GUI)] ← Módulo de Lógica de Aplicación ← Módulo de Cálculo (Geometría)
-        (Visualización + Feedback)  (Control de Estado, Conteo)      (Cálculo de Ángulos)
-                          ↓
-                   [Salida: Video Anotado + Métricas]
+
+    ![Arquitectura modular del sistema](diagrams/arquitectura.png)
+
+    *Figura 1.* Arquitectura modular del sistema de rehabilitación asistida. *Fuente:* Elaboración propia.
+
+    El diagrama se define en Mermaid y puede exportarse a PNG/SVG con `npm run export-diagramas` (o con [Mermaid Live](https://mermaid.live)):
+
+    ```mermaid
+    flowchart TB
+      A[Cámara Web] --> B[Módulo de Captura\nOpenCV]
+      B --> C[Módulo de Detección de Pose\nMediaPipe]
+      C --> D[Módulo de Cálculo\nGeometría]
+      D --> E[Módulo de Lógica de Aplicación\nControl de Estado, Conteo]
+      E --> F[Interfaz Gráfica GUI\nVisualización + Feedback]
+      F --> G[Salida: Video Anotado + Métricas]
     ```
 
 *   **Componentes Tecnológicos Clave:**
@@ -287,19 +340,16 @@ El sistema usará una **arquitectura modular monolítica** en Python para facili
         *   **NumPy:** Para todos los cálculos matemáticos y vectoriales eficientes.
         *   **Pandas & Matplotlib/Seaborn:** Para el análisis de datos de las sesiones de validación y la generación de gráficos.
     *   **Gestión de Datos:** Las sesiones (ángulos por *frame*, repeticiones, timestamps) se almacenan en **CSV** locales. No se guardan videos crudos; solo secuencias anonimizadas para validación, con consentimiento explícito.
-    *   **Repositorio de Código:** Código en **Git** (repositorio privado en GitHub): `/src`, `/docs`, `/data` (CSV de ejemplo, sin datos personales), `/tests` y `README.md`.
+    *   **Repositorio de Código:** Código en **Git** (GitHub): https://github.com/amc42357/master — estructura: `/src`, `/docs`, `/data` (CSV de ejemplo, sin datos personales), `/tests` y `README.md`. Antes de la entrega final, el repositorio contendrá al menos la estructura de carpetas indicada, el README con instrucciones de instalación y ejecución, y el archivo `requirements.txt`.
 
 ### **5.3. Despliegue (Entorno, Seguridad, Contingencia)**
-*   **Entorno de Despliegue:** El MVP está diseñado para ejecutarse localmente en sistemas operativos **Windows 10/11** y **macOS** (y potencialmente Linux). Se entregará como un script Python ejecutable, con instrucciones claras para instalar dependencias vía `requirements.txt`.
+*   **Entorno de Despliegue:** El MVP está diseñado para ejecutarse localmente en sistemas operativos **Windows 10/11** y **macOS** (y potencialmente Linux). Se entregará como un script Python ejecutable, con instrucciones claras para instalar dependencias vía `requirements.txt`. Se establecerán dos entornos: desarrollo (para programación y pruebas) y producción (para la versión estable durante la validación final), garantizando la integridad de la versión evaluada.
 *   **Seguridad y Privacidad:** La privacidad constituye un pilar del diseño. Al ejecutarse **íntegramente en la computadora local**, se garantiza que:
     1.  El video del paciente nunca abandona su dispositivo.
     2.  No hay dependencia de conexión a Internet durante el uso.
     3.  Los datos de rendimiento (CSV) se guardan localmente, bajo el control total del usuario.
     4.  Se implementará un mensaje claro de consentimiento informado al iniciar la aplicación por primera vez.
-*   **Plan de Contingencia:** Los principales riesgos son técnicos (inestabilidad de MediaPipe en ciertas poses o iluminación). La contingencia incluye:
-    1.  **Backup de código:** Commits diarios y ramas de características en Git.
-    2.  **Fallback visual:** Si la detección de pose falla, la GUI mostrará un mensaje claro indicando cómo re-posicionarse, en lugar de fallar silenciosamente.
-    3.  **Documentación de errores:** Un archivo `KNOWN_ISSUES.md` documentará limitaciones conocidas.
+*   **Plan de Contingencia:** Los principales riesgos son técnicos (inestabilidad de MediaPipe en ciertas poses o iluminación). La contingencia incluye: (1) **Backup de código:** Commits diarios y ramas de características en Git; (2) **Fallback visual:** Si la detección de pose falla, la GUI mostrará un mensaje claro indicando cómo re-posicionarse; (3) **Procedimientos de recuperación:** Reinstalación del entorno, ajustes de configuración y pruebas de diagnóstico para restablecer el funcionamiento; (4) **Documentación de errores:** Archivo `KNOWN_ISSUES.md` con limitaciones conocidas. En caso de almacenamiento temporal de datos para pruebas, se aplicará control de acceso al equipo y eliminación posterior de registros.
 
 ### **5.4. Mantenimiento (Cambios, Versionado)**
 *   **Estrategia de Versionado:** Se seguirá **Versionado Semántico (SemVer)** para posibles releases futuras: `MAJOR.MINOR.PATCH` (ej., v1.0.0 para el MVP final). Los cambios se gestionarán a través de ramas en Git y *Pull Requests*.
@@ -307,7 +357,7 @@ El sistema usará una **arquitectura modular monolítica** en Python para facili
     1.  La adición de nuevos ejercicios (p. ej., flexión de codo) mediante módulos.
     2.  La mejora de la GUI con librerías más avanzadas (p. ej., Tkinter, PyQt).
     3.  La integración de un perfil de usuario simple para guardar historiales.
-*   **Sostenibilidad:** La dependencia de tecnologías de código abierto maduras (Python, OpenCV) asegura que el prototipo no quedará obsoleto rápidamente y podrá ser ejecutado en equipos futuros.
+*   **Sostenibilidad:** La dependencia de tecnologías de código abierto maduras (Python, OpenCV) asegura que el prototipo no quedará obsoleto rápidamente y podrá ser ejecutado en equipos futuros. El ciclo de vida contempla una fase inicial de desarrollo y validación técnica, seguida de mejoras incrementales basadas en los resultados obtenidos.
 
 \newpage
 
@@ -336,7 +386,9 @@ Se usan métricas estándar en visión por computadora y evaluación de sistemas
 *   **Latencia del Sistema:** Se medirá como el tiempo transcurrido entre un evento de movimiento claramente definido (ej., el instante en que la mano pasa por un punto de referencia marcado) y la actualización correspondiente en la interfaz de usuario (ej., cambio en el contador o aparición de un mensaje de corrección). Se medirá utilizando marcas de tiempo de alta resolución.
     *   **Criterio de Éxito:** Latencia < 150 ms.
 
-*Tabla 5. Resumen de métricas, baselines y criterios de éxito.*
+*Tabla 5. Resumen de métricas, baselines y criterios de éxito.*  
+*Fuente:* Elaboración propia (protocolo experimental).
+
 | **Métrica** | **Definición** | **Baseline / Método de Referencia** | **Criterio de Éxito para la Validación** |
 | :--- | :--- | :--- | :--- |
 | **Error Angular (MAE)** | Diferencia promedio absoluta entre el ángulo medido por el sistema y el ángulo de referencia. | Medición con goniómetro manual estándar por un evaluador. | **MAE ≤ 5.0°** |
@@ -345,11 +397,13 @@ Se usan métricas estándar en visión por computadora y evaluación de sistemas
 | **Robustez (Cualitativa)** | Capacidad del sistema de funcionar bajo variaciones de iluminación y vestimenta. | Observación y registro de fallos durante las pruebas en condiciones diversas. | Funcionamiento estable en al menos 3 condiciones de iluminación diferentes. |
 
 ### **6.3. Protocolo Experimental**
-El protocolo persigue reproducibilidad y validez interna. Fases:
+El protocolo persigue reproducibilidad y validez interna. **Lista de verificación previa:** (a) equipo: cámara web, goniómetro, PC con prototipo instalado; (b) software: Python, OpenCV, MediaPipe, script de validación; (c) sala: iluminación uniforme, fondo neutro, espacio de 2 m frente a la cámara; (d) materiales: consentimiento informado, hoja de registro. **Hoja de registro (plantilla):** tabla con columnas sujeto, serie, repetición, ángulo goniómetro (°), timestamp; fila adicional para conteo humano por serie. **Guión estandarizado:** instrucciones verbales consistentes sobre el ejercicio (elevación lateral del brazo, ritmo con metrónomo 1 rep/3 s). **Sincronización de datos:** timestamps del log CSV se emparejarán con las mediciones manuales; backup de archivos en carpeta definida.
+
+**Fases del protocolo:**
 
 **1. Preparación y Reclutamiento:**
-*   Se reclutarán **5 sujetos sanos adultos** (3 hombres, 2 mujeres) mediante muestreo por conveniencia, todos diestros y sin historial de patología en el hombro derecho. La elección de sujetos sanos para esta fase de validación técnica es estándar, ya que permite controlar variables y establecer la precisión base del sistema antes de pruebas con pacientes clínicos.
-*   Cada participante firmará un **formulario de consentimiento informado** (ver Anexo A) que detalla el propósito académico, el anonimato de sus datos y el procesamiento local de las imágenes.
+*   Se reclutarán **5 sujetos sanos adultos** (3 hombres, 2 mujeres) mediante muestreo por conveniencia, todos diestros y sin historial de patología en el hombro derecho. El tamaño n=5 se considera adecuado para una prueba de concepto técnica y para estimar MAE y precisión de forma exploratoria, en línea con estudios similares de validación de sistemas de pose (Debnath et al., 2021). La elección de sujetos sanos para esta fase de validación técnica es estándar, ya que permite controlar variables y establecer la precisión base del sistema antes de pruebas con pacientes clínicos.
+*   Cada participante firmará un **formulario de consentimiento informado** que incluirá explícitamente: objetivo del estudio (validación técnica de un sistema de visión por computadora para rehabilitación), descripción de la participación (grabación en video para análisis técnico), garantías de anonimato y procesamiento local de imágenes (ningún video abandona el dispositivo), riesgos y beneficios, y declaración de consentimiento voluntario.
 
 **2. Configuración y Calibración:**
 *   El sujeto se colocará de pie a 2 metros de una cámara web Logitech C920 (1080p, 30 FPS), con iluminación ambiente uniforme.
@@ -386,7 +440,9 @@ La aplicación de **Design Thinking** permitió anclar la solución en las neces
 
 **Scrum** y **Lean Startup** estructuran un plan de ejecución realista: desarrollo del prototipo (Python, OpenCV, MediaPipe) en 16 semanas, con entregas incrementales y un **MVP** bien acotado.
 
-El diseño experimental aporta hipótesis comprobables, métricas objetivas (MAE ≤ 5°, precisión ≥ 95%) y *baseline* con goniómetro, de modo que el proyecto va más allá de la mera descripción y puede generar evidencia reproducible. En conjunto, la propuesta resulta viable técnicamente y pertinente para ampliar el acceso a rehabilitación de calidad.
+El diseño experimental aporta hipótesis comprobables, métricas objetivas (MAE ≤ 5°, precisión ≥ 95%) y *baseline* con goniómetro, de modo que el proyecto puede generar evidencia reproducible. La propuesta resulta viable técnicamente y pertinente para ampliar el acceso a rehabilitación de calidad.
+
+En relación con los objetivos planteados: el objetivo general se cumple mediante el prototipo descrito y su validación con MAE y precisión frente a goniómetro y conteo humano; los objetivos específicos 1 a 3 se materializan en el código y la GUI (módulo de pose, análisis cinemático, interfaz con retroalimentación); el objetivo 4, en el protocolo del Capítulo 6 y los resultados de las pruebas; el objetivo 5, en el repositorio con documentación actualizada, README, requirements.txt y este informe de validación.
 
 ### **7.2. Limitaciones y Trabajo Futuro**
 
@@ -404,66 +460,33 @@ La propuesta tiene limitaciones claras que conviene tener presentes:
     4.  **Integración con Historial Clínico Electrónico (HCE):** Diseño de un módulo de exportación segura de datos (usando estándares como FHIR) que permita al sistema enviar reportes estructurados de progreso directamente a la historia clínica del paciente, facilitando la supervisión remota del terapeuta.
     5.  **Investigación de Robustez Técnica:** Experimentación con técnicas de **aprendizaje por transferencia** (*transfer learning*) para afinar el modelo de estimación de pose (MediaPipe) con datos de pacientes con movimientos atípicos, mejorando su precisión en condiciones reales.
 
-El proyecto funciona como punto de partida para abordar un problema de salud complejo con un enfoque pragmático y centrado en el usuario. Las líneas de trabajo futuro apuntan a llevar esta innovación hacia una solución tecnológica que contribuya a la recuperación y la calidad de vida de personas post-ACV.
+El proyecto sirve de punto de partida para abordar un problema de salud complejo con un enfoque pragmático y centrado en el usuario; las líneas de trabajo futuro apuntan a una solución tecnológica que contribuya a la recuperación y la calidad de vida de personas post-ACV.
 
 \newpage
 
 ## **8. REFERENCIAS**
 
-American Psychological Association. (2020). *Publication manual of the American Psychological Association* (7th ed.).
+American Psychological Association. (2020). *Publication manual of the American Psychological Association* (7.ª ed.).
 
 Basteris, A., Nijenhuis, S. M., Stienen, A. H., Buurke, J. H., Prange, G. B., & Amirabdollahian, F. (2014). Training modalities in robot-mediated upper limb rehabilitation in stroke: A framework for classification based on a systematic review. *Journal of NeuroEngineering and Rehabilitation, 11*(1), 111. https://doi.org/10.1186/1743-0003-11-111
 
 Cao, Z., Hidalgo, G., Simon, T., Wei, S.-E., & Sheikh, Y. (2021). OpenPose: Realtime multi-person 2D pose estimation using part affinity fields. *IEEE Transactions on Pattern Analysis and Machine Intelligence, 43*(1), 172–186. https://doi.org/10.1109/TPAMI.2019.2929257
 
-Debnath, B., O'Brien, M., Yamaguchi, M., & Behera, A. (2021). A review of computer vision-based approaches for physical rehabilitation and assessment. *Multimedia Systems*, *28*, 209–239. https://doi.org/10.1007/s00530-021-00815-4
+Debnath, B., O'Brien, M., Yamaguchi, M., & Behera, A. (2021). A review of computer vision-based approaches for physical rehabilitation and assessment. *Multimedia Systems, 28*, 209–239. https://doi.org/10.1007/s00530-021-00815-4
 
 Esteva, A., Robicquet, A., Ramsundar, B., Kuleshov, V., DePristo, M., Chou, K., Cui, C., Corrado, G., Thrun, S., & Dean, J. (2019). A guide to deep learning in healthcare. *Nature Medicine, 25*(1), 24–29. https://doi.org/10.1038/s41591-018-0316-z
 
 Instituto Nacional de Estadística y Geografía. (2021). *Estadísticas de defunciones registradas 2020*. https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2021/EstSociodemo/DefuncionesRegistradas2020_Pnles.pdf
 
-Langhorne, P., Bernhardt, J., & Kwakkel, G. (2011). Stroke rehabilitation. *The Lancet*, *377*(9778), 1693–1702. https://doi.org/10.1016/S0140-6736(11)60325-5
+Langhorne, P., Bernhardt, J., & Kwakkel, G. (2011). Stroke rehabilitation. *The Lancet, 377*(9778), 1693–1702. https://doi.org/10.1016/S0140-6736(11)60325-5
 
-Laver, K. E., Adey-Wakeling, Z., Crotty, M., Lannin, N. A., George, S., & Sherrington, C. (2020). Telerehabilitation services for stroke. *Cochrane Database of Systematic Reviews, 1*(1), CD010255. https://doi.org/10.1002/14651858.CD010255.pub3
+Laver, K. E., Adey-Wakeling, Z., Crotty, M., Lannin, N. A., George, S., & Sherrington, C. (2020). Telerehabilitation services for stroke. *Cochrane Database of Systematic Reviews, 2020*(1), CD010255. https://doi.org/10.1002/14651858.CD010255.pub3
 
-Organización Mundial de la Salud (OMS). (2017). *Rehabilitation in health systems*. https://apps.who.int/iris/handle/10665/254506
+National Institute of Neurological Disorders and Stroke. (2020). *Post-stroke rehabilitation*. National Institutes of Health. https://www.ninds.nih.gov/health-information/stroke/recovery
+
+Organización Mundial de la Salud. (2017). *Rehabilitation in health systems*. https://iris.who.int/handle/10665/254506
+
+Ries, E. (2011). *The Lean Startup: How today's entrepreneurs use continuous innovation to create radically successful businesses*. Crown Currency.
 
 Saposnik, G., Cohen, L. G., Mamdani, M., Pooyania, S., Ploughman, M., Cheung, D., Shaw, J., Hall, J., Nord, P., Dukelow, S., Nilanont, Y., De Los Rios, F., Olmos, L., Levin, M., Teasell, R., Cohen, A., Thorpe, K., Laupacis, A., & Bayley, M. (2016). Efficacy and safety of non-immersive virtual reality exercising in stroke rehabilitation (EVREST): A randomised, multicentre, single-blind, controlled trial. *The Lancet Neurology, 15*(10), 1019–1027. https://doi.org/10.1016/S1474-4422(16)30121-1
 
-\newpage
-
-## **9. ANEXOS**
-
-Los anexos se detallan en documentos independientes en la carpeta `anexos/`. A continuación se describe el contenido de cada uno.
-
-**Anexo A: Formulario de Consentimiento Informado para Participantes en la Fase de Validación**
-Documento modelo que será presentado a los sujetos sanos reclutados para la prueba experimental. Incluirá: objetivo del estudio, descripción de la participación (grabación en video para análisis técnico), garantías de anonimato y procesamiento local de datos, riesgos y beneficios, y declaración de consentimiento voluntario.
-
-**Anexo B: Backlog Completo del Producto y Planificación de Sprints**
-Tabla detallada que expande la presentada en el Capítulo 4. Incluirá todas las historias de usuario (US) y tareas técnicas (T) desglosadas, con su identificación única (ID), descripción completa, criterios de aceptación, puntos de historia asignados y el Sprint en el que fueron planificadas y completadas.
-
-**Anexo C: Diagramas de Arquitectura y Bocetos de Interfaz (Wireframes)**
-Ilustraciones técnicas que complementan la descripción textual del Capítulo 5.
-1.  Diagrama de flujo detallado del *pipeline* de procesamiento del sistema.
-2.  Bocetos de baja fidelidad (*wireframes*) de la interfaz gráfica principal, mostrando la disposición de los elementos: ventana de video, superposición del esqueleto, panel de métricas en tiempo real (ángulo, contador) y área de mensajes de retroalimentación.
-
-**Anexo D: Protocolo Experimental Operativo**
-Documento paso a paso utilizado durante la fase de validación (Capítulo 6). Contendrá:
-1.  Lista de verificación (*checklist*) de preparación (equipo, software, sala).
-2.  Guión estandarizado de instrucciones para los participantes.
-3.  Plantilla de hoja de registro en papel para las mediciones manuales con goniómetro y conteo humano.
-4.  Procedimiento para la sincronización de datos y el backup de archivos.
-
-**Anexo E: Ejemplos de Salida del Sistema y Datos Crudos (Anonimizados)**
-Muestra representativa y anonimizada de los datos generados por el prototipo, destinada a ilustrar su funcionamiento.
-1.  Captura de pantalla del sistema en funcionamiento durante una repetición.
-2.  Extracto de un archivo de log CSV generado por el sistema, mostrando las columnas de datos (timestamp, coordenadas, ángulo calculado, estado de la repetición).
-3.  Ejemplo de un gráfico de evolución del ángulo en el tiempo generado por el módulo de análisis (usando Matplotlib/Seaborn).
-
-**Anexo F: Repositorio de Código y Documentación Técnica**
-Este anexo consistirá en una nota que indica la URL del repositorio Git privado donde residirá el código fuente completo del proyecto. Se hará referencia a que el repositorio contiene:
-1.  El código fuente comentado de todos los módulos.
-2.  El archivo `README.md` con instrucciones de instalación y uso.
-3.  El archivo `requirements.txt` con las dependencias de Python.
-4.  Los scripts de análisis de datos utilizados en la validación.
-*(Nota: La URL real se insertará al momento de la entrega final del proyecto).*

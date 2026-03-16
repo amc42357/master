@@ -1,0 +1,20 @@
+flowchart LR
+  subgraph entrada [Entrada]
+    U[Usuario inicia]
+    C[Captura cámara web]
+  end
+  subgraph procesamiento [Procesamiento]
+    P[Detección pose MediaPipe]
+    A[Cálculo ángulo]
+    M[Máquina de estados / conteo]
+  end
+  subgraph salida [Salida]
+    V[Video + esqueleto]
+    R[Ángulo, contador, mensajes]
+  end
+  U --> C
+  C --> P
+  P --> A
+  A --> M
+  M --> V
+  M --> R

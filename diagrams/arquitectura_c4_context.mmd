@@ -1,0 +1,11 @@
+C4Context
+    title Contexto del sistema - Rehabilitación motriz asistida por CV
+
+    Person(paciente, "Paciente", "Usuario que realiza ejercicios de rehabilitación de hombro en domicilio")
+    System(sistema, "Sistema de rehabilitación asistida", "Prototipo que captura video, estima pose, calcula ángulos y repeticiones y ofrece retroalimentación visual")
+
+    System_Ext(camara, "Cámara web", "Dispositivo de captura de video estándar")
+
+    Rel(paciente, camara, "Proporciona video")
+    Rel(paciente, sistema, "Usa")
+    Rel(camara, sistema, "Envía flujo de video")
