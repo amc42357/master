@@ -133,7 +133,7 @@ Propuesta de trabajo de innovación\\
 {\sffamily\bfseries Abstract}
 \end{center}
 \vspace{0.5em}
-\noindent Motor rehabilitation after stroke faces barriers of access and lack of objective supervision at home. This work proposes a software prototype based on computer vision and machine learning to assist home-based shoulder exercises for post-stroke patients. The system uses a conventional webcam, OpenCV and MediaPipe Pose for 2D pose estimation, computes shoulder abduction angle and repetition count in real time, and provides visual feedback. The design is grounded in Design Thinking (empathy, HMW challenge, state of the art, MVP selection) and agile methodologies (Scrum and Lean Startup). Technical validation will be carried out by comparison with goniometer and human count, with success criteria MAE $\leq$ 5° and precision $\geq$ 95\,\%. We conclude that the combination of open-source CV and AI can provide accessible objective supervision with consumer hardware.
+\noindent Motor rehabilitation after stroke faces barriers of access and lack of objective supervision at home. This work proposes a software prototype based on computer vision and machine learning to assist home-based shoulder exercises for post-stroke patients. The system uses a conventional webcam, OpenCV and MediaPipe Pose for 2D pose estimation, computes shoulder abduction angle and repetition count in real time, and provides visual feedback. The design is grounded in Design Thinking (empathy, HMW challenge, state of the art, MVP selection) and agile methodologies (Scrum and Lean Startup). Technical validation will be carried out by comparison with goniometer and human count, with success criteria MAE $\leq$ 5° and precision $\geq$ 95\,\%. It is concluded that the combination of open-source CV and AI can provide accessible objective supervision with consumer hardware.
 
 \vspace{0.8em}
 \noindent Keywords: motor rehabilitation, stroke, computer vision, pose estimation, MediaPipe, telerehabilitation, Design Thinking, Scrum.
@@ -188,17 +188,32 @@ El cuerpo del documento comprende siete secciones numeradas (1--7), seguidas de 
 \section{Objetivos}
 
 \subsection{Objetivo general}
-Desarrollar un prototipo de software basado en visión por computadora y aprendizaje automático que asista la ejecución domiciliaria de ejercicios de rehabilitación de hombro para pacientes post-ACV. El prototipo utilizará captura con cámara convencional, cálculo de métricas objetivas (ángulo articular y conteo de repeticiones) y retroalimentación visual en tiempo real, con el propósito de ofrecer una herramienta accesible, de bajo costo y trazable que complemente la terapia tradicional. El logro se verificará validando su precisión frente a goniómetro y conteo humano (MAE $\leq$ 5°, precisión $\geq$ 95\,\%).
+Desarrollar un prototipo de software basado en visión por computadora que asista la ejecución domiciliaria de ejercicios de rehabilitación de hombro para pacientes post-ACV, verificando su precisión técnica mediante la comparación con un goniómetro y conteo humano para lograr un Error Absoluto Medio (MAE) $\leq$ 5° y una precisión $\geq$ 95\,\%.
 
 \subsection{Objetivos específicos}
-Para lograr el objetivo general, se establecen los siguientes objetivos específicos, redactados como acciones medibles y verificables. Cada uno concluye con la evidencia esperada que permitirá confirmar su cumplimiento:
+Para lograr el objetivo general, se establecen los siguientes objetivos específicos, con evidencia esperada asociada:
 
 \begin{itemize}
-  \item Implementar un módulo de estimación de pose humana en 2D que detecte de forma estable las coordenadas de 33 puntos anatómicos clave (hombro, codo, cadera y torácicos) desde el flujo de video de una cámara web con MediaPipe Pose. Evidencia: módulo funcional integrado que procesa video en tiempo real y entrega coordenadas normalizadas de los landmarks.
-  \item Desarrollar algoritmos de análisis cinemático que calculen en tiempo real el ángulo de abducción del hombro con geometría vectorial (cadera--hombro--codo) e identifiquen ciclos de movimiento mediante máquina de estados con umbrales configurables. Evidencia: funciones probadas que devuelven ángulo en grados y estado del ciclo (subida/bajada) por frame.
-  \item Integrar un sistema de interfaz y retroalimentación que muestre video en vivo con esqueleto superpuesto, ángulo actual, contador de repeticiones y mensajes correctivos según umbrales. Evidencia: ventana gráfica operativa con los cuatro elementos integrados y mensajes de guía visibles.
-  \item Validar el rendimiento del prototipo comparando las métricas del sistema (ángulo máximo por repetición, conteo) contra goniómetro y conteo humano, cuantificando MAE y precisión. Evidencia: informe con valores de MAE y precisión, tabla comparativa y conclusiones sobre el cumplimiento de los criterios (MAE $\leq$ 5°, precisión $\geq$ 95\,\%).
-  \item Documentar el proceso, el código y los resultados con manual de uso, justificación de decisiones de diseño, código fuente comentado en repositorio Git e informe de validación. Evidencia: repositorio con README, requirements.txt y documentación actualizada; informe de validación con resultados y limitaciones.
+  \item Implementar un módulo de estimación de pose humana en 2D que detecte de forma estable las coordenadas de puntos anatómicos clave desde el flujo de video de una cámara web con MediaPipe Pose.
+  \begin{itemize}
+    \item \textit{Evidencia esperada:} módulo funcional integrado que procesa video en tiempo real.
+  \end{itemize}
+  \item Desarrollar algoritmos de análisis cinemático que calculen en tiempo real el ángulo de abducción del hombro (geometría vectorial cadera--hombro--codo) e identifiquen ciclos de movimiento.
+  \begin{itemize}
+    \item \textit{Evidencia esperada:} funciones probadas que devuelven ángulo en grados y estado del ciclo por frame.
+  \end{itemize}
+  \item Integrar un sistema de interfaz y retroalimentación que muestre video anotado, ángulo actual, contador de repeticiones y mensajes correctivos.
+  \begin{itemize}
+    \item \textit{Evidencia esperada:} ventana gráfica operativa con los cuatro elementos integrados.
+  \end{itemize}
+  \item Validar el rendimiento del prototipo comparando sus métricas contra un goniómetro y conteo humano.
+  \begin{itemize}
+    \item \textit{Evidencia esperada:} informe con valores de MAE, precisión y conclusiones sobre el cumplimiento de los criterios.
+  \end{itemize}
+  \item Documentar el proceso, el código y los resultados en un repositorio Git con un informe de validación.
+  \begin{itemize}
+    \item \textit{Evidencia esperada:} repositorio con README, código comentado e informe de validación.
+  \end{itemize}
 \end{itemize}
 
 \clearpage
@@ -210,7 +225,9 @@ El capítulo aplica Design Thinking en seis etapas para definir la solución, an
 \subsection{Empatizar}
 La etapa de empatía se centró en comprender en profundidad las experiencias, frustraciones y aspiraciones de los dos usuarios principales: el paciente post-ACV y el terapeuta rehabilitador.
 
-Método y análisis. No se realizaron entrevistas ni encuestas por el alcance y plazo del proyecto; el análisis documental estructurado se consideró suficiente para identificar pains/gains y fundamentar el reto HMW en esta fase de propuesta. Se aplicaron los siguientes criterios: (a) búsqueda en bases académicas (PubMed, IEEE Xplore, Scopus) con términos clave \textit{stroke rehabilitation}, \textit{telerehabilitation}, \textit{computer vision}, \textit{pose estimation}, período 2014--2024; (b) revisión de guías clínicas (OMS, Langhorne et al., Laver et al.) sobre rehabilitación post-ACV y telerrehabilitación; (c) categorización de necesidades en pains (dolores) y gains (ganancias) según perfiles de usuario; (d) triangulación de hallazgos entre literatura clínica y reportes de tecnologías existentes (Debnath et al., 2021; Saposnik et al., 2016). El proceso permitió identificar los hallazgos clave que se resumen en la Tabla~\ref{tab:empatizar}.
+Método y análisis. La búsqueda bibliográfica se realizó en las bases de datos PubMed, IEEE Xplore y Scopus, combinando términos MeSH y palabras clave: (\textit{stroke rehabilitation} OR \textit{post-stroke}) AND (\textit{computer vision} OR \textit{pose estimation} OR \textit{MediaPipe}) AND (\textit{home-based} OR \textit{telerehabilitation}). El período se limitó a publicaciones entre 2020 y 2026 para favorecer la actualidad, con énfasis en 2024--2026 en inteligencia artificial aplicada a la rehabilitación. En paralelo se revisaron guías y síntesis clínicas (OMS, Langhorne et al., Laver et al.) y se categorizaron necesidades en pains y gains por perfil de usuario, triangulando literatura clínica y reportes tecnológicos (Debnath et al., 2021; Saposnik et al., 2016).
+
+Para complementar el análisis documental y anclar los pains/gains en evidencia obtenida con participantes (datos primarios publicados), se analizó en profundidad el estudio de factibilidad de Unger et al. (2025), publicado en \textit{Frontiers in Medicine}. Los autores reclutaron a 20 personas con ictus y deterioro leve a moderado del miembro superior, que ejecutaron una tarea funcional de beber registrada con cámara web de consumo y otras cámaras, con un sistema de captura óptica de movimiento como referencia cinemática; las secuencias fueron etiquetadas por terapeutas respecto a la presencia de compensaciones, se extrajeron poses con MediaPipe y se entrenaron modelos de aprendizaje profundo sobre los keypoints. Ese diseño aporta hallazgos cuantitativos alineados con las necesidades detectadas en la literatura secundaria.
 
 Para el paciente: dolor --- acceso limitado y costoso a terapia presencial continua, desmotivación y falta de adherencia por monotonía y ausencia de retroalimentación inmediata, incertidumbre sobre la corrección de los ejercicios domiciliarios; ganancia --- autonomía para ejercitarse en casa, guía y confirmación del movimiento, progreso tangible y sistema accesible sin alta inversión. Para el terapeuta: dolor --- imposibilidad de supervisar de forma objetiva y continua la rehabilitación domiciliaria, carga administrativa alta, dificultad para cuantificar rango de movimiento o repeticiones efectivas; ganancia --- datos objetivos y automatizados, ajuste del tratamiento basado en evidencia cuantitativa, optimización del tiempo de consulta. Estudios recientes indican que tecnologías como la realidad virtual pueden aumentar la adherencia del paciente, aunque no siempre se traducen en mejoras clínicas significativas superiores a la terapia convencional (Saposnik et al., 2016).
 
@@ -219,25 +236,29 @@ Para el paciente: dolor --- acceso limitado y costoso a terapia presencial conti
 \label{tab:empatizar}
 \small
 \centering
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{@{}p{2.8cm}p{5cm}p{5cm}@{}}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}p{2.5cm}p{4.7cm}p{4.7cm}@{}}
 \toprule
-Usuario & Dolor & Ganancia \\
+Usuario / foco & Dolor & Ganancia \\
 \midrule
 Paciente post-ACV & Acceso limitado a terapia; desmotivación y baja adherencia; incertidumbre sobre la corrección del ejercicio domiciliario. & Autonomía en casa; guía y confirmación del movimiento; progreso tangible; sistema accesible y de bajo costo. \\
 \addlinespace
 Terapeuta & Imposibilidad de supervisar y cuantificar el trabajo domiciliario; carga administrativa. & Datos objetivos automatizados; ajuste del tratamiento con evidencia; optimización del tiempo de consulta. \\
+\addlinespace
+Evidencia empírica (Unger et al., 2025) --- paciente & La detección entre personas no generalizó bien: con keypoints crudos de MediaPipe, la precisión interindividual rondó el 50\,\%; la clasificación dentro de la misma persona superó típicamente el 90\,\%. & Refuerza la necesidad de enfoques personalizables o adaptables y de características más informativas que los keypoints crudos. \\
+\addlinespace
+Evidencia empírica (Unger et al., 2025) --- terapeuta / supervisión & Las etiquetas clínicas y el uso de visión por computadora aún dejan una tarea difícil: los modelos interpersonales con señal MediaPipe sola quedaron en torno al 50\,\% de acierto hasta incorporar ingeniería de características o datos de referencia más ricos (OMC). & Subraya la dificultad de la supervisión automatizada y el valor de sistemas bien calibrados y trazables en domicilio. \\
 \bottomrule
 \end{tabular}\\
 \renewcommand{\arraystretch}{1.35}
 \vspace{4pt}
-\raggedright\footnotesize Fuente: Elaboración propia a partir de OMS, Langhorne et al., Laver et al., Debnath et al. (2021) y Saposnik et al. (2016).
+\raggedright\footnotesize Fuente: elaboración propia a partir de OMS, Langhorne et al., Laver et al., Debnath et al. (2021), Saposnik et al. (2016) y Unger et al. (2025).
 \end{table}
 \vspace{0.6em}
 
 Esta comprensión estableció la base humana del proyecto: la necesidad de un puente tecnológico confiable entre la clínica y el hogar.
 
-Como complemento al análisis documental, se contempla una fuente primaria (entrevista semiestructurada con un experto en rehabilitación u observación estructurada en sesión de rehabilitación) para triangular o validar los hallazgos de pains y ganancias. El método previsto incluye: instrumento (guion de entrevista o ficha de observación), muestra (p. ej. 1 experto o 1 sesión), y procedimiento (realización, registro y síntesis). Los resultados de la fuente primaria se documentan en el Anexo~C.
+Además de la evidencia publicada, cabe la posibilidad de un refuerzo con fuente primaria local (entrevista semiestructurada a un experto en rehabilitación u observación estructurada de sesión), siguiendo guion o ficha, registro y síntesis; la decisión y el registro metodológico se recogen en el Anexo~C.
 
 Trazabilidad narrativa. Los hallazgos de la Tabla~\ref{tab:empatizar} derivaron en el reto HMW (Definir); los criterios de éxito se alinearon con las ganancias identificadas (accesibilidad, precisión, retroalimentación, trazabilidad); la selección del prototipo (Idea C) se sustentó en esos criterios mediante la matriz ponderada. El flujo hallazgos -- reto -- criterios -- decisiones del MVP queda así trazado (Figura~\ref{fig:flujo}).
 
@@ -255,7 +276,7 @@ Trazabilidad narrativa. Los hallazgos de la Tabla~\ref{tab:empatizar} derivaron 
 Sintetizando los hallazgos de la empatía, se formuló el siguiente reto de diseño, estructurado como una pregunta ``How Might We?'' (¿Cómo podríamos?):
 
 \begin{quote}
-\small ¿Cómo podríamos proporcionar a los pacientes post-ACV una herramienta de rehabilitación motriz domiciliaria que sea tan accesible como una cámara web, pero que ofrezca una supervisión y retroalimentación objetiva comparable a la guía inicial de un terapeuta, para mejorar la confianza, la adherencia y la calidad del ejercicio?
+\small ¿Cómo podría lograrse que los pacientes post-ACV dispongan de una herramienta de rehabilitación motriz domiciliaria tan accesible como una cámara web, pero con supervisión y retroalimentación objetiva comparable a la guía inicial de un terapeuta, de modo que mejoren la confianza, la adherencia y la calidad del ejercicio?
 \end{quote}
 
 A partir de este reto se derivaron los Criterios de Éxito iniciales para la solución:
@@ -298,7 +319,9 @@ Apps móviles instructivas & Videos y recordatorios. & Muy accesibles, bajo cost
 \end{table}
 \vspace{0.6em}
 
-Conclusión del análisis. Hay una brecha entre soluciones de alta tecnología (robótica, VR), costosas y complejas, y otras muy accesibles (apps, videos) pero sin supervisión inteligente. La propuesta apunta a ese hueco: una ``supervisión inteligente accesible'' que permita análisis automático del movimiento con hardware estándar. La solución aquí seleccionada combina cámara 2D, procesamiento local y criterios de validación cuantitativos explícitos (MAE $\leq$ 5°, precisión $\geq$ 95\,\%) en un único prototipo orientado al ámbito domiciliario. Un desglose detallado de métricas y limitaciones por estudio del estado del arte puede documentarse en el Anexo~D cuando se complete la revisión de las fuentes.
+Conclusión del análisis. Hay una brecha entre soluciones de alta tecnología (robótica, VR), costosas y complejas, y otras muy accesibles (apps, videos) pero sin supervisión inteligente. La propuesta apunta a ese hueco: una ``supervisión inteligente accesible'' que permita análisis automático del movimiento con hardware estándar. La solución aquí seleccionada combina cámara 2D, procesamiento local y criterios de validación cuantitativos explícitos (MAE $\leq$ 5°, precisión $\geq$ 95\,\%) en un único prototipo orientado al ámbito domiciliario.
+
+En el ámbito específico de la \textbf{estimación de pose para rehabilitación}, Shukla y Rathore (2025) presentan PoseRx, un modelo basado en transformadores (TokenPose) con error medio absoluto angular (MAE) de 5,4° y error de localización 2D de 5,9 píxeles, con alta robustez ante oclusiones (véase desglose en el Anexo~D). Ese orden de magnitud sirve como \textbf{baseline técnico} para contextualizar el criterio de éxito del presente MVP (MAE $\leq$ 5°): si un modelo complejo alcanza 5,4°, un sistema bien calibrado con MediaPipe en hardware de consumo puede aspirar a un MAE no superior a 5° en el protocolo de validación descrito en la Sección~6.
 
 \subsection{Idear}
 Se generaron múltiples alternativas evaluando distintas combinaciones de tecnología y entrega. Se consideraron tres opciones que cubren los escenarios más plausibles (dispositivo móvil, procesamiento en nube, procesamiento local en escritorio) para comparar accesibilidad, privacidad y viabilidad técnica.
@@ -354,13 +377,15 @@ Puntaje total ponderado & 100\,\% & 7,45 & 5,45 & 9,15 & \\
 \needspace{5\baselineskip}
 \section{Metodología: Scrum y Lean}
 
-Este capítulo detalla el marco de trabajo ágil y la filosofía de desarrollo que se adoptarán. La combinación de Scrum y Lean Startup (Ries, 2011) proporciona una estructura para organizar el trabajo en equipo, priorizar el valor, gestionar la incertidumbre y asegurar que el desarrollo del prototipo se mantenga enfocado, iterativo y basado en evidencia.
+Este capítulo detalla el marco de trabajo ágil y la filosofía de desarrollo adoptados en el proyecto. La combinación de Scrum y Lean Startup (Ries, 2011) proporciona una estructura para organizar el trabajo en equipo, priorizar el valor, gestionar la incertidumbre y asegurar que el desarrollo del prototipo se mantenga enfocado, iterativo y basado en evidencia.
 
 \subsection{Roles, artefactos y eventos}
 El proyecto adopta Scrum con responsabilidades claras. Roles: Product Owner (Cesar Francisco Sandoval González): maximizar el valor del producto y gestionar el backlog. Scrum Master (Adelaid Lesdemyariet Acevedo Cardona): facilitar el proceso y eliminar impedimentos. Equipo de desarrollo (Armando Morales Carmona y José Rolando Ríos Cisneros): analizar, diseñar, desarrollar, probar y documentar el incremento en cada sprint. Artefactos: Product Backlog (lista priorizada), Sprint Backlog (subconjunto del sprint), Incremento (suma de elementos completados). Eventos: Sprint Planning (inicio de cada sprint semanal), Daily Stand-up (15 min), Sprint Review (presentación del incremento), Sprint Retrospective (mejora de proceso).
 
 \subsection{Backlog inicial, estimación y cadencia}
-El backlog reúne historias de usuario y tareas técnicas estimadas con puntos de historia (escala de Fibonacci: 1, 2, 3, 5, 8). Criterio de puntos: 1 = trivial; 2 = simple; 3 = moderada; 5 = compleja; 8 = muy compleja o alta incertidumbre. Sprints de una semana, 16 semanas totales. Capacidad estimada: 80\,h por sprint (20\,h/semana $\times$ 4 integrantes); con dos desarrolladores en tareas de implementación, la capacidad de desarrollo equivale a unas 40\,h/sprint, lo que se traduce en una referencia inicial de 5 puntos de historia por sprint (ajustable según velocidad observada, dado que el backlog promedia 4,5\,pts/sprint en los 10 sprints planificados). La Tabla~\ref{tab:backlog} presenta el backlog priorizado con criterios de aceptación verificables.
+El backlog reúne historias de usuario y tareas técnicas estimadas con puntos de historia (escala de Fibonacci: 1, 2, 3, 5, 8). Criterio de puntos: 1 = trivial; 2 = simple; 3 = moderada; 5 = compleja; 8 = muy compleja o alta incertidumbre. Sprints de una semana; los diez primeros sprints cubren el núcleo del backlog (Tabla~\ref{tab:backlog}), enmarcados en un calendario total de 16 semanas del seminario (véase Sección~5).
+
+El \textbf{equipo de desarrollo} (Armando Morales Carmona y José Rolando Ríos Cisneros) tiene una dedicación estimada de 20\,h semanales cada uno, es decir, \textbf{40\,h de capacidad por sprint} dedicadas a análisis, implementación y pruebas. El Product Owner y el Scrum Master participan en planificación, revisión y gestión del backlog con criterios de disponibilidad propios del proyecto, sin contabilizarse en esas 40\,h. Con la complejidad inicial del backlog, se estima una \textbf{velocidad inicial de 8--10 puntos de historia por sprint}, que se ajustará según la velocidad observada ($V_s = \sum_{j \in \mathcal{C}_s} p_j$ puntos completados en el sprint $s$). La Tabla~\ref{tab:backlog} presenta el backlog priorizado con criterios de aceptación verificables.
 
 \begin{table}[htbp]
 \caption{Backlog del producto con criterios de aceptación por historia.}
@@ -374,23 +399,23 @@ ID & Historia / Tarea & Criterios de aceptación & Pts & Spr. \\
 \midrule
 US-01 & Configuración del entorno & venv creado; requirements.txt con opencv-python, mediapipe, numpy; script de prueba que importa librerías; proyecto en Git con /src, /docs, /data. & 1 & 1 \\
 \addlinespace
-US-02 & Captura de video en tiempo real & Captura con OpenCV; ventana con video en vivo; cierre correcto; resolución 720p o superior. & 2 & 2 \\
+US-02 & Captura de video en tiempo real & Captura con OpenCV; ventana con video en vivo; cierre correcto; resolución 720p o superior. & 2 & 1 \\
 \addlinespace
-US-03 & Visualización del esqueleto & MediaPipe Pose integrado; dibujo de landmarks y conexiones; hombro, codo y cadera visibles; integrado con US-02. & 3 & 3 \\
+US-03 & Visualización del esqueleto & MediaPipe Pose integrado; dibujo de landmarks y conexiones; hombro, codo y cadera visibles; integrado con US-02. & 3 & 2 \\
 \addlinespace
-US-04 & Cálculo y visualización de ángulo & Ángulo de abducción (cadera--hombro--codo); valor en grados visible; actualización frame a frame; código documentado. & 5 & 4 \\
+US-04 & Cálculo y visualización de ángulo & Ángulo de abducción (cadera--hombro--codo); valor en grados visible; actualización frame a frame; código documentado. & 5 & 3 \\
 \addlinespace
-US-05 & Conteo automático de repeticiones & Máquina de estados (subida/bajada); umbrales configurables (60°); contador visible; sin falsos positivos evidentes. & 5 & 5 \\
+US-05 & Conteo automático de repeticiones & Máquina de estados (subida/bajada); umbrales configurables (60°); contador visible; sin falsos positivos evidentes. & 5 & 4 \\
 \addlinespace
-US-06 & Retroalimentación de corrección & Mensajes según reglas; criterios por umbrales; mensajes en zona dedicada; integración con conteo. & 8 & 6 \\
+US-06 & Retroalimentación de corrección & Mensajes según reglas; criterios por umbrales; mensajes en zona dedicada; integración con conteo. & 8 & 5 \\
 \addlinespace
 T-07 & Diseño del protocolo de validación & Documento con hipótesis, métricas y criterios; fases: reclutamiento, configuración, ejecución, análisis; materiales y revisión. & 3 & 7 \\
 \addlinespace
-T-08 & Pruebas de validación y datos & $\geq$5 sujetos; consentimiento firmado; 3$\times$10 repeticiones con goniómetro y grabación; logs CSV y backup. & 8 & 8 \\
+T-08 & Pruebas de validación y datos & $\geq$5 sujetos; consentimiento firmado; 3$\times$10 repeticiones con goniómetro y grabación; logs CSV y backup. & 8 & 8--9 \\
 \addlinespace
-T-09 & Análisis y gráficos & Script que calcula MAE, precisión y latencia; gráficos y tablas; informe con resultados y limitaciones. & 5 & 9 \\
+T-09 & Análisis y gráficos & Script que calcula MAE, precisión y latencia; gráficos y tablas; informe con resultados y limitaciones. & 5 & 10 \\
 \addlinespace
-US-10 & Exportación de reportes & Exportación a CSV; opción PDF si hay tiempo; documentado en README. & 5 & 10 \\
+US-10 & Exportación de reportes & Exportación a CSV; opción PDF si hay tiempo; documentado en README. & 5 & 6 \\
 \bottomrule
 \end{tabular}\\
 \renewcommand{\arraystretch}{1.35}
@@ -399,28 +424,62 @@ US-10 & Exportación de reportes & Exportación a CSV; opción PDF si hay tiempo
 \end{table}
 \vspace{0.6em}
 
-Cada sprint entrega un incremento verificable. Objetivos por bloque de sprints: Sprints 1--2 --- entorno listo y primera captura de video operativa; Sprints 3--4 --- pose visible y ángulo en pantalla; Sprints 5--6 --- conteo y retroalimentación completos; Sprint 7 --- diseño del protocolo de validación; Sprints 8--9 --- ejecución de pruebas y análisis de datos; Sprint 10 --- exportación de reportes y estabilización. Dependencias entre ítems: US-03 requiere US-02; US-04 requiere US-03; US-05 requiere US-04; US-06 requiere US-05; T-07 es independiente de las historias de desarrollo; T-08 requiere T-07; T-09 requiere T-08; US-10 puede realizarse en paralelo o tras US-06.
+Cada sprint entrega un incremento verificable. Los \textbf{objetivos explícitos por sprint} (alineados con la columna \textit{Spr.} de la Tabla~\ref{tab:backlog}) son:
+\begin{enumerate}\setlength{\itemsep}{0.35em}
+  \item \textbf{Sprint 1 (semana 1):} configurar el entorno de desarrollo y lograr captura de video básica con OpenCV (US-01, US-02).
+  \item \textbf{Sprint 2 (semana 2):} integrar MediaPipe Pose y visualizar el esqueleto en tiempo real (US-03).
+  \item \textbf{Sprint 3 (semana 3):} implementar y mostrar en pantalla el cálculo del ángulo de abducción del hombro (US-04).
+  \item \textbf{Sprint 4 (semana 4):} desarrollar la máquina de estados y el contador de repeticiones (US-05).
+  \item \textbf{Sprint 5 (semana 5):} integrar la retroalimentación visual y textual basada en umbrales (US-06).
+  \item \textbf{Sprint 6 (semana 6):} estabilizar el prototipo e incorporar la exportación de datos a CSV (US-10).
+  \item \textbf{Sprint 7 (semana 7):} diseñar y documentar el protocolo de validación experimental (T-07).
+  \item \textbf{Sprints 8--9 (semanas 8--9):} ejecutar las pruebas de validación con sujetos sanos y registrar los datos (T-08).
+  \item \textbf{Sprint 10 (semana 10):} analizar los datos, generar gráficos (MAE, precisión) y redactar el informe de validación (T-09).
+\end{enumerate}
+
+Dependencias entre ítems: US-03 requiere US-02; US-04 requiere US-03; US-05 requiere US-04; US-06 requiere US-05; US-10 requiere US-06; T-07 es independiente de las historias de implementación; T-08 requiere T-07; T-09 requiere T-08.
+
+Las \textbf{semanas 11--16} del calendario del seminario se destinan a consolidación, ajustes finales, documentación académica y cierre de entregas (véase Sección~5), sin duplicar la numeración de sprints anteriores.
 
 \subsection{Definiciones de Ready/Done}
 Definición de listo (DoR): la historia está lista para el sprint cuando está claramente descrita, tiene criterios de aceptación conocidos, dependencias resueltas, estimada por el equipo y es completable en un sprint. Definición de hecho (DoD): el código está escrito y documentado, la funcionalidad está integrada, se han ejecutado pruebas unitarias e de integración con resultados satisfactorios, hay peer review y la documentación está actualizada.
 
 \subsection{Principios Lean, ciclo operativo y métricas}
-La filosofía Lean se integra en cinco etapas por sprint: (1) Idear --- refinamiento del backlog e hipótesis; (2) Construir --- desarrollo hasta cumplir DoD; (3) Medir --- velocidad, bug rate post-DoD, valor cualitativo del Product Owner; (4) Aprender --- validated learning y Kaizen en retrospectiva; (5) Decidir --- continuar o ajustar según umbrales (velocidad, bug rate, valor del incremento). La velocidad del equipo se define como la suma de puntos de historia completados en el sprint: $V_s = \sum_{j \in \mathcal{C}_s} p_j$, donde $\mathcal{C}_s$ es el conjunto de ítems completados en el sprint $s$ y $p_j$ son los puntos del ítem $j$. Definiciones operativas: \textbf{Valor cualitativo} --- el Product Owner valora cada incremento como ``aceptado'', ``aceptado con reservas'' o ``no aceptado'' (criterio de aceptado: sin bloqueantes para el siguiente sprint). \textbf{Bug rate:} número de incidencias críticas post-DoD por sprint; el incremento se considera estable si no hay bugs críticos pendientes (bugs críticos = 0). Se activa una corrección de rumbo cuando la velocidad se mantiene por debajo de 3 puntos durante 2 sprints consecutivos, o cuando el valor del Product Owner sea ``no aceptado'' en 2 entregas. Evidencia mínima por historia terminada: captura de pantalla o demo que cumpla el criterio de aceptación de la historia y enlace al commit o pull request en el repositorio Git. Las revisiones de sprint se documentan en Jira (estado de las historias, comentarios del Product Owner) y en acta breve en el repositorio cuando el equipo lo acuerde.
+La filosofía Lean se integra en cinco etapas por sprint: (1) Idear --- refinamiento del backlog e hipótesis; (2) Construir --- desarrollo hasta cumplir DoD; (3) Medir --- velocidad, bug rate post-DoD, valor cualitativo del Product Owner; (4) Aprender --- validated learning y Kaizen en retrospectiva; (5) Decidir --- continuar o ajustar según umbrales (velocidad, bug rate, valor del incremento). La velocidad del equipo se define como la suma de puntos de historia completados en el sprint: $V_s = \sum_{j \in \mathcal{C}_s} p_j$, donde $\mathcal{C}_s$ es el conjunto de ítems completados en el sprint $s$ y $p_j$ son los puntos del ítem $j$.
+
+\textbf{Valor cualitativo del incremento} (evaluación del Product Owner en cada Sprint Review):
+\begin{itemize}\setlength{\itemsep}{0.25em}
+  \item \textit{Aceptado:} el incremento cumple la definición de hecho (DoD) y las funcionalidades planificadas para el sprint operan sin errores críticos.
+  \item \textit{Aceptado con reservas:} cumple la DoD pero presenta defectos menores no críticos (p. ej. texto de interfaz mal posicionado); se prioriza su corrección en el siguiente sprint.
+  \item \textit{No aceptado:} no cumple la DoD o hay un error crítico que impide la funcionalidad principal.
+\end{itemize}
+
+\textbf{Bug rate:} número de incidencias críticas post-DoD por sprint; el incremento se considera estable si no hay bugs críticos pendientes (bugs críticos = 0).
+
+\textbf{Criterios de corrección de rumbo} (replanificación o reducción de alcance en acuerdo con el Product Owner):
+\begin{enumerate}\setlength{\itemsep}{0.25em}
+  \item La velocidad del equipo permanece por debajo de \textbf{6 puntos de historia durante 2 sprints consecutivos}.
+  \item El Product Owner califica el incremento como \textbf{``No aceptado'' en 2 sprints consecutivos}.
+  \item Se detecta un \textbf{error crítico} (p. ej. imposibilidad de detectar la pose) que no pueda resolverse en menos de 2 días hábiles.
+\end{enumerate}
+
+Evidencia mínima por historia terminada: captura de pantalla o demo que cumpla el criterio de aceptación de la historia y enlace al commit o pull request en el repositorio Git. Las revisiones de sprint se documentan en Jira (estado de las historias, comentarios del Product Owner) y en acta breve en el repositorio cuando el equipo lo acuerde.
 
 \subsection{Herramientas de seguimiento y evidencia}
-El seguimiento del backlog y de los sprints se realiza en Jira (instancia local: épicas, historias de usuario y tareas). Se utiliza una instancia Jira ejecutada en local mediante Docker; el backlog del documento se ha volcado en Jira (épicas E1--E3, historias US-01 a US-10 y tareas T-07 a T-09). Las capturas del backlog y del board de sprint se incluyen en el Anexo~B (Figuras~\ref{fig:jira-backlog} y~\ref{fig:jira-board}, al final del documento). Además: repositorio Git \href{https://github.com/amc42357/master}{\texttt{github.com/amc42357/master}}; bitácora de pruebas; carpeta de evidencias con capturas, logs anonimizados y gráficos de validación.
+El seguimiento del backlog y de los sprints se realiza en Jira (instancia local: épicas, historias de usuario y tareas). Se utiliza una instancia Jira ejecutada en local mediante Docker; el backlog del documento se ha volcado en Jira (épicas E1--E3, historias US-01 a US-10 y tareas T-07 a T-09). Las capturas del backlog y del board de sprint se incluyen en el Anexo~B (Figuras~\ref{fig:jira-backlog} y~\ref{fig:jira-board}, al final del documento). Además: repositorio Git \href{https://github.com/amc42357/master}{\texttt{github.com/amc42357/master}}; bitácora de pruebas; carpeta de evidencias con capturas, \textbf{registros de sesión en CSV} (véase Anexo~E) y gráficos de validación.
 
 \clearpage
 \needspace{5\baselineskip}
 \section{Implementación de la propuesta}
 
 \subsection{Planificación y estimación (tiempo/costo)}
-La implementación se realizará en 16 semanas: 12 al desarrollo del prototipo y 4 a validación experimental, documentación y entrega. Cronograma: Sprints 1--2 (entorno e investigación); 3--4 (captura e integración MediaPipe); 5--6 (cálculo de ángulo y conteo); 7--8 (GUI y retroalimentación); 9--10 (estabilización y protocolo); 11--12 (ejecución del protocolo); 13--14 (análisis de datos); 15--16 (documento académico y repositorio). Costos: directos cero (software libre); indirectos aprox. 20\,h/semana por integrante (1\,280\,h totales en 16 semanas).
+La implementación se organiza en \textbf{16 semanas} totales del seminario. Las \textbf{semanas 1--10} corresponden a los diez sprints semanales descritos en la Sección~4 (del entorno y captura de video hasta el análisis e informe de validación vinculado a T-09). Las \textbf{semanas 11--16} se destinan a consolidación del prototipo, refuerzo de pruebas o repetición de sesiones si fuera necesario, redacción del documento académico, preparación de la defensa y cierre del repositorio, sin asignar nuevos números de sprint a esas actividades (evitando solapamiento conceptual con el backlog de la Tabla~\ref{tab:backlog}). Costos: directos cero (software libre); esfuerzo indirecto acorde a la dedicación del equipo (p. ej. 20\,h/semana por integrante como referencia de carga del seminario).
 
 \subsection{Implementación (arquitectura, datos, componentes, repositorio)}
 El sistema usará una arquitectura modular monolítica en Python. Se describe con el modelo C4: el diagrama de contexto (Figura~\ref{fig:arquitectura-contexto}) sitúa al sistema frente al usuario y a la cámara; el diagrama de contenedores (Figura~\ref{fig:arquitectura-contenedores}) detalla el flujo interno: cámara web $\rightarrow$ captura (OpenCV) $\rightarrow$ detección de pose (MediaPipe) $\rightarrow$ cálculo geométrico $\rightarrow$ lógica de aplicación (estado, conteo) $\rightarrow$ interfaz gráfica $\rightarrow$ salida (video anotado, métricas y registro en CSV). El ángulo de abducción del hombro entre el segmento cadera--hombro y hombro--codo se obtiene a partir del producto escalar de los vectores $\vec{u} = \overrightarrow{\mathrm{CadH}}$ (cadera a hombro) y $\vec{v} = \overrightarrow{\mathrm{HomC}}$ (hombro a codo): $\theta = \arccos(\vec{u} \cdot \vec{v} / (|\vec{u}|\,|\vec{v}|))$ en radianes; en grados: $\theta_{\mathrm{grados}} = \theta \cdot 180/\pi$.
 
 \vspace{1.2em}
+\captionsetup[figure]{justification=raggedright,singlelinecheck=false}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\linewidth,height=0.38\textheight,keepaspectratio]{arquitectura_c4_context.png}
@@ -432,10 +491,11 @@ El sistema usará una arquitectura modular monolítica en Python. Se describe co
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\linewidth,height=0.48\textheight,keepaspectratio]{arquitectura_c4_container.png}
-\caption{Contenedores del sistema (C4, nivel 2): pipeline de captura, pose, cálculo, lógica, GUI y persistencia.}
+\caption{Contenedores del sistema (C4, nivel 2): \mbox{pipeline} de captura, pose, cálculo, lógica, GUI y persistencia.}
 \label{fig:arquitectura-contenedores}
 \raggedright\footnotesize Fuente: Elaboración propia.
 \end{figure}
+\captionsetup[figure]{justification=justified,singlelinecheck=true}
 \vspace{0.6em}
 \noindent Como se observa en las Figuras~\ref{fig:arquitectura-contexto} y~\ref{fig:arquitectura-contenedores}, el sistema queda acotado al usuario, la cámara y el pipeline local hasta la persistencia en CSV.
 
@@ -445,15 +505,23 @@ Componentes tecnológicos.
   \item Lenguaje y entorno: Python 3.9+ con entornos virtuales (\texttt{venv}).
   \item IDE: Visual Studio Code.
   \item Librerías: OpenCV (captura, procesamiento, GUI); MediaPipe (estimación de pose 2D, modelo \texttt{pose\_landmarker\_lite.task} por defecto); NumPy (cálculos); Pandas y Matplotlib/Seaborn (análisis y gráficos).
-  \item Gestión de datos: sesiones en CSV locales; no se guardan videos crudos; solo secuencias anonimizadas con consentimiento.
+  \item Gestión de datos: cada sesión genera un archivo CSV local con el esquema descrito en el \hyperref[anexo:csv-sesion]{Anexo~E} (\texttt{timestamp}, \texttt{frame\_id}, coordenadas normalizadas de hombro, codo y cadera, \texttt{angle\_deg}, \texttt{rep\_state}, \texttt{feedback\_msg}). Las coordenadas están en rango típico $[0,1]$ respecto al fotograma (pueden salir ligeramente fuera por el modelo de pose). No se almacenan videos crudos en el flujo estándar del MVP; el archivo de sesión no incluye nombre, contacto ni identificadores personales. La sensibilidad de estos datos es principalmente \textbf{cinemática y técnica}; no sustituye medidas clínicas identificadas. Cualquier archivo de video o imagen facial archivado para el estudio se trata aparte y exige las garantías del consentimiento informado (Anexo~A).
   \item Repositorio: Git en GitHub: \href{https://github.com/amc42357/master}{\texttt{github.com/amc42357/master}}; estructura \texttt{/src}, \texttt{/docs}, \texttt{/data}, \texttt{/tests}, README y \texttt{requirements.txt}.
 \end{itemize}
 
 \subsection{Despliegue (entorno, seguridad, contingencia)}
-Entorno: ejecución local en Windows 10/11, macOS y potencialmente Linux; entornos de desarrollo y producción. Seguridad y privacidad: ejecución íntegra en la computadora local; el video no abandona el dispositivo; no hay dependencia de Internet durante el uso; datos CSV locales; mensaje de consentimiento informado al iniciar. Contingencia: backup de código (commits diarios, ramas); fallback visual si falla la detección de pose; procedimientos de recuperación y \texttt{KNOWN\_ISSUES.md}.
+\textbf{Entorno de ejecución.} El prototipo se despliega como aplicación de escritorio en la máquina del usuario (Windows~10/11, macOS y, con las debidas pruebas, distribuciones Linux). La instalación reproduce el entorno mediante Python~3.9+ y un entorno virtual (\texttt{venv}) con dependencias fijadas en \texttt{requirements.txt}, de forma que la validación y las demos sean reproducibles. No se prevé, en el alcance del MVP, empaquetado instalador firmado ni distribución por tiendas de aplicaciones; un usuario avanzado clona el repositorio, activa el entorno y ejecuta el punto de entrada documentado en el README.
 
-\subsection{Mantenimiento (cambios, versionado)}
-Versionado Semántico (SemVer) para releases; gestión mediante ramas y Pull Requests. Base de código documentada para permitir nuevos ejercicios, mejora de la GUI e integración de perfil de usuario. Dependencia de tecnologías de código abierto maduras asegura sostenibilidad.
+\textbf{Seguridad y privacidad.} El procesamiento de vídeo y la estimación de pose ocurren íntegramente en local: no se requiere conexión a Internet durante el uso rutinario ni se envían flujos de cámara a servicios externos. Los registros por sesión se escriben en CSV en disco bajo control del usuario (véase \hyperref[anexo:csv-sesion]{Anexo~E}); conviene ubicar la carpeta de datos en un volumen cifrado o con permisos restringidos si el equipo es compartido. Antes de sesiones de validación con grabación, se informa a los participantes según el Anexo~A. Las dependencias de terceros (OpenCV, MediaPipe, NumPy) deben mantenerse actualizadas ante avisos de seguridad del ecosistema Python.
+
+\textbf{Contingencia y continuidad operativa.} El código se respalda mediante control de versiones (commits frecuentes, ramas por funcionalidad, remoto en GitHub). Si la detección de pose falla (iluminación extrema, oclusión, cámara desconectada), la interfaz debe degradarse de forma controlada: mensaje al usuario, posibilidad de reintentar la captura y registro del incidente en bitácora o en \texttt{KNOWN\_ISSUES.md}. Para pérdida de datos locales se recomienda copia de los CSV y del consentimiento fuera del equipo de prueba. Un plan mínimo de recuperación incluye: restaurar último tag estable, reinstalar dependencias desde \texttt{requirements.txt} y repetir una sesión de humo (captura + pose + exportación CSV).
+
+\subsection{Mantenimiento (versionado, cambios y evolución)}
+\textbf{Versionado del producto.} Las entregas etiquetadas siguen Versionado Semántico (SemVer: \texttt{MAJOR.MINOR.PATCH}): incremento mayor ante cambios incompatibles de API o flujo, menor ante nuevas funcionalidades retrocompatibles y parche ante correcciones. Cada release en GitHub se asocia a un tag y, cuando aplique, a notas breves de cambios (changelog en \texttt{CHANGELOG.md} o sección del README).
+
+\textbf{Gestión de cambios en código.} Las modificaciones entran por ramas de corta duración y Pull Requests revisados por al menos otro miembro del equipo de desarrollo; el Product Owner valida el incremento en la Sprint Review según la DoD (Sección~4). No se fusiona a la rama principal código que rompa pruebas automatizadas o el flujo demo documentado. Los umbrales angulares, el modelo MediaPipe (\texttt{lite} vs \texttt{full}) y el formato CSV se tratan como contratos: un cambio que los altere exige actualizar README, Anexo~E y scripts de análisis en el mismo incremento.
+
+\textbf{Mantenimiento evolutivo.} La base de código se estructura para facilitar nuevos ejercicios (otras articulaciones o reglas de conteo), mejoras de interfaz y, en fases posteriores, perfiles de usuario o historial. La dependencia de componentes de código abierto maduros reduce el riesgo de obsolescencia, pero impone revisiones periódicas de compatibilidad (versiones de Python, wheel de OpenCV/MediaPipe) y, si fuera necesario, congelación de dependencias para estudios longitudinales reproducibles.
 
 \clearpage
 \needspace{5\baselineskip}
@@ -505,13 +573,17 @@ Robustez & Funcionamiento bajo variaciones. & Observación en pruebas. & Estable
 \vspace{0.6em}
 
 \subsection{Protocolo experimental}
-Preparación: reclutamiento de 5 sujetos sanos adultos (muestreo por conveniencia), diestros, sin patología en hombro derecho; consentimiento informado (objetivo, participación, anonimato, procesamiento local, riesgos y beneficios). El tamaño $n=5$ se considera adecuado para prueba de concepto técnica (Debnath et al., 2021). Configuración: sujeto a 2\,m de cámara web (Logitech C920, 1080p, 30 FPS), iluminación uniforme, puntos anatómicos marcados, evaluador con goniómetro. Ejecución: 3 series de 10 repeticiones de abducción de hombro (ritmo metrónomo 1 rep/3\,s). Datos del sistema: log CSV (timestamp, landmarks, ángulo, estado, mensajes). Datos baseline: ángulo máximo por repetición con goniómetro; conteo de repeticiones válidas por evaluador. Análisis: sincronización por timestamps; script en Python (Pandas, SciPy) para MAE, precisión y latencia; gráficos de dispersión y series temporales.
+Preparación: reclutamiento de 5 sujetos sanos adultos (muestreo por conveniencia), diestros, sin patología en hombro derecho; consentimiento informado (objetivo, participación, anonimato, procesamiento local, riesgos y beneficios). El tamaño $n=5$ se considera adecuado para prueba de concepto técnica (Debnath et al., 2021). Configuración: sujeto a 2\,m de cámara web (Logitech C920, 1080p, 30 FPS), iluminación uniforme, puntos anatómicos marcados, evaluador con goniómetro. Ejecución: 3 series de 10 repeticiones de abducción de hombro (ritmo metrónomo 1 rep/3\,s). Datos del sistema: registro CSV por sesión con el formato detallado en el \hyperref[anexo:csv-sesion]{Anexo~E} (incluye \texttt{angle\_deg}, \texttt{rep\_state} con valores \texttt{up}/\texttt{down} según la máquina de estados, y \texttt{feedback\_msg} cuando el sistema emite mensajes como \textit{Repetición válida}). Datos baseline: ángulo máximo por repetición con goniómetro; conteo de repeticiones válidas por evaluador. Análisis: sincronización por \texttt{timestamp}; scripts en Python (Pandas, SciPy) para MAE, precisión y latencia; gráficos de dispersión y series temporales. A título ilustrativo, una sesión de validación interna conservada en el repositorio (\texttt{rehab\_cv/data/}) puede abarcar del orden de $10^3$ filas y más de 100\,s de ejercicio continuo, según ritmo y FPS efectivos.
 
 \subsection{Consideraciones normativas y éticas}
-El protocolo de validación se alinea con el marco normativo y ético aplicable a la investigación con participantes humanos y al tratamiento de datos en el ámbito sanitario. En España, la Ley 14/2007, de 3 de julio, de Investigación biomédica, exige consentimiento informado expreso, información clara y comprensible, y derecho a revocación (BOE-A-2007-12945). La Ley 41/2002 básica de autonomía del paciente regula el derecho a la información y al consentimiento en el ámbito asistencial. El tratamiento de datos personales y de imágenes se ajusta al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 de protección de datos personales y garantía de los derechos digitales (LOPDGDD): minimización de datos, limitación de la finalidad (validación técnica), procesamiento local sin cesión a terceros, y anonimización de secuencias cuando se almacenen. En el ámbito de la Unión Europea, el Reglamento (UE) 2024/1689 por el que se establecen normas armonizadas en materia de inteligencia artificial (en vigor desde agosto de 2024) aplica un enfoque basado en el riesgo; el presente prototipo se enmarca en una fase de validación técnica con sujetos sanos, sin uso clínico ni diagnóstico, por lo que se sitúa en un contexto de riesgo limitado y se adoptan principios de transparencia, privacidad y supervisión humana en el diseño del experimento. El consentimiento informado utilizado en el estudio incorpora los elementos exigidos por la práctica habitual en investigación biomédica: objetivo del estudio, descripción de la participación, garantías de anonimato y procesamiento local, riesgos y beneficios, y declaración de consentimiento voluntario revocable.
+El protocolo de validación se alinea con el marco normativo y ético aplicable a la investigación con participantes humanos y al tratamiento de datos en el ámbito sanitario. En España, la Ley 14/2007, de 3 de julio, de Investigación biomédica, exige consentimiento informado expreso, información clara y comprensible, y derecho a revocación (BOE-A-2007-12945). La Ley 41/2002 básica de autonomía del paciente regula el derecho a la información y al consentimiento en el ámbito asistencial. El tratamiento de datos personales y de imágenes se ajusta al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 de protección de datos personales y garantía de los derechos digitales (LOPDGDD): minimización de datos, limitación de la finalidad (validación técnica), procesamiento local sin cesión a terceros. Los \textbf{CSV de sesión} (coordenadas normalizadas y ángulos) no contienen por diseño datos directamente identificativos; su tratamiento se orienta a la finalidad de validación técnica y reproducibilidad, sin confundir ``anonimización'' con el borrado de columnas técnicas necesarias para el análisis. En cambio, \textbf{grabaciones de vídeo o material facial} conservado más allá del procesamiento en vivo sí pueden ser datos personales sensibles y requieren las medidas acordadas en el consentimiento (p.\,ej. pseudonimización de ficheros, acceso restringido, plazo de conservación). La anonimización agresiva de datos cinemáticos no aporta beneficio privacy cuando no hay enlace a identidad en el conjunto de datos. En el ámbito de la Unión Europea, el Reglamento (UE) 2024/1689 por el que se establecen normas armonizadas en materia de inteligencia artificial (en vigor desde agosto de 2024) aplica un enfoque basado en el riesgo; el presente prototipo se enmarca en una fase de validación técnica con sujetos sanos, sin uso clínico ni diagnóstico, por lo que se sitúa en un contexto de riesgo limitado y se adoptan principios de transparencia, privacidad y supervisión humana en el diseño del experimento. El consentimiento informado utilizado en el estudio incorpora los elementos exigidos por la práctica habitual en investigación biomédica: objetivo del estudio, descripción de la participación, garantías de anonimato y procesamiento local, riesgos y beneficios, y declaración de consentimiento voluntario revocable.
 
 \subsection{Resultados esperados y discusión}
-Se espera MAE entre 3° y 5°, precisión de conteo 96--100\,\%, latencia $<$ 100\,ms en equipo de gama media. Análisis de errores: paralaje, oclusión, variabilidad entre repeticiones. Limitaciones: población sana, entorno controlado, muestra pequeña; válido para prueba de concepto técnica, no para generalización clínica.
+\textbf{Rango esperado y comparativa.} Con sujetos sanos, iluminación uniforme y cámara a 2\,m, es razonable esperar un MAE angular en torno a 3°--5° respecto al goniómetro, coherente con el orden de magnitud reportado en la literatura para pose estimation en rehabilitación (p.\,ej. PoseRx con MAE $\approx$ 5,4°; Anexo~D) y con el criterio fijado para el MVP. La precisión de conteo debería situarse preferentemente entre 96\,\% y 100\,\% si los umbrales y la máquina de estados están alineados con el ritmo metronómico del protocolo. La latencia end-to-end en equipos de gama media suele permanecer por debajo de 100\,ms cuando el pipeline no está saturado, cumpliendo holgadamente el umbral de 150\,ms definido como hipótesis H3.
+
+\textbf{Errores y fuentes de discrepancia.} Las principales fuentes de error angular son: (1) \textit{paralaje} entre la línea de visión de la cámara y el plano de movimiento del brazo; (2) \textit{oclusiones} parciales o pérdida temporal de landmarks; (3) \textit{discretización temporal} (FPS efectivos y suavizado) que desplaza el instante del máximo angular respecto al instante muestreado con goniómetro; (4) \textit{variabilidad intra- e inter-sujeto} en la ejecución del arco de movimiento. En el conteo, los fallos suelen deberse a umbrales demasiado estrictos o laxos, a repeticiones incompletas contadas como válidas y a feedback textual que no coincide con el estado interno (\texttt{rep\_state}). El análisis debe desagregar MAE por serie y por sujeto, y cruzar picos de \texttt{angle\_deg} con lecturas de goniómetro sincronizadas por \texttt{timestamp}.
+
+\textbf{Implicaciones.} Un cumplimiento de los criterios MAE $\leq$ 5° y precisión $\geq$ 95\,\% \textbf{no} implica eficacia clínica ni seguridad terapéutica: solo respalda la \textbf{validez técnica} del prototipo en el ejercicio y población de prueba descritos. Una desviación sistemática por encima del umbral indicaría necesidad de recalibración (geometría, modelo MediaPipe, reglas de conteo) antes de cualquier extensión a pacientes reales. Los hallazgos de Unger et al.\ (2025) sobre generalización interindividual refuerzan que un siguiente paso lógico sería personalización o adaptación leve por sujeto, fuera del alcance del MVP actual.
 
 \clearpage
 \needspace{5\baselineskip}
@@ -522,7 +594,7 @@ El trabajo ha diseñado y planificado un sistema de asistencia para rehabilitaci
 
 La aplicación de Design Thinking permitió anclar la solución en las necesidades de pacientes y terapeutas y en la brecha de supervisión objetiva en el hogar. El estado del arte mostró un hueco para una solución práctica y escalable que combine software de IA de código abierto con hardware de consumo. Scrum y Lean Startup estructuran un plan de ejecución realista en 16 semanas, con entregas incrementales y un MVP bien acotado. El diseño experimental aporta hipótesis comprobables, métricas objetivas (MAE $\leq$ 5°, precisión $\geq$ 95\,\%) y baseline con goniómetro.
 
-En relación con los objetivos: el objetivo general se cumple mediante el prototipo descrito y su validación; los objetivos específicos 1 a 3 se materializan en el código y la GUI (módulo de pose, análisis cinemático, interfaz con retroalimentación); el objetivo 4 en el protocolo de la Sección 6 y los resultados de las pruebas; el objetivo 5 en el repositorio con documentación, README, \texttt{requirements.txt} e informe de validación.
+En relación con los objetivos: el objetivo general se cumple mediante el prototipo descrito y su validación frente a goniómetro y conteo humano; los objetivos específicos 1 a 3 se materializan en el código y la GUI (módulo de pose, análisis cinemático, interfaz con retroalimentación); el objetivo 4 en el protocolo de la Sección 6 y los resultados de las pruebas; el objetivo 5 en el repositorio con README, código documentado e informe de validación.
 
 \subsection{Limitaciones y trabajo futuro}
 Limitaciones: (1) validación con población simulada (sujetos sanos); (2) alcance clínico reducido (un solo ejercicio); (3) entorno controlado. Trabajo futuro: (1) estudio piloto con pacientes reales post-ACV ($n=5$--10); (2) ampliación de la biblioteca de ejercicios (codo, escapular, rodilla, tobillo); (3) personalización y entrenamiento adaptativo; (4) integración con historial clínico electrónico (estándares FHIR); (5) investigación de robustez con transfer learning para movimientos atípicos.
@@ -536,7 +608,7 @@ El proyecto sirve de punto de partida para abordar un problema de salud complejo
 \label{sec:anexos}
 
 \subsection*{Anexo A. Consentimiento informado (resumen)}
-El protocolo de validación (Sección 6) contempla la obtención de consentimiento informado firmado por cada participante. El documento incluye: objetivo del estudio (validación técnica del sistema de visión por computadora para rehabilitación), descripción de la participación (grabación en video para análisis técnico), garantías de anonimato y procesamiento local de imágenes, riesgos y beneficios, y declaración de consentimiento voluntario. El texto completo del consentimiento se encuentra en los materiales del proyecto (repositorio y carpeta de documentación del seminario).
+El protocolo de validación (Sección 6) contempla la obtención de consentimiento informado firmado por cada participante. El documento incluye: objetivo del estudio (validación técnica del sistema de visión por computadora para rehabilitación), descripción de la participación (incluida, si aplica, grabación en video para análisis técnico), garantías de anonimato y procesamiento local de imágenes, riesgos y beneficios, y declaración de consentimiento voluntario. Se informa asimismo de la generación de \textbf{registros CSV} con datos cinemáticos agregados por fotograma (véase \hyperref[anexo:csv-sesion]{Anexo~E}), distintos de la identidad del participante. El texto completo del consentimiento se encuentra en los materiales del proyecto (repositorio y carpeta de documentación del seminario).
 
 \subsection*{Anexo B. Evidencia de gestión en Jira}
 \label{anexo:jira}
@@ -571,31 +643,87 @@ Evidencia de la instancia Jira local utilizada para el seguimiento del proyecto:
 \par\vspace{0.6em}
 }%
 
-\subsection*{Anexo C. Fuente primaria (entrevista / observación)}
+\subsection*{Anexo C. Empatía: decisión sobre fuente primaria local}
 \label{anexo:fuente-primaria}
-Este anexo será completado cuando se disponga de los resultados de la fuente primaria contemplada en la etapa Empatizar (Capítulo~3). Plantilla para documentar:
+La etapa Empatizar (Sección~3.1) se sustenta en \textbf{datos primarios ya publicados}: el estudio de factibilidad con participantes post-ictus de Unger et al.\ (2025), analizado en el cuerpo del documento y sintetizado en la Tabla~\ref{tab:empatizar}, complementado con revisión bibliográfica y criterios clínicos de referencia. Para el calendario del seminario y el alcance de esta entrega, \textbf{no se realizó entrevista ni observación local adicional} con terapeutas o pacientes; se consideró que la triangulación con Unger et al.\ y la literatura secundaria ofrece base suficiente para formular el reto HMW y los criterios de éxito del MVP.
+
+Este anexo deja constancia de esa decisión y ofrece una \textbf{plantilla reutilizable} si en iteraciones futuras se incorpora fuente primaria local (p.\,ej. validación con profesionales o observación de sesión domiciliaria simulada):
 
 \begin{itemize}
-  \item \textbf{Fecha y modalidad:} [Por completar por el equipo] (entrevista semiestructurada / observación estructurada).
-  \item \textbf{Perfil del participante o contexto:} [Por completar por el equipo] (ej. fisioterapeuta, años de experiencia; o contexto de la sesión observada).
-  \item \textbf{Instrumento utilizado:} [Por completar por el equipo] (guion de entrevista o ficha de observación; adjuntar o referenciar).
-  \item \textbf{Resumen de 2--3 hallazgos clave:} [Por completar por el equipo] (hallazgos que refuercen o maticen la Tabla de pains/gains del Capítulo~3).
+  \item \textbf{Fecha y modalidad:} registro de la sesión (entrevista semiestructurada u observación estructurada) y canal (presencial, videollamada).
+  \item \textbf{Perfil del informante o contexto:} rol (fisioterapeuta, médico rehabilitador, cuidador), años de experiencia o relación con el paciente; en observación, descripción breve del entorno y del ejercicio supervisado.
+  \item \textbf{Instrumento:} guion de entrevista o ficha de observación (preguntas abiertas sobre barreras de adherencia, necesidad de métricas objetivas y privacidad); ubicación del archivo en el repositorio bajo \texttt{/docs}.
+  \item \textbf{Síntesis:} dos o tres hallazgos textuales que maticen o refuercen filas de la Tabla~\ref{tab:empatizar}, con citas o transcripción anonimizada según consentimiento.
 \end{itemize}
 
-\subsection*{Anexo D. Desglose de métricas y limitaciones por estudio (estado del arte)}
-\label{anexo:estado-arte}
-Este anexo puede completarse cuando se disponga de un desglose verificable de métricas reportadas y limitaciones por estudio revisado en el estado del arte (Capítulo~3). Plantilla sugerida:
+Así, el Anexo~C queda cerrado para la versión actual del documento, sin campos pendientes, y alineado con la trazabilidad Design Thinking descrita en la Sección~3.
 
-\begin{center}
-\small
-\begin{tabular}{p{2.5cm}p{2.8cm}p{3.2cm}p{2.2cm}}
+\subsection*{Anexo D. Desglose de métricas y limitaciones (estimación de pose en rehabilitación)}
+\label{anexo:estado-arte}
+Este anexo complementa la Tabla~\ref{tab:estadoarte} con un estudio reciente centrado en pose estimation aplicada a rehabilitación (Shukla \& Rathore, 2025).
+
+\begin{table}[htbp]
+\caption{Estado del arte focalizado: PoseRx frente al posicionamiento del MVP (MediaPipe).}
+\label{tab:anexo-pose}
+\footnotesize
+\centering
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{2.1cm}p{2.35cm}p{2.5cm}p{2.35cm}p{2.55cm}@{}}
 \toprule
-Estudio & Métricas reportadas & Limitaciones & Fuente \\
+Estudio & Tecnología / modelo & Métricas reportadas & Limitaciones & Posicionamiento frente a esta propuesta \\
 \midrule
-\multicolumn{1}{p{2.5cm}}{\raggedright Por completar} & \multicolumn{1}{p{2.8cm}}{\raggedright Por completar} & \multicolumn{1}{p{3.2cm}}{\raggedright Por completar} & \multicolumn{1}{p{2.2cm}}{\raggedright Por completar} \\
+Shukla y Rathore (2025) & PoseRx (TokenPose / transformador) para rehabilitación. & MAE angular 5,4°; error de localización 2D 5,9 px; alta robustez ante oclusiones. & Arquitectura de transformador más compleja que una solución basada en MediaPipe; enfoque de investigación, menos directo para un MVP ligero. & Esta propuesta usa MediaPipe en hardware de consumo. El MAE de 5,4° en PoseRx actúa como baseline para justificar el criterio MAE $\leq$ 5° del MVP. \\
 \bottomrule
-\end{tabular}
-\end{center}
+\end{tabular}\\
+\renewcommand{\arraystretch}{1.35}
+\vspace{4pt}
+\raggedright\footnotesize Fuente: Shukla y Rathore (2025).
+\end{table}
+\vspace{0.5em}
+
+\subsection*{Anexo E. Formato del registro CSV de sesión (US-10)}
+\label{anexo:csv-sesion}
+El prototipo exporta un archivo \texttt{.csv} por sesión (UTF-8, separador coma), generado por el módulo \texttt{session\_logger} del repositorio. La primera fila es cabecera; cada fila siguiente corresponde a un fotograma o instante de registro. La Tabla~\ref{tab:csv-columnas} resume los campos.
+
+\begin{table}[htbp]
+\caption{Campos del CSV de sesión.}
+\label{tab:csv-columnas}
+\footnotesize
+\centering
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}p{2.6cm}p{9.8cm}@{}}
+\toprule
+Campo & Descripción \\
+\midrule
+\texttt{timestamp} & Segundos transcurridos desde el inicio del registro de la sesión (resolución milisegundos en el fichero). \\
+\texttt{frame\_id} & Índice entero monótono del fotograma (0, 1, 2, \ldots). \\
+\texttt{shoulder\_x}, \texttt{shoulder\_y} & Coordenadas normalizadas del landmark hombro en imagen. \\
+\texttt{elbow\_x}, \texttt{elbow\_y} & Coordenadas normalizadas del landmark codo. \\
+\texttt{hip\_x}, \texttt{hip\_y} & Coordenadas normalizadas del landmark cadera. \\
+\texttt{angle\_deg} & Ángulo de abducción estimado en grados (una decimal en exportación). \\
+\texttt{rep\_state} & Estado de la máquina de estados del conteo: \texttt{up} (fase ascendente del movimiento) o \texttt{down} (fase descendente o reposo según la lógica implementada). \\
+\texttt{feedback\_msg} & Texto de retroalimentación en ese instante; vacío si no hay mensaje. Incluye, entre otros, la cadena \textit{Repetición válida} cuando el sistema confirma un ciclo completo. \\
+\bottomrule
+\end{tabular}\\
+\renewcommand{\arraystretch}{1.35}
+\vspace{4pt}
+\raggedright\footnotesize Fuente: implementación en \texttt{rehab\_cv/src/session\_logger.py}. Elaboración propia.
+\end{table}
+
+\vspace{0.5em}
+\noindent\textbf{Ejemplo sintético} (tres filas; valores ilustrativos). En el fichero real la cabecera es una sola línea; aquí se parte solo por limitaciones de ancho en PDF:
+
+{\footnotesize
+\begin{verbatim}
+timestamp,frame_id,shoulder_x,shoulder_y,elbow_x,elbow_y,
+hip_x,hip_y,angle_deg,rep_state,feedback_msg
+0.000,0,0.4500,0.2900,0.4000,0.5100,0.4750,0.7750,16.1,down,
+1.027,15,0.4538,0.2995,0.4024,0.5662,0.4858,0.8299,14.4,down,
+8.257,151,0.4674,0.3571,0.3705,0.4183,0.4852,0.7390,60.4,up,
+\end{verbatim}
+}
+
+\noindent Estas cifras son coherentes con sesiones reales de prueba (variación angular durante el ciclo, alternancia \texttt{down}/\texttt{up}). Para análisis cuantitativos del MVP se utilizan los ficheros bajo \texttt{rehab\_cv/data/} (p.\,ej.\ sesiones de $\sim$100--1600 filas según duración).
 
 \clearpage
 % ========== 9. REFERENCIAS ==========
@@ -623,6 +751,10 @@ Estudio & Métricas reportadas & Limitaciones & Fuente \\
 \noindent Ries, E. (2011). \textit{The Lean Startup: How today's entrepreneurs use continuous innovation to create radically successful businesses}. Crown Currency.
 
 \noindent Saposnik, G., Cohen, L. G., Mamdani, M., Pooyania, S., Ploughman, M., Cheung, D., Shaw, J., Hall, J., Nord, P., Dukelow, S., Nilanont, Y., De Los Rios, F., Olmos, L., Levin, M., Teasell, R., Cohen, A., Thorpe, K., Laupacis, A., \& Bayley, M. (2016). Efficacy and safety of non-immersive virtual reality exercising in stroke rehabilitation (EVREST): A randomised, multicentre, single-blind, controlled trial. \textit{The Lancet Neurology}, \textit{15}(10), 1019--1027. \url{https://doi.org/10.1016/S1474-4422(16)30121-1}
+
+\noindent Shukla, D., \& Rathore, M. (2025). PoseRx: A transformer-based remedy for precision in physical rehabilitation monitoring. \textit{Journal of Information Systems Engineering and Management}, \textit{10}(37s). \url{https://doi.org/10.52783/jisem.v10i37s.6733}
+
+\noindent Unger, T., K\"uhnis, B., Sauerzopf, L., Spiess, M. R., de Spindler, A., Luft, A. R., Easthope Awai, C., Sch\"onhammer, J. G., \& Gavagnin, E. (2025). Using deep learning to detect upper limb compensation in individuals post-stroke using consumer-grade webcams---A feasibility study. \textit{Frontiers in Medicine}, \textit{12}, Article 1645369. \url{https://doi.org/10.3389/fmed.2025.1645369}
 
 \vspace{0.5em}
 \noindent Ley 14/2007, de 3 de julio, de Investigación biomédica. \textit{Boletín Oficial del Estado}, 159, 28826--28848. \url{https://www.boe.es/buscar/act.php?id=BOE-A-2007-12945}
